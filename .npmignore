@@ -1,0 +1,6 @@
+.editorconfig
+.eslintrc
+.gitignore
+.github
+.prettierrc
+.nyc_output
