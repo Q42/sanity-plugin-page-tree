@@ -31,6 +31,6 @@ export type PageTreeItem = PageInfoWithPublishedState & {
 
 export type PageTreeConfig = {
   apiVersion: string;
-  rootSchemaTypes: string[];
+  rootSchemaType: string;
   pageSchemaTypes: string[];
 };

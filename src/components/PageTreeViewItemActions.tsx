@@ -22,7 +22,7 @@ export const PageTreeViewItemActions = ({ page, onActionOpen, onActionClose }: P
   const onAdd = async (type: string) => {
     const doc = await client.create({
       _type: type,
-      parent: config.rootSchemaTypes.includes(type) ? undefined : { _type: 'reference', _ref: page._id },
+      parent: config.rootSchemaType === type ? undefined : { _type: 'reference', _ref: page._id },
       language: page.language,
     });
     setNewPage(doc);

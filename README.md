@@ -18,7 +18,7 @@ Create a shared page tree config file and constant to use in your page types and
 import { PageTreeConfig } from 'sanity-plugin-page-tree';
 
 export const pageTreeConfig: PageTreeConfig = {
-  rootSchemaTypes: ['homePage'],
+  rootSchemaType: 'homePage',
   pageSchemaTypes: ['homePage', 'page'],
   apiVersion: '2023-12-08',
 };
@@ -87,7 +87,7 @@ export const structure = (S: StructureBuilder) =>
             }),
           )
       ]
-    );
+    )
 ```
 
 ### Create internal page links
