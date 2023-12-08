@@ -2,6 +2,20 @@
 
 > This is a **Sanity Studio v3** plugin.
 
+## Why?
+In many example projects for headless CMSs in general, they typically create a post content type with a property like "slug" and serve the post on a route such as `/posts/:slug`. This becomes more complex when dealing with multiple page types and a desire to establish a dynamic page tree.
+
+Consider having three different content types: a home page, an overview page, and a content page, and aiming to create the following URL structure:
+
+- `/` Homepage
+- `/about-us` Overview Page
+- `/about-us/team` Content Page
+- `/what-we-do` Content Page
+- `/what-we-do/cases` Overview Page
+- `/what-we-do/cases/:slug` Content Page
+
+Achieving this can be challenging, especially if all the slugs need to be dynamic and editable in the CMS. This package aims to make this easy by providing a page tree view for creating and editing pages. It also includes a page tree input for creating internal page links and methods designed for use on the frontend, helping you effectively resolve urls to ids (in order to retrieve the right content for a route) and vice versa (to resolve internal page links to urls).
+
 ## Installation
 
 ```sh
