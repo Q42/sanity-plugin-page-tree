@@ -125,6 +125,25 @@ const linkField = defineField({
 });
 ```
 
+### Document internationalization
+This plugin supports the [@sanity/document-internationalization](https://github.com/sanity-io/document-internationalization) plugin. To enable this, do the setup as documented in the plugin and additionally provide the `documentInternationalization` option to the page tree configuration file.
+
+```ts
+// page-tree-config.ts
+import { PageTreeConfig } from 'sanity-plugin-page-tree';
+
+export const pageTreeConfig: PageTreeConfig = {
+  ...,
+  /* Configuration to make this plugin work with the @sanity/document-internationalization plugin */
+  documentInternationalization: {
+    /* Supported languages */
+    supportedLanguages: ['en', 'nl'],
+    /* Optionally change the languageField, like you can do in the original plugin */
+    languageField: 'locale', // Defaults to 'language'
+  }
+};
+```
+
 ## Examples
 For full examples, see the following projects:
 
