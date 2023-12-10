@@ -28,18 +28,17 @@ npm install sanity-plugin-page-tree
 Create a shared page tree config file and constant to use in your page types and desk structure.
 
 ```ts
-// pageTreeConfig.ts
+// page-tree-config.ts
 import { PageTreeConfig } from 'sanity-plugin-page-tree';
 
 export const pageTreeConfig: PageTreeConfig = {
   /* Root page schema type name */
   rootSchemaType: 'homePage',
   /* Array of all page schema type names */
-  pageSchemaTypes: ['homePage', 'page'],
+  pageSchemaTypes: ['homePage', 'contentPage'],
   /* Api version to be used in all underlying Sanity client use */
   apiVersion: '2023-12-08',
 };
-
 ```
 
 ### Create a page type
@@ -49,10 +48,10 @@ The `definePageType` function can be used to wrap your page schema types with th
 Provide the `isRoot` option to the definePageType function to mark the page as a root page.
 
 ```ts
-// schemas/page.ts
-import { pageTreeConfig } from './pageTreeConfig';
+// schemas/home-page.ts
+import { pageTreeConfig } from './page-tree-config';
 
-const _contentPageType = defineType({
+const _homePageType = defineType({
   name: 'homePage',
   type: 'document',
   title: 'Page',
@@ -61,19 +60,19 @@ const _contentPageType = defineType({
   ],
 });
 
-export const pageType = definePageType(_contentPageType, pageTreeConfig, {
+export const homePageType = definePageType(_homePageType, pageTreeConfig, {
   isRoot: true
 });
 ```
 
-#### Other pages
+#### Other pages (e.g. content page)
 
 ```ts
-// schemas/page.ts
+// schemas/content-page.ts
 import { pageTreeConfig } from './pageTreeConfig';
 
 const _contentPageType = defineType({
-  name: 'page',
+  name: 'contentPage',
   type: 'document',
   title: 'Page',
   fields: [
@@ -81,15 +80,15 @@ const _contentPageType = defineType({
   ],
 });
 
-export const pageType = definePageType(_contentPageType, pageTreeConfig);
+export const contentPageType = definePageType(_contentPageType, pageTreeConfig);
 ```
 
 ### Add page tree to desk structure
 Instead of using the default document list for creating and editing pages, you can use the `createPageTreeDocumentList` function to create a custom page tree document list view and add it to your desk structure.
 
 ```ts
-// deskStructure.ts
-import { pageTreeConfig } from './pageTreeConfig';
+// desk-structure.ts
+import { pageTreeConfig } from './page-tree-config';
 
 export const structure = (S: StructureBuilder) =>
   S.list()
@@ -100,7 +99,7 @@ export const structure = (S: StructureBuilder) =>
           .child(
             createPageTreeDocumentList(S, {
               config: pageTreeConfig,
-              extendDocumentList: builder => builder.id('pages').title('Pages').apiVersion('2023-12-08'),
+              extendDocumentList: builder => builder.id('pages').title('Pages').apiVersion(pageTreeConfig.apiVersion),
             }),
           )
       ]
@@ -111,6 +110,8 @@ export const structure = (S: StructureBuilder) =>
 A link to an internal page is a reference to a page document. The `PageTreeField` component can be used to render a custom page tree input in the reference field.
 
 ```ts
+import { pageTreeConfig } from './page-tree-config';
+
 const linkField = defineField({
   name: 'link',
   title: 'Link',
@@ -120,7 +121,6 @@ const linkField = defineField({
     field: props => PageTreeField({ ...props, config: pageTreeConfig }),
   },
 });
-
 ```
 
 ## License
