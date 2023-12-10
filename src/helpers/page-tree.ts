@@ -62,9 +62,10 @@ const mapPageTreeItems = (
     pagesWithPublishedState.filter(page => page.parent?._ref === parentId);
 
   return getChildPages(parentId).map(page => {
+    const language = getLanguageFromConfig(config);
     const pageUrl = parentUrl
       ? `${parentUrl === '/' ? '' : parentUrl}/${page.slug?.current}`
-      : `/${getLanguageFromConfig(config) ?? ''}`;
+      : `/${language ? page[language] : ''}`;
     const children = orderBy(mapPageTreeItems(config, pagesWithPublishedState, page._id, pageUrl), 'url');
 
     return {
