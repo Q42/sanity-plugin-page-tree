@@ -2,6 +2,8 @@
 
 > This is a **Sanity Studio v3** plugin.
 
+![sanity-plugin-page-tree-studio](https://github.com/Q42/sanity-plugin-page-tree/assets/15087372/45ba349c-13f5-482d-8490-44183b7b448d)
+
 ## Why?
 In many example projects for headless CMSs in general, they typically create a post content type with a property like "slug" and serve the post on a route such as `/posts/:slug`. This becomes more complex when dealing with multiple page types and a desire to establish a dynamic page tree.
 
