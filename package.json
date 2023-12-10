@@ -30,6 +30,17 @@
       "import": "./dist/index.esm.js",
       "default": "./dist/index.esm.js"
     },
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "source": "./src/client.ts",
+      "require": "./dist/client.js",
+      "node": {
+        "module": "./dist/client.esm.js",
+        "import": "./dist/client.cjs.mjs"
+      },
+      "import": "./dist/client.esm.js",
+      "default": "./dist/client.esm.js"
+    },
     "./package.json": "./package.json"
   },
   "main": "./dist/index.js",
@@ -40,6 +51,7 @@
     "dist",
     "sanity.json",
     "src",
+    "client.js",
     "v2-incompatible.js"
   ],
   "scripts": {
