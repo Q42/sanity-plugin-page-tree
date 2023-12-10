@@ -1,30 +1,19 @@
 import { useMemo } from 'react';
-import { useMemoObservable } from 'react-rx';
-import { useDocumentStore } from 'sanity';
 
-import { mapPagesToPageTree } from '../helpers/page-tree';
 import { getPageInfoQuery } from '../queries';
-import { PageTreeConfig } from '../types';
+import { PageInfo, PageTreeConfig } from '../types';
+import { mapPageInfoToPageTree } from '../helpers/page-tree';
+import { useListeningQuery } from 'sanity-plugin-utils';
 
 export const usePageTree = (config: PageTreeConfig) => {
-  const documentStore = useDocumentStore();
-  const allPages = useMemoObservable(
-    () =>
-      documentStore.listenQuery(
-        getPageInfoQuery(config.pageSchemaTypes),
-        {},
-        {
-          apiVersion: config.apiVersion,
-        },
-      ),
-    [documentStore],
-  );
+  const { data, loading } = useListeningQuery<PageInfo[]>(getPageInfoQuery(config), {
+    options: { apiVersion: config.apiVersion },
+  });
 
-  const pageTree = useMemo(() => (allPages ? mapPagesToPageTree(allPages) : undefined), [allPages]);
-  const isLoading = useMemo(() => !allPages, [allPages]);
+  const pageTree = useMemo(() => (data ? mapPageInfoToPageTree(config, data) : undefined), [data]);
 
   return {
-    isLoading,
+    isLoading: loading,
     pageTree,
   };
 };

@@ -1,11 +1,15 @@
-import { SearchIcon } from '@sanity/icons';
-import { Box, Flex, Text, TextInput } from '@sanity/ui';
+import { SearchIcon, AddIcon } from '@sanity/icons';
+import { Box, Button, Flex, Text, TextInput } from '@sanity/ui';
 import { without } from 'lodash';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { PageTreeViewItem } from './PageTreeViewItem';
 import { findPageTreeItemById, flatMapPageTree } from '../helpers/page-tree';
 import { PageTreeItem } from '../types';
+import { usePageTreeConfig } from '../hooks/usePageTreeConfig';
+import { useClient } from 'sanity';
+import { useRouter } from 'sanity/router';
+import styled from 'styled-components';
 
 export type PageTreeEditorProps = {
   pageTree: PageTreeItem[];
@@ -29,6 +33,10 @@ export const PageTreeEditor = ({
   initialOpenItemIds,
   allowedPageTypes,
 }: PageTreeEditorProps) => {
+  const config = usePageTreeConfig();
+  const client = useClient({ apiVersion: config.apiVersion });
+  const { navigateUrl, resolveIntentLink } = useRouter();
+
   const [pageTreeState, setPageTreeState] = useState<PageTreeState>(() => {
     const sessionState = JSON.parse(sessionStorage.getItem(PAGE_TREE_STATE_KEY) || '{}');
 
@@ -101,6 +109,15 @@ export const PageTreeEditor = ({
     [pageTreeState, setPageTreeState, pageTree],
   );
 
+  const addRootPage = useCallback(async () => {
+    const doc = await client.create({
+      _type: config.rootSchemaType,
+    });
+    const path = resolveIntentLink('edit', { id: doc._id, type: doc._type });
+
+    navigateUrl({ path });
+  }, [client, config.rootSchemaType, resolveIntentLink, navigateUrl]);
+
   return (
     <Flex gap={3} direction="column">
       <Box>
@@ -128,10 +145,17 @@ export const PageTreeEditor = ({
           ))}
         </Flex>
       ) : (
-        <Box paddingX={3} paddingY={3}>
-          <Text>No pages found</Text>
-        </Box>
+        <>
+          <Box paddingX={3} paddingY={3}>
+            <Text>No pages found</Text>
+          </Box>
+          <AddButton mode="ghost" icon={AddIcon} text="Add root page" onClick={addRootPage} />
+        </>
       )}
     </Flex>
   );
 };
+
+const AddButton = styled(Button)`
+  align-self: flex-start;
+`;

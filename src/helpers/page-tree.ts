@@ -1,20 +1,23 @@
-import { SanityClient } from '@sanity/client';
 import { groupBy, omit, orderBy } from 'lodash';
 
-import { getPageInfoQuery } from '../queries';
-import { PageIdAndUrlInfo, PageInfo, PageInfoWithPublishedState, PageTreeConfig, PageTreeItem } from '../types';
+import { PageInfo, PageInfoWithPublishedState, PageTreeConfig, PageTreeItem, SitemapPage } from '../types';
+import { getLanguageFromConfig } from './config';
 
 export const DRAFTS_PREFIX = 'drafts.';
 
-export const getPageTreeItemById = async (
-  config: PageTreeConfig,
-  client: SanityClient,
-  id: string,
-): Promise<PageTreeItem | undefined> => {
-  const allPages = await client.fetch(getPageInfoQuery(config.pageSchemaTypes));
-  const pageTree = mapPagesToPageTree(allPages);
+/**
+ * Maps array of page info objects to sitemap pages array containing id, url and type.
+ */
+export const getSitemap = (config: PageTreeConfig, pagesInfo: PageInfo[]): SitemapPage[] => {
+  const pageTree = mapPageInfoToPageTree(config, pagesInfo);
+  const flatPageTree = flatMapPageTree(pageTree);
 
-  return findPageTreeItemById(pageTree, id);
+  return flatPageTree.map(page => ({
+    _id: page._id,
+    _updatedAt: page._updatedAt,
+    url: page.url,
+    type: page._type,
+  }));
 };
 
 /**
@@ -34,10 +37,10 @@ export const findPageTreeItemById = (pages: PageTreeItem[], id: string): PageTre
 /**
  * Maps pages to page tree containing recursive nested children.
  */
-export const mapPagesToPageTree = (pages: PageInfo[]): PageTreeItem[] => {
+export const mapPageInfoToPageTree = (config: PageTreeConfig, pages: PageInfo[]): PageTreeItem[] => {
   const pagesWithPublishedState = getPublishedAndDraftPageInfo(pages);
 
-  return orderBy(mapPageTreeItems(pagesWithPublishedState), 'url');
+  return orderBy(mapPageTreeItems(config, pagesWithPublishedState), 'url');
 };
 
 /**
@@ -47,23 +50,10 @@ export const flatMapPageTree = (pages: PageTreeItem[]): Omit<PageTreeItem, 'chil
   pages.flatMap(page => (page.children ? [omit(page, 'children'), ...flatMapPageTree(page.children)] : page));
 
 /**
- * Map pages to flattened array of page id and resolved url info.
- */
-export const mapPagesToPageIdAndUrlInfo = (pages: PageInfo[]): PageIdAndUrlInfo[] => {
-  const pageTree = mapPagesToPageTree(pages);
-  const flatPageTree = flatMapPageTree(pageTree);
-
-  return flatPageTree.map(page => ({
-    pageId: page._id,
-    url: page.url,
-    type: page._type,
-  }));
-};
-
-/**
  * Maps pages to page tree containing recursive nested children and urls.
  */
 const mapPageTreeItems = (
+  config: PageTreeConfig,
   pagesWithPublishedState: PageInfoWithPublishedState[],
   parentId?: string,
   parentUrl: string = '',
@@ -72,8 +62,10 @@ const mapPageTreeItems = (
     pagesWithPublishedState.filter(page => page.parent?._ref === parentId);
 
   return getChildPages(parentId).map(page => {
-    const pageUrl = parentUrl ? `${parentUrl}/${page.slug?.current}` : `/${page.language}`;
-    const children = orderBy(mapPageTreeItems(pagesWithPublishedState, page._id, pageUrl), 'url');
+    const pageUrl = parentUrl
+      ? `${parentUrl === '/' ? '' : parentUrl}/${page.slug?.current}`
+      : `/${getLanguageFromConfig(config) ?? ''}`;
+    const children = orderBy(mapPageTreeItems(config, pagesWithPublishedState, page._id, pageUrl), 'url');
 
     return {
       ...page,
@@ -113,7 +105,7 @@ const getPublishedAndDraftPageInfo = (pages: PageInfo[]): PageInfoWithPublishedS
 };
 
 const isValidPage = (page: PageInfo): boolean => {
-  if (page.parent == null || page.slug == null) {
+  if (page.parent === null || page.slug === null) {
     if (page._type != 'homePage') {
       return false;
     }

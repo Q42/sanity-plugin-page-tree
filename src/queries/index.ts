@@ -1,11 +1,14 @@
-export const getPageInfoQuery = (pageSchemaTypes: string[]) => `*[_type in [${Object.values(pageSchemaTypes)
+import { PageTreeConfig } from '../types';
+import { getLanguageFromConfig } from '../helpers/config';
+
+export const getPageInfoQuery = (config: PageTreeConfig) => `*[_type in [${Object.values(config.pageSchemaTypes)
   .map(key => `"${key}"`)
   .join(', ')}]]{
-          _id,
-          _type,
-          _updatedAt,
-          parent,
-          slug,
-          title,
-          language
-        }`;
+    _id,
+    _type,
+    _updatedAt,
+    parent,
+    slug,
+    title,
+    ${getLanguageFromConfig(config) ?? ''}
+  }`;

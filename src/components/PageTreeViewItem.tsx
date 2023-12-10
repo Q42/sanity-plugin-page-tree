@@ -1,3 +1,4 @@
+import { MouseEvent } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@sanity/icons';
 import { Button, Card, Flex, Stack, Text } from '@sanity/ui';
 import { useMemo, useState } from 'react';
@@ -8,6 +9,8 @@ import { PageTreeViewItemActions } from './PageTreeViewItemActions';
 import { PageTreeViewItemStatus } from './PageTreeViewItemStatus';
 import { flatMapPageTree } from '../helpers/page-tree';
 import { PageTreeItem } from '../types';
+import { usePageTreeConfig } from '../hooks/usePageTreeConfig';
+import { getLanguageFromConfig } from '../helpers/config';
 
 export type PageTreeViewItemProps = {
   parentUrl?: string;
@@ -32,10 +35,12 @@ export const PageTreeViewItem = ({
   forceOpen,
   isRoot,
 }: PageTreeViewItemProps) => {
+  const config = usePageTreeConfig();
   const { navigateIntent, routerPanesState, groupIndex } = usePaneRouter();
+
   const [isHovered, setIsHovered] = useState(false);
   const [hasActionOpen, setHasActionOpen] = useState(false);
-  const toggle = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const toggle = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     onToggle(page);
   };
@@ -50,7 +55,7 @@ export const PageTreeViewItem = ({
     navigateIntent('edit', { id: page._id, type: page._type });
   };
 
-  const url = parentUrl ? `${parentUrl}/${page.slug?.current}` : `/${page.language}`;
+  const url = parentUrl ? `${parentUrl}/${page.slug?.current}` : getLanguageFromConfig(config) ?? '/';
   const hasChildren = !!page.children;
 
   const currentPageNumber = routerPanesState[groupIndex + 1]?.[0]?.id;
@@ -105,7 +110,7 @@ export const PageTreeViewItem = ({
             onClick={onItemClick}>
             <Flex align="center" gap={3}>
               <UrlText isDisabled={isDisabled} textOverflow="ellipsis">
-                {parentUrl ? page.slug?.current : page.language}
+                {parentUrl ? page.slug?.current : page.language ?? '/'}
               </UrlText>
               {!isDisabled && (isHovered || hasActionOpen) && (
                 <PageTreeViewItemActions

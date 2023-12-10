@@ -18,8 +18,11 @@ Create a shared page tree config file and constant to use in your page types and
 import { PageTreeConfig } from 'sanity-plugin-page-tree';
 
 export const pageTreeConfig: PageTreeConfig = {
+  /* Root page schema type name */
   rootSchemaType: 'homePage',
+  /* Array of all page schema type names */
   pageSchemaTypes: ['homePage', 'page'],
+  /* Api version to be used in all underlying Sanity client use */
   apiVersion: '2023-12-08',
 };
 

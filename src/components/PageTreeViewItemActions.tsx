@@ -6,6 +6,7 @@ import { useRouter } from 'sanity/router';
 
 import { usePageTreeConfig } from '../hooks/usePageTreeConfig';
 import { PageTreeItem } from '../types';
+import { getLanguageFromConfig } from '../helpers/config';
 
 export type PageTreeViewItemActionsProps = {
   page: PageTreeItem;
@@ -20,10 +21,11 @@ export const PageTreeViewItemActions = ({ page, onActionOpen, onActionClose }: P
   const [newPage, setNewPage] = useState<{ _id: string; _type: string } | undefined>();
 
   const onAdd = async (type: string) => {
+    const language = getLanguageFromConfig(config);
     const doc = await client.create({
       _type: type,
       parent: config.rootSchemaType === type ? undefined : { _type: 'reference', _ref: page._id },
-      language: page.language,
+      ...(language ? { [language]: page[language] } : {}),
     });
     setNewPage(doc);
   };
@@ -42,9 +44,11 @@ export const PageTreeViewItemActions = ({ page, onActionOpen, onActionClose }: P
         button={<Button mode="ghost" paddingX={2} paddingY={2} fontSize={1} icon={AddIcon} />}
         menu={
           <Menu>
-            {config.pageSchemaTypes.map(type => (
-              <MenuItem key={type} onClick={() => onAdd(type)} text={type} value={type} />
-            ))}
+            {config.pageSchemaTypes
+              .filter(type => type !== config.rootSchemaType)
+              .map(type => (
+                <MenuItem key={type} onClick={() => onAdd(type)} text={type} value={type} />
+              ))}
           </Menu>
         }
         popover={{ placement: 'bottom' }}

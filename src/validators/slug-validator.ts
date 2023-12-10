@@ -16,7 +16,7 @@ export const slugValidator =
       return true;
     }
 
-    const allPages = await client.fetch<PageInfo[]>(getPageInfoQuery(config.pageSchemaTypes));
+    const allPages = await client.fetch<PageInfo[]>(getPageInfoQuery(config));
     const siblingPages = allPages.filter(page => page.parent?._ref === parentRef._ref);
 
     const hasDuplicateSlugWithinParent = siblingPages
