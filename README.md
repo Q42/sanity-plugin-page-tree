@@ -123,6 +123,12 @@ const linkField = defineField({
 });
 ```
 
+## Examples
+For full examples, see the following projects:
+
+- [Clean studio](./examples/studio)
+- [Studio with document internationalization](./examples/studio-i18n)
+
 ## License
 
 [MIT](LICENSE) © Q42
