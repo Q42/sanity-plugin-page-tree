@@ -5,7 +5,7 @@ import { getRawPageMetadataQuery } from '../queries';
 import { RawPageMetadata, PageTreeConfig, SanityRef } from '../types';
 
 /**
- * Validates that the slug is unique within the parent page and therefore that entire the url is unique.
+ * Validates that the slug is unique within the parent page and therefore that entire the path is unique.
  */
 export const slugValidator =
   (config: PageTreeConfig) => async (slug: SlugValue | undefined, context: ValidationContext) => {
