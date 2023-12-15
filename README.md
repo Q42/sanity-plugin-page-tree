@@ -185,8 +185,8 @@ import { createNextPageTreeClient } from 'sanity-plugin-page-tree/next';
 ``` 
 
 This client provides you with some additional helper methods: 
-- `getPageMetadataById`
-- `getPageMetadataByUrl`
+- `getPageMetadataById` useful for retrieving the url when you have a reference to a page
+- `getPageMetadataByUrl` useful for retrieving the id when you have the path
 
 ## Examples
 For full examples, see the following projects:
