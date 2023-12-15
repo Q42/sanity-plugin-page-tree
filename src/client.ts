@@ -1,9 +1,9 @@
-import { PageTreeConfig, SitemapPage } from './types';
-import { getSitemap } from './helpers/page-tree';
-import { getPageInfoQuery } from './queries';
+import { PageTreeConfig, PageMetadata } from './types';
+import { getAllPageMetadata } from './helpers/page-tree';
+import { getRawPageMetadataQuery } from './queries';
 import { SanityClient } from 'sanity';
 
-export type { SitemapPage } from './types';
+export type { PageMetadata } from './types';
 
 export type PageTreeClientOptions = {
   config: PageTreeConfig;
@@ -23,8 +23,8 @@ class PageTreeClient {
     this.client = client;
   }
 
-  async getSitemap(): Promise<SitemapPage[]> {
-    const pageInfos = await this.client.fetch(getPageInfoQuery(this.config));
-    return getSitemap(this.config, pageInfos);
+  async getAllPageMetadata(): Promise<PageMetadata[]> {
+    const rawPageMetadata = await this.client.fetch(getRawPageMetadataQuery(this.config));
+    return getAllPageMetadata(this.config, rawPageMetadata);
   }
 }

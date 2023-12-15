@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import {sanityClient} from '../../../sanity.client'
 import { HomePage as HomePageType, ContentPage as ContentPageType } from '../../page-types';
-import { SitemapPage } from 'sanity-plugin-page-tree/next';
+import { PageMetadata } from 'sanity-plugin-page-tree/next';
 import { HomePage } from '@/pages/HomePage';
 import { ContentPage } from '@/pages/ContentPage';
 import { pageTreeClient } from '../../../page-tree.client';
@@ -14,26 +14,25 @@ type PageProps = {
 
 const Page = async ({ params }: PageProps) => {
   const path = params.slug ? "/" + params.slug?.join('/') : '/';
-  const sitemap = await pageTreeClient.getSitemap();
-  const pageInfo = sitemap.find((page) => page.url === path);
+  const pageMetadata = await pageTreeClient.getPageMetadataByUrl(path);
 
-  if (!pageInfo) {
+  if (!pageMetadata) {
     return notFound();
   }
 
-  return <PageHandler pageInfo={pageInfo}  />;
+  return <PageHandler pageMetadata={pageMetadata}  />;
 };
 
 export default Page;
 
 type PageHandlerProps = {
-  pageInfo: SitemapPage;
+  pageMetadata: PageMetadata;
 };
 
-const PageHandler = async ({ pageInfo }: PageHandlerProps) => {
-  switch (pageInfo.type) {
+const PageHandler = async ({ pageMetadata }: PageHandlerProps) => {
+  switch (pageMetadata.type) {
     case 'homePage': {
-      const page = await sanityClient.fetch<HomePageType>(`*[_id == $id][0]{title, link}`, { id: pageInfo._id });
+      const page = await sanityClient.fetch<HomePageType>(`*[_id == $id][0]{title, link}`, { id: pageMetadata._id });
 
       if (!page) {
         return notFound();
@@ -42,7 +41,7 @@ const PageHandler = async ({ pageInfo }: PageHandlerProps) => {
       return <HomePage page={page} />;
     }
     case 'contentPage': {
-      const page = await sanityClient.fetch<ContentPageType>(`*[_id == $id][0]{title, content}`, { id: pageInfo._id });
+      const page = await sanityClient.fetch<ContentPageType>(`*[_id == $id][0]{title, content}`, { id: pageMetadata._id });
 
       if (!page) {
         return notFound();

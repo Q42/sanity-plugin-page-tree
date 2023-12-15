@@ -8,17 +8,15 @@ export type SanityRef = {
 /**
  * @public
  */
-export type SitemapPage = {
+export type PageMetadata = {
   _id: string;
   _updatedAt: string;
   url: string;
   type: string;
 };
 
-/**
- * @public
- */
-export type PageInfo = {
+export type RawPageMetadata = {
+  // For language field in case document internationalization plugin is configured
   [key: string]: any;
   _id: string;
   _type: string;
@@ -28,12 +26,12 @@ export type PageInfo = {
   title: string;
 };
 
-export type PageInfoWithPublishedState = PageInfo & {
+export type RawPageMetadataWithPublishedState = RawPageMetadata & {
   isDraft: boolean;
   isPublished: boolean;
 };
 
-export type PageTreeItem = PageInfoWithPublishedState & {
+export type PageTreeItem = RawPageMetadataWithPublishedState & {
   children?: PageTreeItem[];
   url: string;
 };
@@ -63,12 +61,4 @@ export type PageTreeConfig = {
 export type PageTreeDocumentListOptions = {
   config: PageTreeConfig;
   extendDocumentList?: (builder: DocumentListBuilder) => DocumentListBuilder;
-};
-
-/**
- * @public
- */
-export type PageTreeHelpers = {
-  pageInfoQuery: string;
-  getSitemap: (pagesInfo: PageInfo[]) => SitemapPage[];
 };

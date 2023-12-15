@@ -1,8 +1,8 @@
 import { SlugValue, ValidationContext } from 'sanity';
 
 import { DRAFTS_PREFIX } from '../helpers/page-tree';
-import { getPageInfoQuery } from '../queries';
-import { PageInfo, PageTreeConfig, SanityRef } from '../types';
+import { getRawPageMetadataQuery } from '../queries';
+import { RawPageMetadata, PageTreeConfig, SanityRef } from '../types';
 
 /**
  * Validates that the slug is unique within the parent page and therefore that entire the url is unique.
@@ -16,7 +16,7 @@ export const slugValidator =
       return true;
     }
 
-    const allPages = await client.fetch<PageInfo[]>(getPageInfoQuery(config));
+    const allPages = await client.fetch<RawPageMetadata[]>(getRawPageMetadataQuery(config));
     const siblingPages = allPages.filter(page => page.parent?._ref === parentRef._ref);
 
     const hasDuplicateSlugWithinParent = siblingPages

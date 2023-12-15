@@ -1,15 +1,21 @@
 import { groupBy, omit, orderBy } from 'lodash';
 
-import { PageInfo, PageInfoWithPublishedState, PageTreeConfig, PageTreeItem, SitemapPage } from '../types';
+import {
+  RawPageMetadata,
+  RawPageMetadataWithPublishedState,
+  PageTreeConfig,
+  PageTreeItem,
+  PageMetadata,
+} from '../types';
 import { getLanguageFromConfig } from './config';
 
 export const DRAFTS_PREFIX = 'drafts.';
 
 /**
- * Maps array of page info objects to sitemap pages array containing id, url and type.
+ * Maps array of raw page metadata objects to page metadata object array containing resolved id, url and type.
  */
-export const getSitemap = (config: PageTreeConfig, pagesInfo: PageInfo[]): SitemapPage[] => {
-  const pageTree = mapPageInfoToPageTree(config, pagesInfo);
+export const getAllPageMetadata = (config: PageTreeConfig, pagesInfo: RawPageMetadata[]): PageMetadata[] => {
+  const pageTree = mapRawPageMetadatasToPageTree(config, pagesInfo);
   const flatPageTree = flatMapPageTree(pageTree);
 
   return flatPageTree.map(page => ({
@@ -37,8 +43,8 @@ export const findPageTreeItemById = (pages: PageTreeItem[], id: string): PageTre
 /**
  * Maps pages to page tree containing recursive nested children.
  */
-export const mapPageInfoToPageTree = (config: PageTreeConfig, pages: PageInfo[]): PageTreeItem[] => {
-  const pagesWithPublishedState = getPublishedAndDraftPageInfo(pages);
+export const mapRawPageMetadatasToPageTree = (config: PageTreeConfig, pages: RawPageMetadata[]): PageTreeItem[] => {
+  const pagesWithPublishedState = getPublishedAndDraftRawPageMetdadata(pages);
 
   return orderBy(mapPageTreeItems(config, pagesWithPublishedState), 'url');
 };
@@ -54,7 +60,7 @@ export const flatMapPageTree = (pages: PageTreeItem[]): Omit<PageTreeItem, 'chil
  */
 const mapPageTreeItems = (
   config: PageTreeConfig,
-  pagesWithPublishedState: PageInfoWithPublishedState[],
+  pagesWithPublishedState: RawPageMetadataWithPublishedState[],
   parentId?: string,
   parentUrl: string = '',
 ): PageTreeItem[] => {
@@ -79,7 +85,7 @@ const mapPageTreeItems = (
 /**
  * Provides draft and published status. Filters out duplicate pages with the same id and invalid pages.
  */
-const getPublishedAndDraftPageInfo = (pages: PageInfo[]): PageInfoWithPublishedState[] => {
+const getPublishedAndDraftRawPageMetdadata = (pages: RawPageMetadata[]): RawPageMetadataWithPublishedState[] => {
   const publishedPages = groupBy(
     pages.filter(p => !p._id.startsWith(DRAFTS_PREFIX)),
     p => p._id,
@@ -95,7 +101,7 @@ const getPublishedAndDraftPageInfo = (pages: PageInfo[]): PageInfoWithPublishedS
     .map(p => {
       const isDraft = p._id.startsWith(DRAFTS_PREFIX);
       const _idWithoutDraft = p._id.replace(DRAFTS_PREFIX, '');
-      const newPage: PageInfoWithPublishedState = {
+      const newPage: RawPageMetadataWithPublishedState = {
         ...p,
         _id: isDraft ? _idWithoutDraft : p._id,
         isDraft,
@@ -105,7 +111,7 @@ const getPublishedAndDraftPageInfo = (pages: PageInfo[]): PageInfoWithPublishedS
     });
 };
 
-const isValidPage = (page: PageInfo): boolean => {
+const isValidPage = (page: RawPageMetadata): boolean => {
   if (page.parent === null || page.slug === null) {
     if (page._type != 'homePage') {
       return false;

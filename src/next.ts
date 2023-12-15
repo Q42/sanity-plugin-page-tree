@@ -1,20 +1,20 @@
-import { PageTreeConfig, SitemapPage } from './types';
-import { getSitemap } from './helpers/page-tree';
-import { getPageInfoQuery } from './queries';
+import { PageTreeConfig, PageMetadata } from './types';
+import { getAllPageMetadata } from './helpers/page-tree';
+import { getRawPageMetadataQuery } from './queries';
 import { SanityClient } from 'next-sanity';
 
-export type { SitemapPage } from './types';
+export type { PageMetadata } from './types';
 
-export type PageTreeClientOptions = {
+export type NextPageTreeClientOptions = {
   config: PageTreeConfig;
   client: SanityClient;
 };
 
-export const createPageTreeClient = ({ config, client }: PageTreeClientOptions) => {
-  return new PageTreeClient(config, client);
+export const createNextPageTreeClient = ({ config, client }: NextPageTreeClientOptions) => {
+  return new NextPageTreeClient(config, client);
 };
 
-class PageTreeClient {
+class NextPageTreeClient {
   private readonly config: PageTreeConfig;
   private readonly client: SanityClient;
 
@@ -23,18 +23,18 @@ class PageTreeClient {
     this.client = client;
   }
 
-  async getSitemap(): Promise<SitemapPage[]> {
-    const pageInfos = await this.client.fetch(getPageInfoQuery(this.config));
-    return getSitemap(this.config, pageInfos);
+  public async getAllPageMetadata(): Promise<PageMetadata[]> {
+    const rawPageMetadata = await this.client.fetch(getRawPageMetadataQuery(this.config));
+    return getAllPageMetadata(this.config, rawPageMetadata);
   }
 
-  async getSitemapPageById(id: string): Promise<SitemapPage | undefined> {
-    const sitemap = await this.getSitemap();
-    return sitemap.find(page => page._id === id);
+  public async getPageMetadataById(id: string): Promise<PageMetadata | undefined> {
+    const pageMetadatas = await this.getAllPageMetadata();
+    return pageMetadatas.find(page => page._id === id);
   }
 
-  async getSitemapPageByUrl(url: string): Promise<SitemapPage | undefined> {
-    const sitemap = await this.getSitemap();
-    return sitemap.find(page => page.url === url);
+  public async getPageMetadataByUrl(url: string): Promise<PageMetadata | undefined> {
+    const pageMetadatas = await this.getAllPageMetadata();
+    return pageMetadatas.find(page => page.url === url);
   }
 }
