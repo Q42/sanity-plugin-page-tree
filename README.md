@@ -46,10 +46,10 @@ export const pageTreeConfig: PageTreeConfig = {
 ```
 
 ### Create a page type
-The `definePageType` function can be used to wrap your page schema types with the necessary fields for the page tree.
+The `definePageType` function can be used to wrap your page schema types with the necessary fields (parent (page reference) and slug) for the page tree.
 
 #### Root page (e.g. home page)
-Provide the `isRoot` option to the definePageType function to mark the page as a root page.
+Provide the `isRoot` option to the definePageType function to mark the page as a root page. This page won't have a parent and slug field.
 
 ```ts
 // schemas/home-page.ts
@@ -152,7 +152,7 @@ export const pageTreeConfig: PageTreeConfig = {
 In order to retrieve the right content for a specifc route, you need to make "catch all" route. How this is implemented depends on the framework you are using. Below are some examples for a Next.JS and React single page appication using react router.
 
 ### Regular client
-In order to get the page data for the requested path you have to creat a client. Afterwards you can retrieve a list of all the pages with the resolved url and find the correct page metadata.
+In order to get the page data for the requested path you have to creat a client. Afterwards you can retrieve a list of all the pages with the resolved path and find the correct page metadata.
 With this metadata you can retrieve the data of the document yourself. 
 
 ```ts
@@ -166,7 +166,7 @@ const pageTreeClient = createPageTreeClient({
 async function getPageForPath(path: string) {
   // You might want to cache or save this metadata in memory. For example for looking up urls for linked pages
   const allPagesMetadata = await pageTreeClient.getAllPageMetadata();
-  const page = allPagesMetadata.find(page => page.url === path);
+  const page = allPagesMetadata.find(page => page.path === path);
   if (!page) {
     // here you want to handle a 404
     return;

@@ -8,11 +8,11 @@ export type PageLinkProps = {
 
 export const PageLink = ({ link, children }: PropsWithChildren<PageLinkProps>) => {
   const { allPageMetadata } = usePageTree();
-  const url = allPageMetadata.find(pageMetadata => pageMetadata._id === link._ref)?.url;
+  const path = allPageMetadata.find(pageMetadata => pageMetadata._id === link._ref)?.path;
 
-  if (!url) {
+  if (!path) {
     return children;
   }
 
-  return <Link to={url}>{children}</Link>;
+  return <Link to={path}>{children}</Link>;
 };

@@ -8,15 +8,15 @@ export type PageLinkProps = {
 
 const PageLink = async ({ children, link }: PropsWithChildren<PageLinkProps>) => {
   const pageMetadata = await pageTreeClient.getPageMetadataById(link._ref);
-  const url = pageMetadata?.url;
+  const path = pageMetadata?.path;
 
-  if (!url) {
-    console.error(`No url found for page id ${link._ref}`, link);
+  if (!path) {
+    console.error(`No path found for page id ${link._ref}`, link);
     return <>{children}</>;
   }
 
   return (
-    <Link href={url}>
+    <Link href={path}>
       {children}
     </Link>
   )

@@ -8,7 +8,7 @@ export const PageHandler = () => {
   const location = useLocation();
   const { allPageMetadata } = usePageTree();
 
-  const pageMetadata = allPageMetadata.find(pageMetadata => pageMetadata.url === location.pathname);
+  const pageMetadata = allPageMetadata.find(pageMetadata => pageMetadata.path === location.pathname);
   if (!pageMetadata) {
     return <NotFound />;
   }

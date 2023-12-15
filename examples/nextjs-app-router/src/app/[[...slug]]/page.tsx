@@ -14,7 +14,7 @@ type PageProps = {
 
 const Page = async ({ params }: PageProps) => {
   const path = params.slug ? "/" + params.slug?.join('/') : '/';
-  const pageMetadata = await pageTreeClient.getPageMetadataByUrl(path);
+  const pageMetadata = await pageTreeClient.getPageMetadataByPath(path);
 
   if (!pageMetadata) {
     return notFound();

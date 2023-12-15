@@ -40,8 +40,8 @@ class NextPageTreeClient {
     return pageMetadatas.find(page => page._id === id);
   }
 
-  public async getPageMetadataByUrl(url: string): Promise<PageMetadata | undefined> {
+  public async getPageMetadataByPath(path: string): Promise<PageMetadata | undefined> {
     const pageMetadatas = await this.getAllPageMetadata();
-    return pageMetadatas.find(page => page.url === url);
+    return pageMetadatas.find(page => page.path === path);
   }
 }

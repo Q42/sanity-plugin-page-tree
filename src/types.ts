@@ -11,7 +11,7 @@ export type SanityRef = {
 export type PageMetadata = {
   _id: string;
   _updatedAt: string;
-  url: string;
+  path: string;
   type: string;
 };
 
@@ -32,7 +32,7 @@ export type RawPageMetadataWithPublishedState = RawPageMetadata & {
 
 export type PageTreeItem = RawPageMetadataWithPublishedState & {
   children?: PageTreeItem[];
-  url: string;
+  path: string;
 };
 
 /**
