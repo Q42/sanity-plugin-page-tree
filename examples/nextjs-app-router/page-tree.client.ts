@@ -4,6 +4,6 @@ import { pageTreeConfig } from './page-tree.config';
 
 export const pageTreeClient = createNextPageTreeClient({
   config: pageTreeConfig,
-  client: sanityClient
+  client: sanityClient,
 });
 

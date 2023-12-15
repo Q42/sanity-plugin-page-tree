@@ -24,7 +24,7 @@ Achieving this can be challenging, especially if all the slugs need to be dynami
 npm install sanity-plugin-page-tree
 ```
 
-## Usage
+## Usage in Sanity Studio
 
 ### Create a page tree config
 Create a shared page tree config file and constant to use in your page types and desk structure.
@@ -143,6 +143,50 @@ export const pageTreeConfig: PageTreeConfig = {
   }
 };
 ```
+
+
+## Usage on the frontend
+
+In order to retrieve the right content for a specifc route, you need to make "catch all" route. How this is implemented depends on the framework you are using. Below are some examples for a Next.JS and React single page appication using react router.
+
+### Regular client
+In order to get the page data for the requested path you have to creat a client. Afterwards you can retrieve a list of all the pages with the resolved url and find the correct page metadata.
+With this metadata you can retrieve the data of the document yourself. 
+
+```ts
+import { createPageTreeClient } from 'sanity-plugin-page-tree/client';
+
+const pageTreeClient = createPageTreeClient({
+  config: pageTreeConfig,
+  client: sanityClient,
+});
+
+async function getPageForPath(path: string) {
+  // You might want to cache or save this metadata in memory. For example for looking up urls for linked pages
+  const allPagesMetadata = await pageTreeClient.getAllPageMetadata();
+  const page = allPagesMetadata.find(page => page.url === path);
+  if (!page) {
+    // here you want to handle a 404
+    return;
+  }
+
+  return page;
+}
+
+```
+
+
+### Next.JS Client
+For users using the App Router of Next.JS with Server Components, we can benefit from the "Request Memoization" feature. 
+You can import the dedicated next client:
+
+```ts
+import { createNextPageTreeClient } from 'sanity-plugin-page-tree/next';
+``` 
+
+This client provides you with some additional helper methods: 
+- `getPageMetadataById`
+- `getPageMetadataByUrl`
 
 ## Examples
 For full examples, see the following projects:
