@@ -13,7 +13,7 @@ import { usePageTreeConfig } from '../hooks/usePageTreeConfig';
 import { getLanguageFromConfig } from '../helpers/config';
 
 export type PageTreeViewItemProps = {
-  parentUrl?: string;
+  parentPath?: string;
   page: PageTreeItem;
   onToggle: (page: PageTreeItem) => void;
   onClick?: (page: PageTreeItem) => void;
@@ -26,7 +26,7 @@ export type PageTreeViewItemProps = {
 
 export const PageTreeViewItem = ({
   page,
-  parentUrl,
+  parentPath,
   onToggle,
   onClick,
   openItemIds,
@@ -55,7 +55,7 @@ export const PageTreeViewItem = ({
     navigateIntent('edit', { id: page._id, type: page._type });
   };
 
-  const url = parentUrl ? `${parentUrl}/${page.slug?.current}` : getLanguageFromConfig(config) ?? '/';
+  const path = parentPath ? `${parentPath}/${page.slug?.current}` : getLanguageFromConfig(config) ?? '/';
   const hasChildren = !!page.children;
 
   const currentPageNumber = routerPanesState[groupIndex + 1]?.[0]?.id;
@@ -110,7 +110,7 @@ export const PageTreeViewItem = ({
             onClick={onItemClick}>
             <Flex align="center" gap={3}>
               <UrlText isDisabled={isDisabled} textOverflow="ellipsis">
-                {parentUrl ? page.slug?.current : page.language ?? '/'}
+                {parentPath ? page.slug?.current : page.language ?? '/'}
               </UrlText>
               {!isDisabled && (isHovered || hasActionOpen) && (
                 <PageTreeViewItemActions
@@ -132,7 +132,7 @@ export const PageTreeViewItem = ({
                   <PageTreeViewItem
                     key={childPage._id}
                     page={childPage}
-                    parentUrl={url}
+                    parentPath={path}
                     onToggle={onToggle}
                     openItemIds={openItemIds}
                     disabledItemIds={disabledItemIds}

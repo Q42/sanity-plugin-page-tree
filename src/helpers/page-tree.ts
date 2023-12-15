@@ -12,7 +12,7 @@ import { getLanguageFromConfig } from './config';
 export const DRAFTS_PREFIX = 'drafts.';
 
 /**
- * Maps array of raw page metadata objects to page metadata object array containing resolved id, url and type.
+ * Maps array of raw page metadata objects to page metadata object array containing resolved id, path and type.
  */
 export const getAllPageMetadata = (config: PageTreeConfig, pagesInfo: RawPageMetadata[]): PageMetadata[] => {
   const pageTree = mapRawPageMetadatasToPageTree(config, pagesInfo);
@@ -21,7 +21,7 @@ export const getAllPageMetadata = (config: PageTreeConfig, pagesInfo: RawPageMet
   return flatPageTree.map(page => ({
     _id: page._id,
     _updatedAt: page._updatedAt,
-    url: page.url,
+    path: page.path,
     type: page._type,
   }));
 };
@@ -46,7 +46,7 @@ export const findPageTreeItemById = (pages: PageTreeItem[], id: string): PageTre
 export const mapRawPageMetadatasToPageTree = (config: PageTreeConfig, pages: RawPageMetadata[]): PageTreeItem[] => {
   const pagesWithPublishedState = getPublishedAndDraftRawPageMetdadata(pages);
 
-  return orderBy(mapPageTreeItems(config, pagesWithPublishedState), 'url');
+  return orderBy(mapPageTreeItems(config, pagesWithPublishedState), 'path');
 };
 
 /**
@@ -56,28 +56,28 @@ export const flatMapPageTree = (pages: PageTreeItem[]): Omit<PageTreeItem, 'chil
   pages.flatMap(page => (page.children ? [omit(page, 'children'), ...flatMapPageTree(page.children)] : page));
 
 /**
- * Maps pages to page tree containing recursive nested children and urls.
+ * Maps pages to page tree containing recursive nested children and pahts.
  */
 const mapPageTreeItems = (
   config: PageTreeConfig,
   pagesWithPublishedState: RawPageMetadataWithPublishedState[],
   parentId?: string,
-  parentUrl: string = '',
+  parentPath: string = '',
 ): PageTreeItem[] => {
   const getChildPages = (parentId: string | undefined) =>
     pagesWithPublishedState.filter(page => page.parent?._ref === parentId);
 
   return getChildPages(parentId).map(page => {
     const language = getLanguageFromConfig(config);
-    const pageUrl = parentUrl
-      ? `${parentUrl === '/' ? '' : parentUrl}/${page.slug?.current}`
+    const pagePath = parentPath
+      ? `${parentPath === '/' ? '' : parentPath}/${page.slug?.current}`
       : `/${language ? page[language] : ''}`;
-    const children = orderBy(mapPageTreeItems(config, pagesWithPublishedState, page._id, pageUrl), 'url');
+    const children = orderBy(mapPageTreeItems(config, pagesWithPublishedState, page._id, pagePath), 'path');
 
     return {
       ...page,
       ...(children.length ? { children } : {}),
-      url: pageUrl,
+      path: pagePath,
     };
   });
 };
