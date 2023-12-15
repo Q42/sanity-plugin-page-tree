@@ -18,13 +18,9 @@ export const createNextPageTreeClient = ({ config, client, fetchOptions }: NextP
 class NextPageTreeClient {
   private readonly config: PageTreeConfig;
   private readonly client: SanityClient;
-  private readonly defaultSanityFetchOptions: FilteredResponseQueryOptions;
+  private readonly defaultSanityFetchOptions?: FilteredResponseQueryOptions;
 
-  constructor(
-    config: PageTreeConfig,
-    client: SanityClient,
-    defaultSanityFetchOptions: FilteredResponseQueryOptions = {},
-  ) {
+  constructor(config: PageTreeConfig, client: SanityClient, defaultSanityFetchOptions?: FilteredResponseQueryOptions) {
     this.config = config;
     this.client = client;
     this.defaultSanityFetchOptions = defaultSanityFetchOptions;
@@ -33,8 +29,8 @@ class NextPageTreeClient {
   public async getAllPageMetadata(): Promise<PageMetadata[]> {
     const rawPageMetadata = await this.client.fetch(
       getRawPageMetadataQuery(this.config),
-      null,
-      this.defaultSanityFetchOptions,
+      undefined,
+      this.defaultSanityFetchOptions ?? {},
     );
     return getAllPageMetadata(this.config, rawPageMetadata);
   }
