@@ -36,7 +36,7 @@ export const PageTreeField = (
 
   const flatFieldPages = useMemo(() => (fieldPage ? flatMapPageTree([fieldPage]) : []), [fieldPage]);
 
-  const [parentUrl, setOptimisticParentUrl] = useOptimisticState<string | undefined>(parentPage?.url);
+  const [parentPath, setOptimisticParentPath] = useOptimisticState<string | undefined>(parentPage?.path);
 
   // Some page tree items are not suitable options for a new parent reference.
   // Disable the current parent page, the current page and all of its children.
@@ -55,7 +55,7 @@ export const PageTreeField = (
 
   const selectParentPage = (page: PageTreeItem) => {
     props.inputProps.onChange(set({ _ref: page._id, _type: 'reference' }));
-    setOptimisticParentUrl(page.url);
+    setOptimisticParentPath(page.path);
     closeDialog();
   };
 
@@ -70,7 +70,7 @@ export const PageTreeField = (
           ) : (
             <Card padding={1} shadow={1} radius={2}>
               <SelectedItemCard padding={3} radius={2} onClick={openDialog}>
-                {parentId ? parentUrl ?? 'Select page' : 'Select page'}
+                {parentId ? parentPath ?? 'Select page' : 'Select page'}
               </SelectedItemCard>
             </Card>
           )}

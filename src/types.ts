@@ -8,34 +8,31 @@ export type SanityRef = {
 /**
  * @public
  */
-export type SitemapPage = {
+export type PageMetadata = {
   _id: string;
   _updatedAt: string;
-  url: string;
+  path: string;
   type: string;
 };
 
-/**
- * @public
- */
-export type PageInfo = {
+export type RawPageMetadata = {
+  // For user customizable language/title fields
   [key: string]: any;
   _id: string;
   _type: string;
   _updatedAt: string;
   parent?: SanityRef;
   slug?: { current: string };
-  title: string;
 };
 
-export type PageInfoWithPublishedState = PageInfo & {
+export type RawPageMetadataWithPublishedState = RawPageMetadata & {
   isDraft: boolean;
   isPublished: boolean;
 };
 
-export type PageTreeItem = PageInfoWithPublishedState & {
+export type PageTreeItem = RawPageMetadataWithPublishedState & {
   children?: PageTreeItem[];
-  url: string;
+  path: string;
 };
 
 /**
@@ -48,6 +45,8 @@ export type PageTreeConfig = {
   rootSchemaType: string;
   /* All your page schema type names, e.g. ["homePage", "contentPage"] */
   pageSchemaTypes: string[];
+  /* Field name of your page documents */
+  titleFieldName?: string;
   /* This plugin supports the document-internationalization plugin. To use it properly, provide the supported languages. */
   documentInternationalization?: {
     /* Array of supported language code strings, e.g. ["en", "nl"]. These will be used in root pages and when creating a new child page it will set the language field based on the parent page. */
@@ -63,12 +62,4 @@ export type PageTreeConfig = {
 export type PageTreeDocumentListOptions = {
   config: PageTreeConfig;
   extendDocumentList?: (builder: DocumentListBuilder) => DocumentListBuilder;
-};
-
-/**
- * @public
- */
-export type PageTreeHelpers = {
-  pageInfoQuery: string;
-  getSitemap: (pagesInfo: PageInfo[]) => SitemapPage[];
 };

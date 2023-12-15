@@ -1,6 +1,6 @@
 {
   "name": "sanity-plugin-page-tree",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A Sanity plugin to make managing nested pages in a tree easier",
   "keywords": [
     "sanity",
@@ -41,6 +41,17 @@
       "import": "./dist/client.esm.js",
       "default": "./dist/client.esm.js"
     },
+    "./next": {
+      "types": "./dist/next.d.ts",
+      "source": "./src/next.ts",
+      "require": "./dist/next.js",
+      "node": {
+        "module": "./dist/next.esm.js",
+        "import": "./dist/next.cjs.mjs"
+      },
+      "import": "./dist/next.esm.js",
+      "default": "./dist/next.esm.js"
+    },
     "./package.json": "./package.json"
   },
   "main": "./dist/index.js",
@@ -69,6 +80,7 @@
     "@sanity/incompatible-plugin": "^1.0.4",
     "@sanity/ui": "^1.9.3",
     "lodash": "^4.17.21",
+    "next-sanity": "^7.0.4",
     "sanity-plugin-utils": "^1.6.2"
   },
   "devDependencies": {
