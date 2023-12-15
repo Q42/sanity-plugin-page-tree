@@ -2,17 +2,21 @@ import { ObjectRule, defineArrayMember, defineField, defineType } from 'sanity';
 import { PageTreeField, definePageType } from 'sanity-plugin-page-tree';
 import { pageTreeConfig } from '../page-tree.config';
 
-
 const _homePageType = defineType({
   name: 'homePage',
   type: 'document',
   title: 'Homepage',
   fields: [
     defineField({
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+    }),
+    defineField({
       name: 'introText',
       title: 'Intro text',
       type: 'text',
-      validation: Rule => Rule.required()
+      validation: Rule => Rule.required(),
     }),
     defineField({
       name: 'link',
@@ -24,7 +28,7 @@ const _homePageType = defineType({
           name: 'title',
           title: 'Title',
           type: 'string',
-          validation: Rule => Rule.required()
+          validation: Rule => Rule.required(),
         }),
         defineField({
           name: 'page',
@@ -33,11 +37,11 @@ const _homePageType = defineType({
           validation: Rule => Rule.required(),
           to: [{ type: 'contentPage' }, { type: 'homePage' }],
           components: {
-            field : (props) => PageTreeField({ ...props, config: pageTreeConfig })
-          }
-        })
-      ]
-    })
+            field: props => PageTreeField({ ...props, config: pageTreeConfig }),
+          },
+        }),
+      ],
+    }),
   ],
 });
 
@@ -53,7 +57,7 @@ const _contentPageType = defineType({
       title: 'Content',
       type: 'array',
       of: [defineArrayMember({ type: 'block' })],
-    })
+    }),
   ],
 });
 
