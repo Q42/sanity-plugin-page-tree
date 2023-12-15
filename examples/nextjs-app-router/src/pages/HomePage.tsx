@@ -1,8 +1,5 @@
-import { PortableText } from "@portabletext/react";
-import { PortableTextBlock } from "sanity";
-import Image from 'next/image';
 import { HomePage as HomePageType } from "@/page-types";
-import PageLink from "@/components/PAGELink";
+import PageLink from "@/components/PageLink";
 
 export type HomePageProps = {
   page: HomePageType;

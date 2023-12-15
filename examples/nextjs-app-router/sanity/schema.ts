@@ -1,6 +1,7 @@
 import { ObjectRule, defineArrayMember, defineField, defineType } from 'sanity';
 import { PageTreeField, definePageType } from 'sanity-plugin-page-tree';
-import { pageTreeConfig } from '../page-tree-config';
+import { pageTreeConfig } from '../page-tree.config';
+
 
 const _homePageType = defineType({
   name: 'homePage',

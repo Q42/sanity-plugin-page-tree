@@ -1,18 +1,13 @@
 import Link from 'next/link';
-import { PropsWithChildren, ReactNode } from 'react';
-import { PageInfo, getPageTreeHelpers } from 'sanity-plugin-page-tree/client';
-import { sanityClient } from '../../sanity.client';
-import { pageTreeConfig } from '../../page-tree-config';
+import { PropsWithChildren } from 'react';
+import { pageTreeClient } from '../../page-tree.client';
 
 export type PageLinkProps = {
   link: { _ref: string; _type: 'reference' };
 };
 
 const PageLink = async ({ children, link }: PropsWithChildren<PageLinkProps>) => {
-  const {getSitemap, pageInfoQuery} = getPageTreeHelpers(pageTreeConfig);
-  const pageInfos = await sanityClient.fetch<PageInfo[]>(pageInfoQuery);
-  const sitemap = getSitemap(pageInfos);
-  const pageInfo = sitemap.find((page) => page._id === link._ref);
+  const pageInfo = await pageTreeClient.getSitemapPageById(link._ref);
   const url = pageInfo?.url;
 
   if (!url) {

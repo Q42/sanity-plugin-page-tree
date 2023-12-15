@@ -10,7 +10,8 @@ import {deskTool} from 'sanity/desk'
 import { dataset, projectId} from './sanity/env'
 import { schemaTypes} from './sanity/schema'
 import { createPageTreeDocumentList } from 'sanity-plugin-page-tree'
-import { pageTreeConfig } from './page-tree-config'
+import { pageTreeConfig } from './page-tree.config'
+
 
 export default defineConfig({
   basePath: '/studio',
