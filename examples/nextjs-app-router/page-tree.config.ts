@@ -5,4 +5,5 @@ export const pageTreeConfig: PageTreeConfig = {
   rootSchemaType: 'homePage',
   pageSchemaTypes: ['homePage', 'contentPage'],
   apiVersion,
+  titleFieldName: 'title',
 };

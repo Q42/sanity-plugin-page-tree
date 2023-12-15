@@ -1,4 +1,4 @@
-import { DocumentDefinition, defineField, defineType } from 'sanity';
+import { DocumentDefinition, defineField, defineType, SlugOptions } from 'sanity';
 
 import { PageTreeField } from '../components/PageTreeField';
 import { PageTreeConfig } from '../types';
@@ -7,6 +7,7 @@ import { slugValidator } from '../validators/slug-validator';
 type Options = {
   isRoot?: boolean;
   fieldsGroupName?: string;
+  slugSource?: SlugOptions['source'];
 };
 
 export const definePageType = (
@@ -21,12 +22,6 @@ export const definePageType = (
   });
 
 const basePageFields = (config: PageTreeConfig, options: Options) => [
-  defineField({
-    name: 'title',
-    title: 'Title',
-    type: 'string',
-    group: options.fieldsGroupName,
-  }),
   ...(!options.isRoot
     ? [
         defineField({
@@ -34,7 +29,7 @@ const basePageFields = (config: PageTreeConfig, options: Options) => [
           title: 'Slug',
           type: 'slug',
           options: {
-            source: 'title',
+            source: config.titleFieldName ?? options.slugSource,
             isUnique: () => true,
           },
           validation: Rule => Rule.required().custom(slugValidator(config)),
@@ -46,7 +41,7 @@ const basePageFields = (config: PageTreeConfig, options: Options) => [
     ? [
         defineField({
           name: 'parent',
-          title: 'Parent',
+          title: 'Parent page',
           type: 'reference',
           to: config.pageSchemaTypes.map(type => ({ type })),
           validation: Rule => Rule.required(),

@@ -8,6 +8,11 @@ const _homePageType = defineType({
   title: 'Homepage',
   fields: [
     defineField({
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+    }),
+    defineField({
       name: 'introText',
       title: 'Intro text',
       type: 'text',
@@ -47,6 +52,11 @@ const _contentPageType = defineType({
   type: 'document',
   title: 'Content page',
   fields: [
+    defineField({
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+    }),
     defineField({
       name: 'content',
       title: 'Content',

@@ -16,14 +16,13 @@ export type PageMetadata = {
 };
 
 export type RawPageMetadata = {
-  // For language field in case document internationalization plugin is configured
+  // For user customizable language/title fields
   [key: string]: any;
   _id: string;
   _type: string;
   _updatedAt: string;
   parent?: SanityRef;
   slug?: { current: string };
-  title: string;
 };
 
 export type RawPageMetadataWithPublishedState = RawPageMetadata & {
@@ -46,6 +45,8 @@ export type PageTreeConfig = {
   rootSchemaType: string;
   /* All your page schema type names, e.g. ["homePage", "contentPage"] */
   pageSchemaTypes: string[];
+  /* Field name of your page documents */
+  titleFieldName?: string;
   /* This plugin supports the document-internationalization plugin. To use it properly, provide the supported languages. */
   documentInternationalization?: {
     /* Array of supported language code strings, e.g. ["en", "nl"]. These will be used in root pages and when creating a new child page it will set the language field based on the parent page. */

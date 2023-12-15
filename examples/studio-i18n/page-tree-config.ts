@@ -4,6 +4,7 @@ export const pageTreeConfig: PageTreeConfig = {
   rootSchemaType: 'homePage',
   pageSchemaTypes: ['homePage', 'contentPage'],
   apiVersion: '2023-12-08',
+  titleFieldName: 'title',
   documentInternationalization: {
     supportedLanguages: ['en', 'nl'],
   },
