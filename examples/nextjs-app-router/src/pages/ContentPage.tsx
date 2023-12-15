@@ -1,9 +1,9 @@
-import { PortableText } from "@portabletext/react";
-import { ContentPage as ContentPageType } from "@/page-types";
+import { PortableText } from '@portabletext/react';
+import { ContentPage as ContentPageType } from '@/page-types';
 
 type ContentPageProps = {
   page: ContentPageType;
-}
+};
 
 export const ContentPage = ({ page }: ContentPageProps) => {
   return (
@@ -12,4 +12,4 @@ export const ContentPage = ({ page }: ContentPageProps) => {
       <PortableText value={page.content} />
     </div>
   );
-}
+};

@@ -23,7 +23,7 @@ class PageTreeClient {
     this.client = client;
   }
 
-  async getAllPageMetadata(): Promise<PageMetadata[]> {
+  public async getAllPageMetadata(): Promise<PageMetadata[]> {
     const rawPageMetadata = await this.client.fetch(getRawPageMetadataQuery(this.config));
     return getAllPageMetadata(this.config, rawPageMetadata);
   }
