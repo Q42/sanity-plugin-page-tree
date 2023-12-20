@@ -79,6 +79,7 @@
     "@sanity/icons": "^2.7.0",
     "@sanity/incompatible-plugin": "^1.0.4",
     "@sanity/ui": "^1.9.3",
+    "@sanity/uuid": "^3.0.2",
     "lodash": "^4.17.21",
     "next-sanity": "^7.0.4",
     "sanity-plugin-utils": "^1.6.2"
