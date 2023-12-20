@@ -44,7 +44,7 @@ export const findPageTreeItemById = (pages: PageTreeItem[], id: string): PageTre
  * Maps pages to page tree containing recursive nested children.
  */
 export const mapRawPageMetadatasToPageTree = (config: PageTreeConfig, pages: RawPageMetadata[]): PageTreeItem[] => {
-  const pagesWithPublishedState = getPublishedAndDraftRawPageMetdadata(pages);
+  const pagesWithPublishedState = getPublishedAndDraftRawPageMetdadata(config, pages);
 
   return orderBy(mapPageTreeItems(config, pagesWithPublishedState), 'path');
 };
@@ -85,7 +85,10 @@ const mapPageTreeItems = (
 /**
  * Provides draft and published status. Filters out duplicate pages with the same id and invalid pages.
  */
-const getPublishedAndDraftRawPageMetdadata = (pages: RawPageMetadata[]): RawPageMetadataWithPublishedState[] => {
+const getPublishedAndDraftRawPageMetdadata = (
+  config: PageTreeConfig,
+  pages: RawPageMetadata[],
+): RawPageMetadataWithPublishedState[] => {
   const publishedPages = groupBy(
     pages.filter(p => !p._id.startsWith(DRAFTS_PREFIX)),
     p => p._id,
@@ -96,7 +99,7 @@ const getPublishedAndDraftRawPageMetdadata = (pages: RawPageMetadata[]): RawPage
   );
 
   return pages
-    .filter(isValidPage)
+    .filter(page => isValidPage(config, page))
     .filter(p => !draftPages[p._id]) // filter out published versions for pages which have a draft
     .map(p => {
       const isDraft = p._id.startsWith(DRAFTS_PREFIX);
@@ -111,9 +114,9 @@ const getPublishedAndDraftRawPageMetdadata = (pages: RawPageMetadata[]): RawPage
     });
 };
 
-const isValidPage = (page: RawPageMetadata): boolean => {
+const isValidPage = (config: PageTreeConfig, page: RawPageMetadata): boolean => {
   if (page.parent === null || page.slug === null) {
-    if (page._type != 'homePage') {
+    if (page._type !== config.rootSchemaType) {
       return false;
     }
   }
