@@ -1,4 +1,4 @@
-import { PageTreeConfig } from 'sanity-plugin-page-tree';
+import { PageTreeConfig } from '@q42/sanity-plugin-page-tree';
 
 export const pageTreeConfig: PageTreeConfig = {
   rootSchemaType: 'homePage',

@@ -11,11 +11,11 @@
   },
   "dependencies": {
     "@portabletext/react": "^3.0.11",
+    "@q42/sanity-plugin-page-tree": "file:.yalc/@q42/sanity-plugin-page-tree",
     "@sanity/client": "^6.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.21.0",
-    "sanity-plugin-page-tree": "file:.yalc/sanity-plugin-page-tree"
+    "react-router-dom": "^6.21.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

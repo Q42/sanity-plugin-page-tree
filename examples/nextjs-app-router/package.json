@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-app-router",
+  "name": "nextjs-app-router-example",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@q42/sanity-plugin-page-tree": "file:.yalc/@q42/sanity-plugin-page-tree",
     "@sanity/image-url": "^1.0.2",
     "@sanity/vision": "^3.21.3",
     "next": "14.0.4",
@@ -16,7 +17,6 @@
     "react": "^18",
     "react-dom": "^18",
     "sanity": "^3.21.3",
-    "sanity-plugin-page-tree": "file:.yalc/sanity-plugin-page-tree",
     "styled-components": "^6.1.1"
   },
   "devDependencies": {

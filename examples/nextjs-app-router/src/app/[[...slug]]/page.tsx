@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import {sanityClient} from '../../../sanity.client'
 import { HomePage as HomePageType, ContentPage as ContentPageType } from '../../page-types';
-import { PageMetadata } from 'sanity-plugin-page-tree/next';
+import { PageMetadata } from '@q42/sanity-plugin-page-tree/next';
 import { HomePage } from '@/pages/HomePage';
 import { ContentPage } from '@/pages/ContentPage';
 import { pageTreeClient } from '../../../page-tree.client';

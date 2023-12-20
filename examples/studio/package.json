@@ -15,12 +15,12 @@
     "sanity"
   ],
   "dependencies": {
+    "@q42/sanity-plugin-page-tree": "file:.yalc/@q42/sanity-plugin-page-tree",
     "@sanity/vision": "^3.21.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",
     "sanity": "^3.21.1",
-    "sanity-plugin-page-tree": "file:.yalc/sanity-plugin-page-tree",
     "styled-components": "^5"
   },
   "devDependencies": {

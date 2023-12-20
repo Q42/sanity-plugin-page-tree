@@ -2,7 +2,7 @@ import { defineConfig } from 'sanity';
 import { deskTool } from 'sanity/desk';
 import { visionTool } from '@sanity/vision';
 import { schemaTypes } from './schemas';
-import { createPageTreeDocumentList } from 'sanity-plugin-page-tree';
+import { createPageTreeDocumentList } from '@q42/sanity-plugin-page-tree';
 import { pageTreeConfig } from './page-tree.config';
 
 export default defineConfig({
