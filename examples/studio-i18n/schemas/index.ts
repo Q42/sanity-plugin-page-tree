@@ -1,5 +1,5 @@
 import { defineField, defineType } from 'sanity';
-import { definePageType } from 'sanity-plugin-page-tree';
+import { definePageType } from '@q42/sanity-plugin-page-tree';
 import { pageTreeConfig } from '../page-tree-config';
 
 const _homePageType = defineType({

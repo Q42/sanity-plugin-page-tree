@@ -1,6 +1,6 @@
 import { createContext, PropsWithChildren, useEffect, useState } from 'react';
 import { pageTreeClient } from './page-tree.client.ts';
-import { PageMetadata } from 'sanity-plugin-page-tree/client';
+import { PageMetadata } from '@q42/sanity-plugin-page-tree/client';
 
 export type PageTreeContextState = {
   allPageMetadata?: PageMetadata[];

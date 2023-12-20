@@ -9,7 +9,7 @@ import {deskTool} from 'sanity/desk'
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
 import { dataset, projectId} from './sanity/env'
 import { schemaTypes} from './sanity/schema'
-import { createPageTreeDocumentList } from 'sanity-plugin-page-tree'
+import { createPageTreeDocumentList } from '@q42/sanity-plugin-page-tree'
 import { pageTreeConfig } from './page-tree.config'
 
 

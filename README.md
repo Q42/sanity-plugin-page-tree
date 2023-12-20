@@ -31,7 +31,7 @@ Create a shared page tree config file and constant to use in your page types and
 
 ```ts
 // page-tree-config.ts
-import { PageTreeConfig } from 'sanity-plugin-page-tree';
+import { PageTreeConfig } from '@q42/sanity-plugin-page-tree';
 
 export const pageTreeConfig: PageTreeConfig = {
   /* Root page schema type name */
@@ -132,7 +132,7 @@ This plugin supports the [@sanity/document-internationalization](https://github.
 
 ```ts
 // page-tree-config.ts
-import { PageTreeConfig } from 'sanity-plugin-page-tree';
+import { PageTreeConfig } from '@q42/sanity-plugin-page-tree';
 
 export const pageTreeConfig: PageTreeConfig = {
   ...,
@@ -156,7 +156,7 @@ In order to get the page data for the requested path you have to creat a client.
 With this metadata you can retrieve the data of the document yourself. 
 
 ```ts
-import { createPageTreeClient } from 'sanity-plugin-page-tree/client';
+import { createPageTreeClient } from '@q42/sanity-plugin-page-tree/client';
 
 const pageTreeClient = createPageTreeClient({
   config: pageTreeConfig,
@@ -183,7 +183,7 @@ For users using the App Router of Next.JS with Server Components, we can benefit
 You can import the dedicated next client:
 
 ```ts
-import { createNextPageTreeClient } from 'sanity-plugin-page-tree/next';
+import { createNextPageTreeClient } from '@q42/sanity-plugin-page-tree/next';
 ``` 
 
 This client provides you with some additional helper methods: 
