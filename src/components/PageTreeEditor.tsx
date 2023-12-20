@@ -72,7 +72,7 @@ export const PageTreeEditor = ({
 
         if (
           shouldInclude &&
-          (page.title?.toLowerCase().includes(query) || page.slug?.current.toLowerCase().includes(query))
+          (page.title?.toLowerCase().includes(query) || page.slug?.current?.toLowerCase().includes(query))
         ) {
           filteredPages.push(page);
         }
