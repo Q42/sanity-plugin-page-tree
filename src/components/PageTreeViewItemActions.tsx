@@ -26,7 +26,15 @@ export const PageTreeViewItemActions = ({ page, onActionOpen, onActionClose }: P
     const doc = await client.create({
       _id: generateDraftId(),
       _type: type,
-      parent: config.rootSchemaType === type ? undefined : { _type: 'reference', _ref: page._id },
+      parent:
+        config.rootSchemaType === type
+          ? undefined
+          : {
+              _type: 'reference',
+              _ref: page._id,
+              _weak: true,
+              _strengthenOnPublish: { type: page._type },
+            },
       ...(language ? { [language]: page[language] } : {}),
     });
     setNewPage(doc);
