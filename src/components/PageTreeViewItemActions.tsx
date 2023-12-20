@@ -7,7 +7,6 @@ import { useRouter } from 'sanity/router';
 import { usePageTreeConfig } from '../hooks/usePageTreeConfig';
 import { PageTreeItem } from '../types';
 import { getLanguageFromConfig } from '../helpers/config';
-import { uuid } from '@sanity/uuid';
 import { generateDraftId } from '../helpers/uuid';
 
 export type PageTreeViewItemActionsProps = {
