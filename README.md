@@ -21,7 +21,7 @@ Achieving this can be challenging, especially if all the slugs need to be dynami
 ## Installation
 
 ```sh
-npm install sanity-plugin-page-tree
+npm i @q42/sanity-plugin-page-tree
 ```
 
 ## Usage in Sanity Studio

@@ -1,6 +1,6 @@
 {
   "name": "@q42/sanity-plugin-page-tree",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Sanity plugin to make managing nested pages in a tree easier",
   "keywords": [
     "sanity",
@@ -110,7 +110,7 @@
   "peerDependencies": {
     "react": "^18",
     "sanity": "^3",
-    "styled-components": "^5.3.6"
+    "styled-components": "^5 || ^6"
   },
   "volta": {
     "node": "18.17.0"
