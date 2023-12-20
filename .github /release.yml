@@ -1,0 +1,20 @@
+changelog:
+  exclude:
+    labels:
+      - no-release-notes
+  categories:
+    - title: '🚨 Actions required'
+      labels:
+        - 'action-required'
+    - title: '🚀 Features'
+      labels:
+        - 'feature'
+    - title: '🐛 Bug Fixes'
+      labels:
+        - 'bugfix'
+    - title: '🧰 Maintenance'
+      labels:
+        - 'maintenance'
+    - title: Other Changes
+      labels:
+        - "*"
