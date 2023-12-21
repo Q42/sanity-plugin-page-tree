@@ -7,6 +7,7 @@ import { useRouter } from 'sanity/router';
 import { usePageTreeConfig } from '../hooks/usePageTreeConfig';
 import { PageTreeItem } from '../types';
 import { getLanguageFromConfig } from '../helpers/config';
+import { generateDraftId } from '../helpers/uuid';
 
 export type PageTreeViewItemActionsProps = {
   page: PageTreeItem;
@@ -23,6 +24,7 @@ export const PageTreeViewItemActions = ({ page, onActionOpen, onActionClose }: P
   const onAdd = async (type: string) => {
     const language = getLanguageFromConfig(config);
     const doc = await client.create({
+      _id: generateDraftId(),
       _type: type,
       parent: config.rootSchemaType === type ? undefined : { _type: 'reference', _ref: page._id },
       ...(language ? { [language]: page[language] } : {}),

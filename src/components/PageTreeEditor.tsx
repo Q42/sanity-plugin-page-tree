@@ -10,6 +10,7 @@ import { usePageTreeConfig } from '../hooks/usePageTreeConfig';
 import { useClient } from 'sanity';
 import { useRouter } from 'sanity/router';
 import styled from 'styled-components';
+import { generateDraftId } from '../helpers/uuid';
 
 export type PageTreeEditorProps = {
   pageTree: PageTreeItem[];
@@ -111,6 +112,7 @@ export const PageTreeEditor = ({
 
   const addRootPage = useCallback(async () => {
     const doc = await client.create({
+      _id: generateDraftId(),
       _type: config.rootSchemaType,
     });
     const path = resolveIntentLink('edit', { id: doc._id, type: doc._type });
