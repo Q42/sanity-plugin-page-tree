@@ -1,7 +1,7 @@
 import { AddIcon } from '@sanity/icons';
 import { Button, Flex, Menu, MenuButton, MenuItem } from '@sanity/ui';
 import { useEffect, useState } from 'react';
-import { useClient } from 'sanity';
+import { useClient, useSchema } from 'sanity';
 import { useRouter } from 'sanity/router';
 
 import { usePageTreeConfig } from '../hooks/usePageTreeConfig';
@@ -16,6 +16,7 @@ export type PageTreeViewItemActionsProps = {
 };
 
 export const PageTreeViewItemActions = ({ page, onActionOpen, onActionClose }: PageTreeViewItemActionsProps) => {
+  const schema = useSchema();
   const config = usePageTreeConfig();
   const client = useClient({ apiVersion: config.apiVersion });
   const { navigateUrl, resolveIntentLink } = useRouter();
@@ -57,7 +58,7 @@ export const PageTreeViewItemActions = ({ page, onActionOpen, onActionClose }: P
             {config.pageSchemaTypes
               .filter(type => type !== config.rootSchemaType)
               .map(type => (
-                <MenuItem key={type} onClick={() => onAdd(type)} text={type} value={type} />
+                <MenuItem key={type} onClick={() => onAdd(type)} text={schema.get(type)?.title ?? type} value={type} />
               ))}
           </Menu>
         }
