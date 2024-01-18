@@ -54,7 +54,9 @@ export const PageTreeField = (
   };
 
   const selectParentPage = (page: PageTreeItem) => {
-    props.inputProps.onChange(set({ _ref: page._id, _type: 'reference' }));
+    props.inputProps.onChange(
+      set({ _ref: page.isDraft ? `${DRAFTS_PREFIX}${page._id}` : page._id, _type: 'reference' }),
+    );
     setOptimisticParentPath(page.path);
     closeDialog();
   };
