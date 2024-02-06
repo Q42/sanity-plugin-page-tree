@@ -42,6 +42,9 @@ export const pageTreeConfig: PageTreeConfig = {
   apiVersion: '2023-12-08',
   /* Optionally provide the field name of the title field of your page documents, to be used to generate a slug automatically for example. */
   titleFieldName: 'title',
+  /* Used for showing the full url for a document and linking to it. */
+  /* optional, otherwise the path is shown */
+  baseUrl: "https://example.com"
 };
 ```
 
