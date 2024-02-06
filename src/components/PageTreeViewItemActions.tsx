@@ -1,12 +1,13 @@
 import { AddIcon } from '@sanity/icons';
 import { Button, Flex, Menu, MenuButton, MenuItem } from '@sanity/ui';
 import { useEffect, useState } from 'react';
-import { useClient } from 'sanity';
+import { useClient, useSchema } from 'sanity';
 import { useRouter } from 'sanity/router';
 
 import { usePageTreeConfig } from '../hooks/usePageTreeConfig';
 import { PageTreeItem } from '../types';
 import { getLanguageFromConfig } from '../helpers/config';
+import { generateDraftId } from '../helpers/uuid';
 
 export type PageTreeViewItemActionsProps = {
   page: PageTreeItem;
@@ -15,6 +16,7 @@ export type PageTreeViewItemActionsProps = {
 };
 
 export const PageTreeViewItemActions = ({ page, onActionOpen, onActionClose }: PageTreeViewItemActionsProps) => {
+  const schema = useSchema();
   const config = usePageTreeConfig();
   const client = useClient({ apiVersion: config.apiVersion });
   const { navigateUrl, resolveIntentLink } = useRouter();
@@ -23,8 +25,17 @@ export const PageTreeViewItemActions = ({ page, onActionOpen, onActionClose }: P
   const onAdd = async (type: string) => {
     const language = getLanguageFromConfig(config);
     const doc = await client.create({
+      _id: generateDraftId(),
       _type: type,
-      parent: config.rootSchemaType === type ? undefined : { _type: 'reference', _ref: page._id },
+      parent:
+        config.rootSchemaType === type
+          ? undefined
+          : {
+              _type: 'reference',
+              _ref: page._id,
+              _weak: true,
+              _strengthenOnPublish: { type: page._type },
+            },
       ...(language ? { [language]: page[language] } : {}),
     });
     setNewPage(doc);
@@ -47,7 +58,7 @@ export const PageTreeViewItemActions = ({ page, onActionOpen, onActionClose }: P
             {config.pageSchemaTypes
               .filter(type => type !== config.rootSchemaType)
               .map(type => (
-                <MenuItem key={type} onClick={() => onAdd(type)} text={type} value={type} />
+                <MenuItem key={type} onClick={() => onAdd(type)} text={schema.get(type)?.title ?? type} value={type} />
               ))}
           </Menu>
         }

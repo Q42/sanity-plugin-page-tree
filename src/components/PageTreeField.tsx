@@ -55,7 +55,14 @@ export const PageTreeField = (
   };
 
   const selectParentPage = (page: PageTreeItem) => {
-    props.inputProps.onChange(set({ _ref: page._id, _type: 'reference' }));
+    props.inputProps.onChange(
+      set({
+        _ref: page._id,
+        _type: 'reference',
+        _weak: page.isDraft,
+        ...(page.isDraft ? { _strengthenOnPublish: { type: page._type } } : {}),
+      }),
+    );
     setOptimisticParentPath(page.path);
     closeDialog();
   };
