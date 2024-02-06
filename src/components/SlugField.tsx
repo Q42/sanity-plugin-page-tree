@@ -43,7 +43,7 @@ const UrlExplanation = ({ baseUrl, path, isPublised }: UrlExplanationProps) => {
     </a>
   );
 
-  const content = isPublised ? <>Link to page: {linkToPage}</> : <>Page url once published: {url ?? path}`</>;
+  const content = isPublised ? <>Link to page: {linkToPage}</> : <>Page url once published: {url ?? path}</>;
 
   return (
     <Text muted size={1}>
