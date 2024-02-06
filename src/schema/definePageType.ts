@@ -3,6 +3,7 @@ import { DocumentDefinition, defineField, defineType, SlugOptions } from 'sanity
 import { PageTreeField } from '../components/PageTreeField';
 import { PageTreeConfig } from '../types';
 import { slugValidator } from '../validators/slug-validator';
+import { SlugField } from '../components/SlugField';
 
 type Options = {
   isRoot?: boolean;
@@ -31,6 +32,9 @@ const basePageFields = (config: PageTreeConfig, options: Options) => [
           options: {
             source: config.titleFieldName ?? options.slugSource,
             isUnique: () => true,
+          },
+          components: {
+            input: props => SlugField({ ...props, config }),
           },
           validation: Rule => Rule.required().custom(slugValidator(config)),
           group: options.fieldsGroupName,

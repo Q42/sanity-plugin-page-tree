@@ -5,4 +5,5 @@ export const pageTreeConfig: PageTreeConfig = {
   pageSchemaTypes: ['homePage', 'contentPage'],
   apiVersion: '2023-12-08',
   titleFieldName: 'title',
+  baseUrl: 'https://q42.nl'
 };

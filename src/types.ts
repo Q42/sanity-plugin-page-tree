@@ -47,6 +47,8 @@ export type PageTreeConfig = {
   pageSchemaTypes: string[];
   /* Field name of your page documents */
   titleFieldName?: string;
+  /* Used for creating page link on the editor page */
+  baseUrl?: string;
   /* This plugin supports the document-internationalization plugin. To use it properly, provide the supported languages. */
   documentInternationalization?: {
     /* Array of supported language code strings, e.g. ["en", "nl"]. These will be used in root pages and when creating a new child page it will set the language field based on the parent page. */
