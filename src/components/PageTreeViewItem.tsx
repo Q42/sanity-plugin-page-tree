@@ -2,7 +2,7 @@ import { MouseEvent } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@sanity/icons';
 import { Button, Card, Flex, Stack, Text } from '@sanity/ui';
 import { useMemo, useState } from 'react';
-import { usePaneRouter } from 'sanity/desk';
+import { usePaneRouter } from 'sanity/structure';
 import styled from 'styled-components';
 
 import { PageTreeViewItemActions } from './PageTreeViewItemActions';

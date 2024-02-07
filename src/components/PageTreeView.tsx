@@ -1,6 +1,6 @@
 import { Card, Stack, Flex, Spinner } from '@sanity/ui';
 import { forwardRef } from 'react';
-import { UserComponent } from 'sanity/desk';
+import { UserComponent } from 'sanity/structure';
 
 import { PageTreeEditor } from './PageTreeEditor';
 import { usePageTree } from '../hooks/usePageTree';
