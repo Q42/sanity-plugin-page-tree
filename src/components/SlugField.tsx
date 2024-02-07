@@ -37,7 +37,7 @@ type UrlExplanationProps = {
 
 const UrlExplanation = ({ id, type, parentId, value, config }: UrlExplanationProps) => {
   const state = useEditState(getSanityDocumentId(id), type ?? '');
-  const isPublised = !!state.published;
+  const isPublished = !!state.published;
 
   // we use published perspective so we don't get a draft version of the slug that has been changed of a parent page.
   const { page, isLoading } = usePageTreeItem(parentId, config, 'published');
