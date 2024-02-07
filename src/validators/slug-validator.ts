@@ -3,6 +3,7 @@ import { SlugValue, ValidationContext } from 'sanity';
 import { DRAFTS_PREFIX } from '../helpers/page-tree';
 import { getRawPageMetadataQuery } from '../queries';
 import { RawPageMetadata, PageTreeConfig, SanityRef } from '../types';
+import { getSanityDocumentId } from '../utils/sanity';
 
 /**
  * Validates that the slug is unique within the parent page and therefore that entire the path is unique.
@@ -20,7 +21,9 @@ export const slugValidator =
     const siblingPages = allPages.filter(page => page.parent?._ref === parentRef._ref);
 
     const siblingPagesWithSameSlug = siblingPages
-      .filter(page => page._id.replace(DRAFTS_PREFIX, '') !== context.document?._id.replace(DRAFTS_PREFIX, ''))
+      .filter(
+        page => getSanityDocumentId(page._id) !== (context.document?._id && getSanityDocumentId(context.document._id)),
+      )
       .filter(page => page.slug?.current === slug?.current);
 
     if (siblingPagesWithSameSlug.length) {

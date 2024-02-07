@@ -4,11 +4,12 @@ import { ObjectFieldProps, ReferenceValue, FormField, set, useFormValue, SanityD
 import styled from 'styled-components';
 
 import { PageTreeEditor } from './PageTreeEditor';
-import { DRAFTS_PREFIX, findPageTreeItemById, flatMapPageTree } from '../helpers/page-tree';
+import { findPageTreeItemById, flatMapPageTree } from '../helpers/page-tree';
 import { useOptimisticState } from '../hooks/useOptimisticState';
 import { usePageTree } from '../hooks/usePageTree';
 import { PageTreeConfigProvider } from '../hooks/usePageTreeConfig';
 import { PageTreeConfig, PageTreeItem } from '../types';
+import { getSanityDocumentId } from '../utils/sanity';
 
 export const PageTreeField = (
   props: ObjectFieldProps<ReferenceValue> & {
@@ -26,7 +27,7 @@ export const PageTreeField = (
   const [isPageTreeDialogOpen, setIsPageTreeDialogOpen] = useState(false);
 
   const parentId = props.inputProps.value?._ref;
-  const pageId = form._id?.replace(DRAFTS_PREFIX, '');
+  const pageId = getSanityDocumentId(form._id);
 
   const fieldPage = useMemo(() => (pageTree ? findPageTreeItemById(pageTree, pageId) : undefined), [pageTree, pageId]);
   const parentPage = useMemo(

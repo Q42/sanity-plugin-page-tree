@@ -8,6 +8,7 @@ import {
   PageMetadata,
 } from '../types';
 import { getLanguageFromConfig } from './config';
+import { getSanityDocumentId } from '../utils/sanity';
 
 export const DRAFTS_PREFIX = 'drafts.';
 
@@ -95,7 +96,7 @@ const getPublishedAndDraftRawPageMetdadata = (
   );
   const draftPages = groupBy(
     pages.filter(p => p._id.startsWith(DRAFTS_PREFIX)),
-    p => p._id.replace(DRAFTS_PREFIX, ''),
+    p => getSanityDocumentId(p._id),
   );
 
   return pages
@@ -103,7 +104,7 @@ const getPublishedAndDraftRawPageMetdadata = (
     .filter(p => !draftPages[p._id]) // filter out published versions for pages which have a draft
     .map(p => {
       const isDraft = p._id.startsWith(DRAFTS_PREFIX);
-      const _idWithoutDraft = p._id.replace(DRAFTS_PREFIX, '');
+      const _idWithoutDraft = getSanityDocumentId(p._id);
       const newPage: RawPageMetadataWithPublishedState = {
         ...p,
         _id: isDraft ? _idWithoutDraft : p._id,
