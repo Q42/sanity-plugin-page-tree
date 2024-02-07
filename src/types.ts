@@ -1,4 +1,4 @@
-import { DocumentListBuilder } from 'sanity/lib/exports/desk';
+import { DocumentListBuilder } from 'sanity/structure';
 
 export type SanityRef = {
   _ref: string;

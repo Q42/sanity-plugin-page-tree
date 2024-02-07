@@ -1,4 +1,4 @@
-import { StructureBuilder, DocumentList } from 'sanity/desk';
+import { StructureBuilder, DocumentList } from 'sanity/structure';
 import { PageTreeDocumentListOptions } from './types';
 import { createPageTreeView } from './components/PageTreeView';
 
