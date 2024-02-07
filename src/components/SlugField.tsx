@@ -1,5 +1,5 @@
 import { Stack, Text } from '@sanity/ui';
-import { Reference, SlugInput, SlugInputProps, SlugValue, useEditState, useFormValue } from 'sanity';
+import { Reference, SlugInputProps, SlugValue, useEditState, useFormValue } from 'sanity';
 import { PageTreeConfig } from '../types';
 import { usePageTreeItem } from '../hooks/usePageTreeItem';
 import { getSanityDocumentId } from '../utils/sanity';
@@ -15,11 +15,10 @@ export const SlugField = (props: SlugFieldProps) => {
   // TODO ideally this would be more type safe.
   const parentRef = useFormValue(['parent']) as Reference | undefined;
 
-  const { config, value, ...otherProps } = props;
-
+  const { config, value, renderDefault } = props;
   return (
     <Stack space={3}>
-      <SlugInput {...otherProps} value={value} />
+      {renderDefault(props)}
       {typeof id == 'string' && typeof type == 'string' && !!parentRef?._ref && (
         <UrlExplanation id={id} type={type} parentId={parentRef?._ref} config={config} value={value} />
       )}
