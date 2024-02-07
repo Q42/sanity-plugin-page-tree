@@ -51,7 +51,7 @@ const UrlExplanation = ({ id, type, parentId, value, config }: UrlExplanationPro
     </a>
   );
 
-  const content = isPublised ? <>Link to page: {linkToPage}</> : <>Page url once published: {url ?? path}</>;
+  const content = isPublished ? <>Link to page: {linkToPage}</> : <>Page url once published: {url ?? path}</>;
 
   return (
     <Text muted size={1}>
