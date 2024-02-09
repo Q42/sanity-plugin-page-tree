@@ -206,6 +206,17 @@ For full examples, see the following projects:
 [MIT](LICENSE) © Q42
 
 ## Develop & test
+For local development and testing you need to link and watch the library and link it to any of the studio example projects.
+The basic studio example project, located in `examples/studio`, is a good starting point.
+
+### Link & watch
+- Run `npm install` in the root directory to install the dependencies.
+- Run `npm run link-watch` in the root directory.
+
+### Example studio
+- To run the example studio, go to the `examples/studio` directory.
+- Run `npx yalc add @q42/sanity-plugin-page-tree && npx yalc link @q42/sanity-plugin-page-tree && npm install`
+- Run `npm run dev`
 
 This plugin uses [@sanity/plugin-kit](https://github.com/sanity-io/plugin-kit)
 with default configuration for build & watch scripts.
