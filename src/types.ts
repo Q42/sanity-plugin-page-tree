@@ -47,7 +47,7 @@ export type PageTreeConfig = {
   pageSchemaTypes: string[];
   /* Field name of your page documents */
   titleFieldName?: string;
-  /* Specify which document types can be the parent of another document type */
+  /* Optionally specify which document types can be the parent of a document type */
   alllowedParents?: Record<string, string[]>;
   /* Used for creating page link on the editor page */
   baseUrl?: string;
