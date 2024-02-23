@@ -1,5 +1,4 @@
 import { DocumentDefinition, defineField, defineType, SlugOptions } from 'sanity';
-
 import { PageTreeField } from '../components/PageTreeField';
 import { PageTreeConfig } from '../types';
 import { slugValidator } from '../validators/slug-validator';
