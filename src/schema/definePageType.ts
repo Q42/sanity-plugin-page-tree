@@ -3,6 +3,7 @@ import { PageTreeField } from '../components/PageTreeField';
 import { PageTreeConfig } from '../types';
 import { slugValidator } from '../validators/slug-validator';
 import { SlugField } from '../components/SlugField';
+import { allowedParentValidator } from '../validators/parent-validator';
 
 type Options = {
   isRoot?: boolean;
@@ -54,7 +55,7 @@ const basePageFields = (config: PageTreeConfig, options: Options, ownType: Docum
           title: 'Parent page',
           type: 'reference',
           to: getPossibleParentsFromConfig(config, ownType).map(type => ({ type })),
-          validation: Rule => Rule.required(),
+          validation: Rule => Rule.required().custom(allowedParentValidator(config, ownType.name)),
           group: options.fieldsGroupName,
           components: {
             field: props => PageTreeField({ ...props, config, mode: 'select-parent' }),
