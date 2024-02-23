@@ -5,6 +5,7 @@
 ![sanity-plugin-page-tree-studio](https://github.com/Q42/sanity-plugin-page-tree/assets/15087372/45ba349c-13f5-482d-8490-44183b7b448d)
 
 ## Why?
+
 In many example projects for headless CMSs in general, they typically create a post content type with a property like "slug" and serve the post on a route such as `/posts/:slug`. This becomes more complex when dealing with multiple page types and a desire to establish a dynamic page tree.
 
 Consider having three different content types: a home page, an overview page, and a content page, and aiming to create the following URL structure:
@@ -27,6 +28,7 @@ npm i @q42/sanity-plugin-page-tree
 ## Usage in Sanity Studio
 
 ### Create a page tree config
+
 Create a shared page tree config file and constant to use in your page types and desk structure.
 
 ```ts
@@ -37,21 +39,28 @@ export const pageTreeConfig: PageTreeConfig = {
   /* Root page schema type name */
   rootSchemaType: 'homePage',
   /* Array of all page schema type names */
-  pageSchemaTypes: ['homePage', 'contentPage'],
+  pageSchemaTypes: ['homePage', 'contentPage', 'contentChildPate'],
+  /* Optionally specify which document types can be the parent of a document type.
+  If no allowed parents are specified for a type, all document types are allowed as a parent for that type */
+  alllowedParents: {
+    contentChildPage: ['contentPage'],
+  },
   /* Api version to be used in all underlying Sanity client use */
   apiVersion: '2023-12-08',
   /* Optionally provide the field name of the title field of your page documents, to be used to generate a slug automatically for example. */
   titleFieldName: 'title',
   /* Used for showing the full url for a document and linking to it. */
   /* optional, otherwise the path is shown */
-  baseUrl: "https://example.com"
+  baseUrl: 'https://example.com',
 };
 ```
 
 ### Create a page type
+
 The `definePageType` function can be used to wrap your page schema types with the necessary fields (parent (page reference) and slug) for the page tree.
 
 #### Root page (e.g. home page)
+
 Provide the `isRoot` option to the definePageType function to mark the page as a root page. This page won't have a parent and slug field.
 
 ```ts
@@ -68,7 +77,7 @@ const _homePageType = defineType({
 });
 
 export const homePageType = definePageType(_homePageType, pageTreeConfig, {
-  isRoot: true
+  isRoot: true,
 });
 ```
 
@@ -91,6 +100,7 @@ export const contentPageType = definePageType(_contentPageType, pageTreeConfig);
 ```
 
 ### Add page tree to desk structure
+
 Instead of using the default document list for creating and editing pages, you can use the `createPageTreeDocumentList` function to create a custom page tree document list view and add it to your desk structure.
 
 ```ts
@@ -101,19 +111,19 @@ export const structure = (S: StructureBuilder) =>
   S.list()
     .title('Website')
     .items([
-        S.listItem()
-          .title('Pages')
-          .child(
-            createPageTreeDocumentList(S, {
-              config: pageTreeConfig,
-              extendDocumentList: builder => builder.id('pages').title('Pages').apiVersion(pageTreeConfig.apiVersion),
-            }),
-          )
-      ]
-    )
+      S.listItem()
+        .title('Pages')
+        .child(
+          createPageTreeDocumentList(S, {
+            config: pageTreeConfig,
+            extendDocumentList: builder => builder.id('pages').title('Pages').apiVersion(pageTreeConfig.apiVersion),
+          }),
+        ),
+    ]);
 ```
 
 ### Create internal page links
+
 A link to an internal page is a reference to a page document. The `PageTreeField` component can be used to render a custom page tree input in the reference field.
 
 ```ts
@@ -131,6 +141,7 @@ const linkField = defineField({
 ```
 
 ### Document internationalization
+
 This plugin supports the [@sanity/document-internationalization](https://github.com/sanity-io/document-internationalization) plugin. To enable this, do the setup as documented in the plugin and additionally provide the `documentInternationalization` option to the page tree configuration file.
 
 ```ts
@@ -149,14 +160,14 @@ export const pageTreeConfig: PageTreeConfig = {
 };
 ```
 
-
 ## Usage on the frontend
 
 In order to retrieve the right content for a specifc route, you need to make "catch all" route. How this is implemented depends on the framework you are using. Below are some examples for a Next.JS and React single page appication using react router.
 
 ### Regular client
+
 In order to get the page data for the requested path you have to creat a client. Afterwards you can retrieve a list of all the pages with the resolved path and find the correct page metadata.
-With this metadata you can retrieve the data of the document yourself. 
+With this metadata you can retrieve the data of the document yourself.
 
 ```ts
 import { createPageTreeClient } from '@q42/sanity-plugin-page-tree/client';
@@ -177,23 +188,24 @@ async function getPageForPath(path: string) {
 
   return page;
 }
-
 ```
 
-
 ### Next.JS Client
-For users using the App Router of Next.JS with Server Components, we can benefit from the "Request Memoization" feature. 
+
+For users using the App Router of Next.JS with Server Components, we can benefit from the "Request Memoization" feature.
 You can import the dedicated next client:
 
 ```ts
 import { createNextPageTreeClient } from '@q42/sanity-plugin-page-tree/next';
-``` 
+```
 
-This client provides you with some additional helper methods: 
+This client provides you with some additional helper methods:
+
 - `getPageMetadataById` useful for retrieving the url when you have a reference to a page
 - `getPageMetadataByUrl` useful for retrieving the id when you have the path
 
 ## Examples
+
 For full examples, see the following projects:
 
 - [Clean studio](./examples/studio)
@@ -206,14 +218,17 @@ For full examples, see the following projects:
 [MIT](LICENSE) © Q42
 
 ## Develop & test
+
 For local development and testing you need to link and watch the library and link it to any of the studio example projects.
 The basic studio example project, located in `examples/studio`, is a good starting point.
 
 ### Link & watch
+
 - Run `npm install` in the root directory to install the dependencies.
 - Run `npm run link-watch` in the root directory.
 
 ### Example studio
+
 - To run the example studio, go to the `examples/studio` directory.
 - Run `npx yalc add @q42/sanity-plugin-page-tree && npx yalc link @q42/sanity-plugin-page-tree && npm install`
 - Run `npm run dev`

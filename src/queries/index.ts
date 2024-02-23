@@ -12,3 +12,7 @@ export const getRawPageMetadataQuery = (config: PageTreeConfig) => `*[_type in [
     title,
     ${getLanguageFromConfig(config) ?? ''}
   }`;
+
+export const getDocumentTypeQuery = (documentId: string) => `*[_id == "${documentId}"]{
+  _type
+}`;

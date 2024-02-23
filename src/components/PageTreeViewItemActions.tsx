@@ -47,7 +47,6 @@ export const PageTreeViewItemActions = ({ page, onActionOpen, onActionClose }: P
       navigateUrl({ path });
     }
   }, [newPage, navigateUrl, resolveIntentLink]);
-
   return (
     <Flex gap={1} style={{ flexShrink: 0 }} onClick={e => e.stopPropagation()}>
       <MenuButton
@@ -56,7 +55,12 @@ export const PageTreeViewItemActions = ({ page, onActionOpen, onActionClose }: P
         menu={
           <Menu>
             {config.pageSchemaTypes
-              .filter(type => type !== config.rootSchemaType)
+              .filter(
+                type =>
+                  type !== config.rootSchemaType &&
+                  (config.alllowedParents?.[type] === undefined ||
+                    config.alllowedParents?.[type]?.includes(page._type)),
+              )
               .map(type => (
                 <MenuItem key={type} onClick={() => onAdd(type)} text={schema.get(type)?.title ?? type} value={type} />
               ))}
