@@ -198,7 +198,7 @@ For full examples, see the following projects:
 
 - [Clean studio](./examples/studio)
 - [Studio with document internationalization](./examples/studio-i18n)
-- [Next.js app router]('./examples/nextjs-app-router)
+- [Next.js app router](./examples/nextjs-app-router)
 - [React](./examples/react)
 
 ## License
