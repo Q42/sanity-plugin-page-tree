@@ -1,15 +1,7 @@
-import { Stack, Flex, Spinner, Card, Dialog, Box } from '@sanity/ui';
-import { useMemo, useState } from 'react';
-import { ObjectFieldProps, ReferenceValue, FormField, set, useFormValue, SanityDocument } from 'sanity';
-import styled from 'styled-components';
+import { ObjectFieldProps, ReferenceValue, FormField } from 'sanity';
 
-import { PageTreeEditor } from './PageTreeEditor';
-import { findPageTreeItemById, flatMapPageTree } from '../helpers/page-tree';
-import { useOptimisticState } from '../hooks/useOptimisticState';
-import { usePageTree } from '../hooks/usePageTree';
-import { PageTreeConfigProvider } from '../hooks/usePageTreeConfig';
-import { PageTreeConfig, PageTreeItem } from '../types';
-import { getSanityDocumentId } from '../utils/sanity';
+import { PageTreeConfig } from '../types';
+import { PageTreeInput } from './PageTreeInput';
 
 export const PageTreeField = (
   props: ObjectFieldProps<ReferenceValue> & {
@@ -18,99 +10,15 @@ export const PageTreeField = (
     inputProps: { schemaType: { to?: { name: string }[] } };
   },
 ) => {
-  const mode = props.mode ?? 'select-page';
-  const form = useFormValue([]) as SanityDocument;
-  const { pageTree } = usePageTree(props.config);
-
-  const allowedPageTypes = props.inputProps.schemaType.to?.map(t => t.name);
-
-  const [isPageTreeDialogOpen, setIsPageTreeDialogOpen] = useState(false);
-
-  const parentId = props.inputProps.value?._ref;
-  const pageId = getSanityDocumentId(form._id);
-
-  const fieldPage = useMemo(() => (pageTree ? findPageTreeItemById(pageTree, pageId) : undefined), [pageTree, pageId]);
-  const parentPage = useMemo(
-    () => (pageTree && parentId ? findPageTreeItemById(pageTree, parentId) : undefined),
-    [pageTree, parentId],
-  );
-
-  const flatFieldPages = useMemo(() => (fieldPage ? flatMapPageTree([fieldPage]) : []), [fieldPage]);
-
-  const [parentPath, setOptimisticParentPath] = useOptimisticState<string | undefined>(parentPage?.path);
-
-  // Some page tree items are not suitable options for a new parent reference.
-  // Disable the current parent page, the current page and all of its children.
-  const disabledParentIds =
-    mode !== 'select-parent' ? [] : [...(parentId ? [parentId] : []), ...flatFieldPages.map(page => page._id)];
-  // Initially open the current page and all of its parents
-  const openItemIds = fieldPage?._id ? [fieldPage?._id] : undefined;
-
-  const openDialog = () => {
-    setIsPageTreeDialogOpen(true);
-  };
-
-  const closeDialog = () => {
-    setIsPageTreeDialogOpen(false);
-  };
-
-  const selectParentPage = (page: PageTreeItem) => {
-    props.inputProps.onChange(
-      set({
-        _ref: page._id,
-        _type: 'reference',
-        _weak: page.isDraft,
-        ...(page.isDraft ? { _strengthenOnPublish: { type: page._type } } : {}),
-      }),
-    );
-    setOptimisticParentPath(page.path);
-    closeDialog();
+  const inputProps = {
+    config: props.config,
+    mode: props.mode,
+    ...props.inputProps,
   };
 
   return (
-    <PageTreeConfigProvider config={props.config}>
-      <FormField title={props.title} inputId={props.inputId} validation={props.validation}>
-        <Stack space={3}>
-          {!pageTree ? (
-            <Flex paddingY={4} justify="center" align="center">
-              <Spinner />
-            </Flex>
-          ) : (
-            <Card padding={1} shadow={1} radius={2}>
-              <SelectedItemCard padding={3} radius={2} onClick={openDialog}>
-                {parentId ? parentPath ?? 'Select page' : 'Select page'}
-              </SelectedItemCard>
-            </Card>
-          )}
-        </Stack>
-        {pageTree && isPageTreeDialogOpen && (
-          <Dialog
-            header={'Select page'}
-            id="parent-page-tree"
-            zOffset={1000}
-            width={1}
-            onClose={closeDialog}
-            onClickOutside={closeDialog}>
-            <Box padding={4}>
-              <PageTreeEditor
-                allowedPageTypes={allowedPageTypes}
-                pageTree={pageTree}
-                onItemClick={selectParentPage}
-                disabledItemIds={disabledParentIds}
-                initialOpenItemIds={openItemIds}
-              />
-            </Box>
-          </Dialog>
-        )}
-      </FormField>
-    </PageTreeConfigProvider>
+    <FormField title={props.title} inputId={props.inputId} validation={props.validation}>
+      <PageTreeInput {...inputProps} />
+    </FormField>
   );
 };
-
-const SelectedItemCard = styled(Card)`
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.sanity.color.card.hovered.bg};
-  }
-`;
