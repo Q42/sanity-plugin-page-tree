@@ -55,12 +55,13 @@ export const PageTreeInput = (
   };
 
   const selectParentPage = (page: PageTreeItem) => {
+    // In the case of an array of references, we need to find the last path in the array and extract the _key
     const lastPath = props.path[props.path.length - 1];
     const _key = typeof lastPath === 'object' && '_key' in lastPath ? lastPath._key : undefined;
 
     props.onChange(
       set({
-        _key: _key,
+        ...(_key ? { _key } : {}),
         _ref: page._id,
         _type: 'reference',
         _weak: page.isDraft,
