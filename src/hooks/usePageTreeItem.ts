@@ -1,10 +1,10 @@
-import { useMemo } from 'react';
-
-import { getRawPageMetadataQuery } from '../queries';
-import { RawPageMetadata, PageTreeConfig } from '../types';
-import { getAllPageMetadata } from '../helpers/page-tree';
-import { useListeningQuery } from 'sanity-plugin-utils';
 import { ClientPerspective } from 'next-sanity';
+import { useMemo } from 'react';
+import { useListeningQuery } from 'sanity-plugin-utils';
+
+import { getAllPageMetadata } from '../helpers/page-tree';
+import { getRawPageMetadataQuery } from '../queries';
+import { PageTreeConfig, RawPageMetadata } from '../types';
 
 export const usePageTreeItem = (documentId: string, config: PageTreeConfig, perspective?: ClientPerspective) => {
   const { data, loading } = useListeningQuery<RawPageMetadata[]>(getRawPageMetadataQuery(config), {
