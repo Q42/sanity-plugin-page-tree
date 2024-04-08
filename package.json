@@ -70,7 +70,7 @@
     "clean": "rimraf dist",
     "format": "prettier --write --cache --ignore-unknown .",
     "link-watch": "plugin-kit link-watch",
-    "lint": "eslint ./src/**/**.ts --max-warnings 0",
+    "lint": "eslint ./src/**/* --ext=.ts,.tsx --max-warnings 0",
     "prepublishOnly": "run-s build",
     "watch": "pkg-utils watch --strict",
     "prepare": "npm run build"

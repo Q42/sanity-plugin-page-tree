@@ -1,16 +1,16 @@
-import { SearchIcon, AddIcon } from '@sanity/icons';
+import { AddIcon, SearchIcon } from '@sanity/icons';
 import { Box, Button, Flex, Text, TextInput } from '@sanity/ui';
 import { without } from 'lodash';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-
-import { PageTreeViewItem } from './PageTreeViewItem';
-import { findPageTreeItemById, flatMapPageTree } from '../helpers/page-tree';
-import { PageTreeItem } from '../types';
-import { usePageTreeConfig } from '../hooks/usePageTreeConfig';
 import { useClient } from 'sanity';
 import { useRouter } from 'sanity/router';
 import styled from 'styled-components';
+
+import { findPageTreeItemById, flatMapPageTree } from '../helpers/page-tree';
 import { generateDraftId } from '../helpers/uuid';
+import { usePageTreeConfig } from '../hooks/usePageTreeConfig';
+import { PageTreeItem } from '../types';
+import { PageTreeViewItem } from './PageTreeViewItem';
 
 export type PageTreeEditorProps = {
   pageTree: PageTreeItem[];

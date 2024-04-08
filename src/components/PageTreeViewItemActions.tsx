@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react';
 import { useClient, useSchema } from 'sanity';
 import { useRouter } from 'sanity/router';
 
-import { usePageTreeConfig } from '../hooks/usePageTreeConfig';
-import { PageTreeItem } from '../types';
 import { getLanguageFromConfig } from '../helpers/config';
 import { generateDraftId } from '../helpers/uuid';
+import { usePageTreeConfig } from '../hooks/usePageTreeConfig';
+import { PageTreeItem } from '../types';
 
 export type PageTreeViewItemActionsProps = {
   page: PageTreeItem;
