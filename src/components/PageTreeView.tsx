@@ -1,11 +1,11 @@
-import { Card, Stack, Flex, Spinner } from '@sanity/ui';
+import { Card, Flex, Spinner, Stack } from '@sanity/ui';
 import { forwardRef } from 'react';
 import { UserComponent } from 'sanity/structure';
 
-import { PageTreeEditor } from './PageTreeEditor';
 import { usePageTree } from '../hooks/usePageTree';
 import { PageTreeConfigProvider } from '../hooks/usePageTreeConfig';
 import { PageTreeConfig } from '../types';
+import { PageTreeEditor } from './PageTreeEditor';
 
 export type PageTreeViewProps = {
   config: PageTreeConfig;
