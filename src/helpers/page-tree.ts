@@ -1,4 +1,4 @@
-import { groupBy, omit, orderBy } from 'lodash';
+import { groupBy, isNil, omit, orderBy, sortBy } from 'lodash';
 
 import {
   RawPageMetadata,
@@ -47,7 +47,20 @@ export const findPageTreeItemById = (pages: PageTreeItem[], id: string): PageTre
 export const mapRawPageMetadatasToPageTree = (config: PageTreeConfig, pages: RawPageMetadata[]): PageTreeItem[] => {
   const pagesWithPublishedState = getPublishedAndDraftRawPageMetdadata(config, pages);
 
-  return orderBy(mapPageTreeItems(config, pagesWithPublishedState), 'path');
+  const orderedPages = orderBy(mapPageTreeItems(config, pagesWithPublishedState), 'path');
+  const { documentInternationalization } = config;
+  if (documentInternationalization) {
+    const languageField = documentInternationalization.languageFieldName ?? 'language';
+
+    return sortBy(orderedPages, p => {
+      let index = documentInternationalization.supportedLanguages.indexOf((p[languageField] as string)?.toLowerCase());
+      if (index === -1) {
+        index = documentInternationalization.supportedLanguages.length;
+      }
+      return index;
+    });
+  }
+  return orderedPages;
 };
 
 /**
