@@ -1,14 +1,14 @@
 import { groupBy, omit, orderBy } from 'lodash';
 
 import {
-  RawPageMetadata,
-  RawPageMetadataWithPublishedState,
+  PageMetadata,
   PageTreeConfig,
   PageTreeItem,
-  PageMetadata,
+  RawPageMetadata,
+  RawPageMetadataWithPublishedState,
 } from '../types';
-import { getLanguageFromConfig } from './config';
 import { getSanityDocumentId } from '../utils/sanity';
+import { getLanguageFromConfig } from './config';
 
 export const DRAFTS_PREFIX = 'drafts.';
 
