@@ -12,8 +12,8 @@ type Options = {
 };
 
 function getPossibleParentsFromConfig(config: PageTreeConfig, ownType: DocumentDefinition): string[] {
-  if (config.alllowedParents !== undefined && ownType.name in config.alllowedParents) {
-    return config.alllowedParents[ownType.name];
+  if (config.allowedParents !== undefined && ownType.name in config.allowedParents) {
+    return config.allowedParents[ownType.name];
   }
   return config.pageSchemaTypes;
 }

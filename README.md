@@ -39,10 +39,10 @@ export const pageTreeConfig: PageTreeConfig = {
   /* Root page schema type name */
   rootSchemaType: 'homePage',
   /* Array of all page schema type names */
-  pageSchemaTypes: ['homePage', 'contentPage', 'contentChildPate'],
+  pageSchemaTypes: ['homePage', 'contentPage', 'contentChildPage'],
   /* Optionally specify which document types can be the parent of a document type.
   If no allowed parents are specified for a type, all document types are allowed as a parent for that type */
-  alllowedParents: {
+  allowedParents: {
     contentChildPage: ['contentPage'],
   },
   /* Api version to be used in all underlying Sanity client use */

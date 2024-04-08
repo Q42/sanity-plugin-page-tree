@@ -58,8 +58,7 @@ export const PageTreeViewItemActions = ({ page, onActionOpen, onActionClose }: P
               .filter(
                 type =>
                   type !== config.rootSchemaType &&
-                  (config.alllowedParents?.[type] === undefined ||
-                    config.alllowedParents?.[type]?.includes(page._type)),
+                  (config.allowedParents?.[type] === undefined || config.allowedParents?.[type]?.includes(page._type)),
               )
               .map(type => (
                 <MenuItem key={type} onClick={() => onAdd(type)} text={schema.get(type)?.title ?? type} value={type} />

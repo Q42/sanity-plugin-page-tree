@@ -9,9 +9,9 @@ import { RawPageMetadata, PageTreeConfig, SanityRef } from '../types';
 export const allowedParentValidator =
   (config: PageTreeConfig, ownType: string) =>
   async (selectedParent: Reference | undefined, context: ValidationContext) => {
-    const alllowedParents = config.alllowedParents?.[ownType];
+    const allowedParents = config.allowedParents?.[ownType];
 
-    if (alllowedParents === undefined) {
+    if (allowedParents === undefined) {
       return true;
     }
 
@@ -34,7 +34,7 @@ export const allowedParentValidator =
       return 'Unable to check the type of the selected parent.';
     }
 
-    if (!alllowedParents.includes(selectedParentType)) {
+    if (!allowedParents.includes(selectedParentType)) {
       return `The parent of type "${selectedParentType}" is not allowed for this type of document.`;
     }
 
