@@ -1,5 +1,5 @@
 import { AddIcon } from '@sanity/icons';
-import { Button, Flex, Menu, MenuButton, MenuItem } from '@sanity/ui';
+import { Box, Button, Flex, Menu, MenuButton, MenuItem, Tooltip, Text } from '@sanity/ui';
 import { useEffect, useState } from 'react';
 import { useClient, useSchema } from 'sanity';
 import { useRouter } from 'sanity/router';
@@ -47,28 +47,47 @@ export const PageTreeViewItemActions = ({ page, onActionOpen, onActionClose }: P
       navigateUrl({ path });
     }
   }, [newPage, navigateUrl, resolveIntentLink]);
+
+  const menuButtons = config.pageSchemaTypes
+    .filter(
+      type =>
+        type !== config.rootSchemaType &&
+        (config.allowedParents?.[type] === undefined || config.allowedParents?.[type]?.includes(page._type)),
+    )
+    .map(type => (
+      <MenuItem key={type} onClick={() => onAdd(type)} text={schema.get(type)?.title ?? type} value={type} />
+    ));
+
+  const isAddPageButtonDisabled = menuButtons.length === 0;
+  const tooltipContent = isAddPageButtonDisabled ? (
+    <Box padding={1}>
+      <Text muted size={1}>
+        The allowed parents configuration prevents this document type from being a parent to any other document.
+      </Text>
+    </Box>
+  ) : undefined;
+
   return (
-    <Flex gap={1} style={{ flexShrink: 0 }} onClick={e => e.stopPropagation()}>
-      <MenuButton
-        id="add-page-button"
-        button={<Button mode="ghost" paddingX={2} paddingY={2} fontSize={1} icon={AddIcon} />}
-        menu={
-          <Menu>
-            {config.pageSchemaTypes
-              .filter(
-                type =>
-                  type !== config.rootSchemaType &&
-                  (config.allowedParents?.[type] === undefined || config.allowedParents?.[type]?.includes(page._type)),
-              )
-              .map(type => (
-                <MenuItem key={type} onClick={() => onAdd(type)} text={schema.get(type)?.title ?? type} value={type} />
-              ))}
-          </Menu>
-        }
-        popover={{ placement: 'bottom' }}
-        onOpen={onActionOpen}
-        onClose={onActionClose}
-      />
-    </Flex>
+    <Tooltip content={tooltipContent} fallbackPlacements={['right', 'left']} placement="top" portal>
+      <Flex gap={1} style={{ flexShrink: 0 }} onClick={e => e.stopPropagation()}>
+        <MenuButton
+          id="add-page-button"
+          button={
+            <Button
+              mode="ghost"
+              paddingX={2}
+              paddingY={2}
+              fontSize={1}
+              icon={AddIcon}
+              disabled={isAddPageButtonDisabled}
+            />
+          }
+          menu={<Menu>{menuButtons}</Menu>}
+          popover={{ placement: 'bottom' }}
+          onOpen={onActionOpen}
+          onClose={onActionClose}
+        />
+      </Flex>
+    </Tooltip>
   );
 };
