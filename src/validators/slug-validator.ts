@@ -24,7 +24,7 @@ export const slugValidator =
       .filter(
         page => getSanityDocumentId(page._id) !== (context.document?._id && getSanityDocumentId(context.document._id)),
       )
-      .filter(page => page.slug?.current === slug?.current);
+      .filter(page => page.slug?.current.toLowerCase() === slug?.current?.toLowerCase());
 
     if (siblingPagesWithSameSlug.length) {
       // If there is a sibling page with the same slug published, but a different slug in a draft, we want to show a more specific validation error to the user instead.
@@ -32,7 +32,7 @@ export const slugValidator =
         page =>
           page._id.startsWith(DRAFTS_PREFIX) &&
           page._id.includes(siblingPagesWithSameSlug[0]._id) &&
-          page.slug?.current !== slug?.current,
+          page.slug?.current.toLowerCase() !== slug?.current?.toLowerCase(),
       );
 
       return siblingDraftPageWithSameSlug
