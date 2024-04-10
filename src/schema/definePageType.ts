@@ -1,3 +1,4 @@
+import { compact, get } from 'lodash';
 import { defineField, defineType, DocumentDefinition, SlugOptions } from 'sanity';
 
 import { PageTreeField } from '../components/PageTreeField';
@@ -15,12 +16,22 @@ export const definePageType = (
   type: DocumentDefinition,
   config: PageTreeConfig,
   options: Options = { isRoot: false },
-) =>
-  defineType({
+) => {
+  const slugSourceFieldName = getSlugSourceField(config, options);
+
+  let slugSourceField;
+  let typeFields = type.fields;
+  if (slugSourceFieldName) {
+    slugSourceField = type.fields.find(field => field.name === slugSourceFieldName);
+    typeFields = type.fields.filter(field => field.name !== slugSourceFieldName);
+  }
+
+  return defineType({
     ...type,
     title: type.title,
-    fields: [...basePageFields(config, options), ...type.fields],
+    fields: compact([slugSourceField, ...basePageFields(config, options), ...typeFields]),
   });
+};
 
 const basePageFields = (config: PageTreeConfig, options: Options) => [
   ...(!options.isRoot
@@ -30,7 +41,7 @@ const basePageFields = (config: PageTreeConfig, options: Options) => [
           title: 'Slug',
           type: 'slug',
           options: {
-            source: config.titleFieldName ?? options.slugSource,
+            source: getSlugSourceField(config, options),
             isUnique: () => true,
           },
           components: {
@@ -57,3 +68,5 @@ const basePageFields = (config: PageTreeConfig, options: Options) => [
       ]
     : []),
 ];
+
+const getSlugSourceField = (config: PageTreeConfig, options: Options) => config.titleFieldName ?? options.slugSource;
