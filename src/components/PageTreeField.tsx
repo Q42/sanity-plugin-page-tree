@@ -1,4 +1,4 @@
-import { ObjectFieldProps, ReferenceValue, FormField } from 'sanity';
+import { FormField, ObjectFieldProps, ReferenceValue } from 'sanity';
 
 import { PageTreeConfig } from '../types';
 import { PageTreeInput } from './PageTreeInput';
@@ -6,6 +6,7 @@ import { PageTreeInput } from './PageTreeInput';
 export const PageTreeField = (
   props: ObjectFieldProps<ReferenceValue> & {
     config: PageTreeConfig;
+
     mode?: 'select-parent' | 'select-page';
     inputProps: { schemaType: { to?: { name: string }[] } };
   },
