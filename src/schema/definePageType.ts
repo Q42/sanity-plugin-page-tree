@@ -6,11 +6,20 @@ import { SlugField } from '../components/SlugField';
 import { PageTreeConfig } from '../types';
 import { slugValidator } from '../validators/slug-validator';
 
+import { allowedParentValidator } from '../validators/parent-validator';
+
 type Options = {
   isRoot?: boolean;
   fieldsGroupName?: string;
   slugSource?: SlugOptions['source'];
 };
+
+function getPossibleParentsFromConfig(config: PageTreeConfig, ownType: DocumentDefinition): string[] {
+  if (config.allowedParents !== undefined && ownType.name in config.allowedParents) {
+    return config.allowedParents[ownType.name];
+  }
+  return config.pageSchemaTypes;
+}
 
 export const definePageType = (
   type: DocumentDefinition,
@@ -29,11 +38,11 @@ export const definePageType = (
   return defineType({
     ...type,
     title: type.title,
-    fields: compact([slugSourceField, ...basePageFields(config, options), ...typeFields]),
+    fields: compact([slugSourceField, ...basePageFields(config, options, type), ...typeFields]),
   });
 };
 
-const basePageFields = (config: PageTreeConfig, options: Options) => [
+const basePageFields = (config: PageTreeConfig, options: Options, ownType: DocumentDefinition) => [
   ...(!options.isRoot
     ? [
         defineField({
@@ -58,8 +67,8 @@ const basePageFields = (config: PageTreeConfig, options: Options) => [
           name: 'parent',
           title: 'Parent page',
           type: 'reference',
-          to: config.pageSchemaTypes.map(type => ({ type })),
-          validation: Rule => Rule.required(),
+          to: getPossibleParentsFromConfig(config, ownType).map(type => ({ type })),
+          validation: Rule => Rule.required().custom(allowedParentValidator(config, ownType.name)),
           group: options.fieldsGroupName,
           components: {
             field: props => PageTreeField({ ...props, config, mode: 'select-parent' }),

@@ -47,6 +47,8 @@ export type PageTreeConfig = {
   pageSchemaTypes: string[];
   /* Field name of your page documents */
   titleFieldName?: string;
+  /* Optionally specify which document types can be the parent of a document type */
+  allowedParents?: Record<string, string[]>;
   /* Used for creating page link on the editor page */
   baseUrl?: string;
   /* This plugin supports the document-internationalization plugin. To use it properly, provide the supported languages. */
