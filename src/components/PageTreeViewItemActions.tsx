@@ -62,7 +62,7 @@ export const PageTreeViewItemActions = ({ page, onActionOpen, onActionClose }: P
   const tooltipContent = isAddPageButtonDisabled ? (
     <Box padding={1}>
       <Text muted size={1}>
-        The allowed parents configuration prevents this document type from being a parent to any other document.
+        This page cannot have any child pages.
       </Text>
     </Box>
   ) : undefined;
