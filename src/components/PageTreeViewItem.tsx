@@ -1,16 +1,16 @@
-import { MouseEvent } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@sanity/icons';
 import { Button, Card, Flex, Stack, Text } from '@sanity/ui';
+import { MouseEvent } from 'react';
 import { useMemo, useState } from 'react';
 import { usePaneRouter } from 'sanity/structure';
 import styled from 'styled-components';
 
+import { getLanguageFromConfig } from '../helpers/config';
+import { flatMapPageTree } from '../helpers/page-tree';
+import { usePageTreeConfig } from '../hooks/usePageTreeConfig';
+import { PageTreeItem } from '../types';
 import { PageTreeViewItemActions } from './PageTreeViewItemActions';
 import { PageTreeViewItemStatus } from './PageTreeViewItemStatus';
-import { flatMapPageTree } from '../helpers/page-tree';
-import { PageTreeItem } from '../types';
-import { usePageTreeConfig } from '../hooks/usePageTreeConfig';
-import { getLanguageFromConfig } from '../helpers/config';
 
 export type PageTreeViewItemProps = {
   parentPath?: string;

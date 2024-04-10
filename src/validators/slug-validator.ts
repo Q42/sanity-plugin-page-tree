@@ -2,7 +2,7 @@ import { SlugValue, ValidationContext } from 'sanity';
 
 import { DRAFTS_PREFIX } from '../helpers/page-tree';
 import { getRawPageMetadataQuery } from '../queries';
-import { RawPageMetadata, PageTreeConfig, SanityRef } from '../types';
+import { PageTreeConfig, RawPageMetadata, SanityRef } from '../types';
 import { getSanityDocumentId } from '../utils/sanity';
 
 /**

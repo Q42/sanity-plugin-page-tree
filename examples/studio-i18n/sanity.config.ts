@@ -33,6 +33,7 @@ export default defineConfig({
       supportedLanguages: [
         { id: 'en', title: 'English' },
         { id: 'nl', title: 'Dutch' },
+        { id: 'fr', title: 'French' },
       ],
       schemaTypes: schemaTypes.map(type => type.name),
     }),

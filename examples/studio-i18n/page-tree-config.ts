@@ -6,6 +6,6 @@ export const pageTreeConfig: PageTreeConfig = {
   apiVersion: '2023-12-08',
   titleFieldName: 'title',
   documentInternationalization: {
-    supportedLanguages: ['en', 'nl'],
-  },
+    supportedLanguages: ['nl', 'en', 'fr'],
+  }
 };

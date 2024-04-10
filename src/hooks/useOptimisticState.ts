@@ -1,4 +1,4 @@
-import { useEffect, useState, Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 export const useOptimisticState = <S>(state: S): [S, Dispatch<SetStateAction<S | null>>] => {
   const [optimisticState, setOptimisticState] = useState<S | null>(null);

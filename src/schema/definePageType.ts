@@ -1,9 +1,9 @@
-import { DocumentDefinition, defineField, defineType, SlugOptions } from 'sanity';
+import { defineField, defineType, DocumentDefinition, SlugOptions } from 'sanity';
 
 import { PageTreeField } from '../components/PageTreeField';
+import { SlugField } from '../components/SlugField';
 import { PageTreeConfig } from '../types';
 import { slugValidator } from '../validators/slug-validator';
-import { SlugField } from '../components/SlugField';
 
 type Options = {
   isRoot?: boolean;
