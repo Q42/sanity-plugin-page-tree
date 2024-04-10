@@ -141,7 +141,7 @@ export const pageTreeConfig: PageTreeConfig = {
   ...,
   /* Configuration to make this plugin work with the @sanity/document-internationalization plugin */
   documentInternationalization: {
-    /* Supported languages */
+    /* Supported languages. Note that, the order is used in the page tree view. */
     supportedLanguages: ['en', 'nl'],
     /* Optionally change the languageField, like you can do in the original plugin */
     languageField: 'locale', // Defaults to 'language'
