@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
-
-import { getRawPageMetadataQuery } from '../queries';
-import { RawPageMetadata, PageTreeConfig } from '../types';
-import { mapRawPageMetadatasToPageTree } from '../helpers/page-tree';
 import { useListeningQuery } from 'sanity-plugin-utils';
+
+import { mapRawPageMetadatasToPageTree } from '../helpers/page-tree';
+import { getRawPageMetadataQuery } from '../queries';
+import { PageTreeConfig, RawPageMetadata } from '../types';
 
 export const usePageTree = (config: PageTreeConfig) => {
   const { data, loading } = useListeningQuery<RawPageMetadata[]>(getRawPageMetadataQuery(config), {

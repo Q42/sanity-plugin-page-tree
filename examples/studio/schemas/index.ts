@@ -1,5 +1,5 @@
 import { ObjectRule, defineArrayMember, defineField, defineType } from 'sanity';
-import { PageTreeField, definePageType } from '@q42/sanity-plugin-page-tree';
+import { PageTreeField, PageTreeInput, definePageType } from '@q42/sanity-plugin-page-tree';
 import { pageTreeConfig } from '../page-tree.config';
 
 const _homePageType = defineType({
@@ -17,6 +17,20 @@ const _homePageType = defineType({
       title: 'Intro text',
       type: 'text',
       validation: Rule => Rule.required(),
+    }),
+    defineField({
+      name: 'links',
+      title: 'Links',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'reference',
+          to: [{ type: 'contentPage' }, { type: 'homePage' }],
+          components: {
+            input: props => PageTreeInput({ ...props, config: pageTreeConfig }),
+          },
+        }),
+      ],
     }),
     defineField({
       name: 'link',

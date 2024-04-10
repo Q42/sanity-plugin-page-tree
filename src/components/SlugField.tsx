@@ -1,7 +1,8 @@
 import { Stack, Text } from '@sanity/ui';
 import { Reference, SlugInputProps, SlugValue, useEditState, useFormValue } from 'sanity';
-import { PageTreeConfig } from '../types';
+
 import { usePageTreeItem } from '../hooks/usePageTreeItem';
+import { PageTreeConfig } from '../types';
 import { getSanityDocumentId } from '../utils/sanity';
 
 export type SlugFieldProps = {

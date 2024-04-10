@@ -4,6 +4,7 @@ import { createPageTreeView } from './components/PageTreeView';
 
 export { definePageType } from './schema/definePageType';
 export { PageTreeField } from './components/PageTreeField';
+export { PageTreeInput } from './components/PageTreeInput';
 
 export type { PageTreeConfig, PageTreeDocumentListOptions } from './types';
 
