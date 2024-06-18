@@ -58,12 +58,11 @@ export type PageTreeConfig = {
     /* Optional field name of the language field, defaults to "language" */
     languageFieldName?: string;
   };
-  /* Optionally add any filtering rules */
+  /* Optionally add any validation rules for slugs */
   slugValidationOptions?: {
     /* Slugs must be lowercase or fail validation */
     enforceLowerCase?: boolean;
     /* Slugs cannot contain invalid characters or fail validation */
-    /* Invalid characters include: */
     enforceValidCharacters?: boolean;
   }
 };
