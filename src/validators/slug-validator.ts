@@ -39,6 +39,17 @@ export const slugValidator =
         ? `Slug must be unique. Another page with the same slug is already published, but has a draft version with a  different slug: "${siblingDraftPageWithSameSlug.slug?.current}". Publish that page first or change the slug to something else.`
         : 'Slug must be unique.';
     }
+    
+    // Additional validation rules applied if configured
+    // Check if slug is lowercase.
+    if (config.slugValidationOptions?.enforceLowerCase === true && slug?.current !== slug?.current?.toLowerCase()) {
+        return "Slug must be lower case.";
+    }
+
+    // Allow A-z, 0-9, -, ., _, ~, :, and /
+    if (config.slugValidationOptions?.enforceValidCharacters === true && slug?.current && /[^A-Za-z0-9\-._~:\/]/.test(slug?.current)) {
+        return "Slug must not contain invalid characters."
+    }
 
     return true;
   };
