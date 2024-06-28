@@ -1,17 +1,15 @@
 import { compact, get } from 'lodash';
-import { defineField, defineType, DocumentDefinition, SlugOptions } from 'sanity';
+import { defineField, defineType, DocumentDefinition } from 'sanity';
 
 import { PageTreeField } from '../components/PageTreeField';
 import { SlugField } from '../components/SlugField';
-import { PageTreeConfig } from '../types';
+import { PageTreeConfig, GlobalOptions } from '../types';
 import { slugValidator } from '../validators/slug-validator';
 
 import { allowedParentValidator } from '../validators/parent-validator';
 
-type Options = {
+type Options = GlobalOptions & {
   isRoot?: boolean;
-  fieldsGroupName?: string;
-  slugSource?: SlugOptions['source'];
 };
 
 function getPossibleParentsFromConfig(config: PageTreeConfig, ownType: DocumentDefinition): string[] {
@@ -26,6 +24,7 @@ export const definePageType = (
   config: PageTreeConfig,
   options: Options = { isRoot: false },
 ) => {
+  options = {...config.globalOptions, ...options};
   const slugSourceFieldName = getSlugSourceField(config, options);
 
   let slugSourceField;
@@ -56,7 +55,10 @@ const basePageFields = (config: PageTreeConfig, options: Options, ownType: Docum
           components: {
             input: props => SlugField({ ...props, config }),
           },
-          validation: Rule => Rule.required().custom(slugValidator(config)),
+          validation: Rule => [
+            Rule.required().custom(slugValidator(config)),
+            ...toArray(options.slugValidationRules?.(Rule))
+          ],
           group: options.fieldsGroupName,
         }),
       ]
@@ -79,3 +81,4 @@ const basePageFields = (config: PageTreeConfig, options: Options, ownType: Docum
 ];
 
 const getSlugSourceField = (config: PageTreeConfig, options: Options) => config.titleFieldName ?? options.slugSource;
+const toArray = <T>(t: undefined | T | T[]) => t === undefined ? [] : Array.isArray(t) ? t : [t];
