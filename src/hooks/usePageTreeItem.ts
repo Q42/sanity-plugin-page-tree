@@ -3,11 +3,11 @@ import { useMemo } from 'react';
 import { useListeningQuery } from 'sanity-plugin-utils';
 
 import { getAllPageMetadata } from '../helpers/page-tree';
-import { getRawPageMetadataQuery } from '../queries';
+import { getAllRawPageMetadataQuery } from '../queries';
 import { PageTreeConfig, RawPageMetadata } from '../types';
 
 export const usePageTreeItem = (documentId: string, config: PageTreeConfig, perspective?: ClientPerspective) => {
-  const { data, loading } = useListeningQuery<RawPageMetadata[]>(getRawPageMetadataQuery(config), {
+  const { data, loading } = useListeningQuery<RawPageMetadata[]>(getAllRawPageMetadataQuery(config), {
     options: { apiVersion: config.apiVersion, perspective },
   });
 

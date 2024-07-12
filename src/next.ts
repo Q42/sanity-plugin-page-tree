@@ -1,7 +1,7 @@
 import { FilteredResponseQueryOptions, SanityClient } from 'next-sanity';
 
 import { getAllPageMetadata } from './helpers/page-tree';
-import { getRawPageMetadataQuery } from './queries';
+import { getAllRawPageMetadataQuery } from './queries';
 import { PageMetadata, PageTreeConfig } from './types';
 
 export type { PageMetadata } from './types';
@@ -29,7 +29,7 @@ class NextPageTreeClient {
 
   public async getAllPageMetadata(): Promise<PageMetadata[]> {
     const rawPageMetadata = await this.client.fetch(
-      getRawPageMetadataQuery(this.config),
+      getAllRawPageMetadataQuery(this.config),
       undefined,
       this.defaultSanityFetchOptions ?? {},
     );

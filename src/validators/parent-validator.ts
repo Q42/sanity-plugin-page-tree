@@ -1,6 +1,7 @@
 import { Reference, ValidationContext } from 'sanity';
 
-import { getDocumentTypeQuery } from '../queries';
+import { getLanguageFieldName } from '../helpers/config';
+import { getRawPageMetadataQuery } from '../queries';
 import { PageTreeConfig, RawPageMetadata, SanityRef } from '../types';
 
 /**
@@ -8,12 +9,8 @@ import { PageTreeConfig, RawPageMetadata, SanityRef } from '../types';
  */
 export const allowedParentValidator =
   (config: PageTreeConfig, ownType: string) =>
-  async (selectedParent: Reference | undefined, context: ValidationContext) => {
+  async (selectedParentRef: Reference | undefined, context: ValidationContext) => {
     const allowedParents = config.allowedParents?.[ownType];
-
-    if (allowedParents === undefined) {
-      return true;
-    }
 
     const parentRef = context.document?.parent as SanityRef | undefined;
     if (!parentRef) {
@@ -27,15 +24,24 @@ export const allowedParentValidator =
     }
 
     const client = context.getClient({ apiVersion: config.apiVersion });
-    const selectedParentType = (await client.fetch<Pick<RawPageMetadata, '_type'>[]>(getDocumentTypeQuery(parentId)))[0]
-      ?._type;
+    const selectedParent = (await client.fetch<RawPageMetadata[]>(getRawPageMetadataQuery(parentId, config)))?.[0];
 
-    if (!selectedParentType) {
+    if (!selectedParent._type) {
       return 'Unable to check the type of the selected parent.';
     }
 
-    if (!allowedParents.includes(selectedParentType)) {
-      return `The parent of type "${selectedParentType}" is not allowed for this type of document.`;
+    if (allowedParents && !allowedParents.includes(selectedParent._type)) {
+      return `The parent of type "${selectedParent._type}" is not allowed for this type of document.`;
+    }
+
+    if (config.documentInternationalization?.documentLanguageShouldMatchParent) {
+      const languageFieldName = getLanguageFieldName(config);
+      const language = context.document?.[languageFieldName];
+      const parentLanguage = selectedParent?.[languageFieldName];
+
+      if (language !== parentLanguage) {
+        return 'The language of the parent must match the language of the document.';
+      }
     }
 
     return true;
