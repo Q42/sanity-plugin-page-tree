@@ -60,6 +60,8 @@ export type PageTreeConfig = {
     supportedLanguages: string[];
     /* Optional field name of the language field, defaults to "language" */
     languageFieldName?: string;
+    /* Adds validation check to ensure that the language of the document matches the language of the parent document. Default: false */
+    documentLanguageShouldMatchParent?: boolean;
   };
 };
 

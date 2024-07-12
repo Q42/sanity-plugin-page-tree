@@ -4,7 +4,7 @@ import { defineField, defineType, DocumentDefinition, SlugOptions } from 'sanity
 import { PageTreeField } from '../components/PageTreeField';
 import { SlugField } from '../components/SlugField';
 import { PageTreeConfig } from '../types';
-import { allowedParentValidator } from '../validators/parent-validator';
+import { parentValidator } from '../validators/parent-validator';
 import { slugValidator } from '../validators/slug-validator';
 
 type Options = {
@@ -67,7 +67,7 @@ const basePageFields = (config: PageTreeConfig, options: Options, ownType: Docum
           title: 'Parent page',
           type: 'reference',
           to: getPossibleParentsFromConfig(config, ownType).map(type => ({ type })),
-          validation: Rule => Rule.required().custom(allowedParentValidator(config, ownType.name)),
+          validation: Rule => Rule.required().custom(parentValidator(config, ownType.name)),
           group: options.fieldsGroupName,
           components: {
             field: props => PageTreeField({ ...props, config, mode: 'select-parent' }),

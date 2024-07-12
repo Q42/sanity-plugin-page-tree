@@ -1,7 +1,7 @@
 import { SlugValue, ValidationContext } from 'sanity';
 
 import { DRAFTS_PREFIX } from '../helpers/page-tree';
-import { getRawPageMetadataQuery } from '../queries';
+import { getAllRawPageMetadataQuery } from '../queries';
 import { PageTreeConfig, RawPageMetadata, SanityRef } from '../types';
 import { getSanityDocumentId } from '../utils/sanity';
 
@@ -17,7 +17,7 @@ export const slugValidator =
       return true;
     }
 
-    const allPages = await client.fetch<RawPageMetadata[]>(getRawPageMetadataQuery(config));
+    const allPages = await client.fetch<RawPageMetadata[]>(getAllRawPageMetadataQuery(config));
     const siblingPages = allPages.filter(page => page.parent?._ref === parentRef._ref);
 
     const siblingPagesWithSameSlug = siblingPages
