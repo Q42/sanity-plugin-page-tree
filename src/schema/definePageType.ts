@@ -1,12 +1,11 @@
-import { compact, get } from 'lodash';
+import { compact } from 'lodash';
 import { defineField, defineType, DocumentDefinition, SlugOptions } from 'sanity';
 
 import { PageTreeField } from '../components/PageTreeField';
 import { SlugField } from '../components/SlugField';
 import { PageTreeConfig } from '../types';
-import { slugValidator } from '../validators/slug-validator';
-
 import { allowedParentValidator } from '../validators/parent-validator';
+import { slugValidator } from '../validators/slug-validator';
 
 type Options = {
   isRoot?: boolean;

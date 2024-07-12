@@ -1,4 +1,4 @@
-import { groupBy, isNil, omit, orderBy, sortBy } from 'lodash';
+import { groupBy, omit, orderBy, sortBy } from 'lodash';
 
 import {
   PageMetadata,

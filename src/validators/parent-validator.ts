@@ -1,7 +1,7 @@
 import { Reference, ValidationContext } from 'sanity';
 
 import { getDocumentTypeQuery } from '../queries';
-import { RawPageMetadata, PageTreeConfig, SanityRef } from '../types';
+import { PageTreeConfig, RawPageMetadata, SanityRef } from '../types';
 
 /**
  * Validates that the slug is unique within the parent page and therefore that entire the path is unique.
