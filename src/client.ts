@@ -1,7 +1,8 @@
-import { PageTreeConfig, PageMetadata } from './types';
+import { SanityClient } from 'sanity';
+
 import { getAllPageMetadata } from './helpers/page-tree';
 import { getRawPageMetadataQuery } from './queries';
-import { SanityClient } from 'sanity';
+import { PageMetadata, PageTreeConfig } from './types';
 
 export type { PageMetadata } from './types';
 
