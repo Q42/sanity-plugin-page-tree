@@ -16,8 +16,8 @@ export const DRAFTS_PREFIX = 'drafts.';
 /**
  * Maps array of raw page metadata objects to page metadata object array containing resolved id, path and type.
  */
-export const getAllPageMetadata = (config: PageTreeConfig, pagesInfo: RawPageMetadata[]): PageMetadata[] => {
-  const pageTree = mapRawPageMetadatasToPageTree(config, pagesInfo);
+export const getAllPageMetadata = (config: PageTreeConfig, pages: RawPageMetadata[]): PageMetadata[] => {
+  const pageTree = mapRawPageMetadatasToPageTree(config, pages);
   const flatPageTree = flatMapPageTree(pageTree);
 
   return flatPageTree.map(page => ({
@@ -49,7 +49,7 @@ export const mapRawPageMetadatasToPageTree = (
   config: PageTreeConfig,
   pages: RawPageMetadata[],
 ): NestedPageTreeItem[] => {
-  const pagesWithPublishedState = getPublishedAndDraftRawPageMetdadata(config, pages);
+  const pagesWithPublishedState = getPublishedAndDraftRawPageMetadata(config, pages);
 
   const orderedPages = orderBy(mapPageTreeItems(config, pagesWithPublishedState), 'path');
   const { documentInternationalization } = config;
@@ -104,7 +104,7 @@ const mapPageTreeItems = (
 /**
  * Provides draft and published status. Filters out duplicate pages with the same id and invalid pages.
  */
-const getPublishedAndDraftRawPageMetdadata = (
+const getPublishedAndDraftRawPageMetadata = (
   config: PageTreeConfig,
   pages: RawPageMetadata[],
 ): RawPageMetadataWithPublishedState[] => {
@@ -134,7 +134,7 @@ const getPublishedAndDraftRawPageMetdadata = (
 };
 
 const isValidPage = (config: PageTreeConfig, page: RawPageMetadata): boolean => {
-  if (page.parent === null || page.slug === null) {
+  if (!page.parent || !page.slug) {
     if (page._type !== config.rootSchemaType) {
       return false;
     }
