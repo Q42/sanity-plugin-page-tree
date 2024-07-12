@@ -6,6 +6,7 @@ import { defineConfig, UserConfig } from 'vitest/config';
 export default defineConfig({
   plugins: [react()] as UserConfig['plugins'],
   test: {
+    include: ['src/**/*.test.ts'],
     environment: 'jsdom',
   },
   resolve: {

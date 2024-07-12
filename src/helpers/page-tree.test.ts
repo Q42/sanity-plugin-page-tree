@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { PageTreeConfig, PageTreeItem, RawPageMetadata } from '../types';
+import { NestedPageTreeItem, PageTreeConfig, RawPageMetadata } from '../types';
 import { findPageTreeItemById, flatMapPageTree, getAllPageMetadata, mapRawPageMetadatasToPageTree } from './page-tree';
 
 const config: PageTreeConfig = {
@@ -41,7 +41,7 @@ const rawChildContentPage: RawPageMetadata = {
 
 const rawPages: RawPageMetadata[] = [rawHomePage, rawParentContentPage, rawChildContentPage];
 
-const pageTree: PageTreeItem[] = [
+const pageTree: NestedPageTreeItem[] = [
   {
     ...rawHomePage,
     isDraft: false,
@@ -59,6 +59,7 @@ const pageTree: PageTreeItem[] = [
             isDraft: false,
             isPublished: true,
             path: '/en/parent/child',
+            children: [],
           },
         ],
       },
@@ -140,6 +141,7 @@ describe('Page tree helpers', () => {
           isDraft: true,
           isPublished: true,
           path: '/en',
+          children: [],
         },
       ]);
     });
@@ -177,6 +179,7 @@ describe('Page tree helpers', () => {
         isDraft: false,
         isPublished: true,
         path: '/en/parent/child',
+        children: [],
       });
     });
 

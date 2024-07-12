@@ -90,7 +90,7 @@ const mapPageTreeItems = (
   return getChildPages(parentId).map(page => {
     const pagePath = parentPath
       ? `${parentPath === '/' ? '' : parentPath}/${page.slug?.current}`
-      : getRootPageSlug(page, config);
+      : `/${getRootPageSlug(page, config) ?? ''}`;
     const children = orderBy(mapPageTreeItems(config, pagesWithPublishedState, page._id, pagePath), 'path');
 
     return {
