@@ -7,5 +7,6 @@ export const pageTreeConfig: PageTreeConfig = {
   titleFieldName: 'title',
   documentInternationalization: {
     supportedLanguages: ['nl', 'en', 'fr'],
+    documentLanguageShouldMatchParent: true,
   }
 };
