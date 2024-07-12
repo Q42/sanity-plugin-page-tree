@@ -9,12 +9,12 @@ import styled from 'styled-components';
 import { findPageTreeItemById, flatMapPageTree } from '../helpers/page-tree';
 import { generateDraftId } from '../helpers/uuid';
 import { usePageTreeConfig } from '../hooks/usePageTreeConfig';
-import { PageTreeItem } from '../types';
+import { NestedPageTreeItem, PageTreeItem } from '../types';
 import { PageTreeViewItem } from './PageTreeViewItem';
 
 export type PageTreeEditorProps = {
-  pageTree: PageTreeItem[];
-  onItemClick?: (page: PageTreeItem) => void;
+  pageTree: NestedPageTreeItem[];
+  onItemClick?: (page: NestedPageTreeItem) => void;
   disabledItemIds?: string[];
   initialOpenItemIds?: string[];
   allowedPageTypes?: string[];
@@ -59,8 +59,8 @@ export const PageTreeEditor = ({
 
     const query = pageTreeState.query.toLowerCase();
 
-    const filter = (pages: PageTreeItem[]): PageTreeItem[] =>
-      pages.reduce((filteredPages: PageTreeItem[], page) => {
+    const filter = (pages: NestedPageTreeItem[]): NestedPageTreeItem[] =>
+      pages.reduce((filteredPages: NestedPageTreeItem[], page) => {
         let shouldInclude = true;
 
         if (page.children) {
@@ -71,18 +71,23 @@ export const PageTreeEditor = ({
           }
         }
 
-        if (
-          shouldInclude &&
-          (page.title?.toLowerCase().includes(query) || page.slug?.current?.toLowerCase().includes(query))
-        ) {
-          filteredPages.push(page);
+        // const slugSourceField = page.[config.titleFieldName]
+        if (shouldInclude) {
+          const slugSourceFieldValue = config.titleFieldName ? page[config.titleFieldName] : undefined;
+          const matchesSlug = page.slug?.current?.toLowerCase().includes(query);
+          const matchesTitle =
+            typeof slugSourceFieldValue === 'string' ? slugSourceFieldValue.toLowerCase().includes(query) : false;
+
+          if (matchesSlug || matchesTitle) {
+            filteredPages.push(page);
+          }
         }
 
         return filteredPages;
       }, []);
 
     return filter(pageTree);
-  }, [pageTree, pageTreeState.query]);
+  }, [pageTree, pageTreeState.query, config.titleFieldName]);
 
   /**
    * Toggle page tree item. If item is opened, close it and all its children. If it is closed, just open it.

@@ -31,8 +31,11 @@ export type RawPageMetadataWithPublishedState = RawPageMetadata & {
 };
 
 export type PageTreeItem = RawPageMetadataWithPublishedState & {
-  children?: PageTreeItem[];
   path: string;
+};
+
+export type NestedPageTreeItem = PageTreeItem & {
+  children: NestedPageTreeItem[];
 };
 
 /**

@@ -1,6 +1,7 @@
 import { groupBy, omit, orderBy, sortBy } from 'lodash';
 
 import {
+  NestedPageTreeItem,
   PageMetadata,
   PageTreeConfig,
   PageTreeItem,
@@ -8,7 +9,7 @@ import {
   RawPageMetadataWithPublishedState,
 } from '../types';
 import { getSanityDocumentId } from '../utils/sanity';
-import { getLanguageFromConfig } from './config';
+import { getLanguageFieldName } from './config';
 
 export const DRAFTS_PREFIX = 'drafts.';
 
@@ -30,7 +31,7 @@ export const getAllPageMetadata = (config: PageTreeConfig, pagesInfo: RawPageMet
 /**
  * Finds a page from an array of page tree items by the given page id.
  */
-export const findPageTreeItemById = (pages: PageTreeItem[], id: string): PageTreeItem | undefined => {
+export const findPageTreeItemById = (pages: NestedPageTreeItem[], id: string): NestedPageTreeItem | undefined => {
   for (const page of pages) {
     if (page._id === id) return page;
 
@@ -44,13 +45,16 @@ export const findPageTreeItemById = (pages: PageTreeItem[], id: string): PageTre
 /**
  * Maps pages to page tree containing recursive nested children.
  */
-export const mapRawPageMetadatasToPageTree = (config: PageTreeConfig, pages: RawPageMetadata[]): PageTreeItem[] => {
+export const mapRawPageMetadatasToPageTree = (
+  config: PageTreeConfig,
+  pages: RawPageMetadata[],
+): NestedPageTreeItem[] => {
   const pagesWithPublishedState = getPublishedAndDraftRawPageMetdadata(config, pages);
 
   const orderedPages = orderBy(mapPageTreeItems(config, pagesWithPublishedState), 'path');
   const { documentInternationalization } = config;
   if (documentInternationalization) {
-    const languageField = documentInternationalization.languageFieldName ?? 'language';
+    const languageField = getLanguageFieldName(config);
 
     return sortBy(orderedPages, p => {
       let index = documentInternationalization.supportedLanguages.indexOf((p[languageField] as string)?.toLowerCase());
@@ -66,8 +70,10 @@ export const mapRawPageMetadatasToPageTree = (config: PageTreeConfig, pages: Raw
 /**
  * Recursively flattens page tree to flat array of pages.
  */
-export const flatMapPageTree = (pages: PageTreeItem[]): Omit<PageTreeItem, 'children'>[] =>
-  pages.flatMap(page => (page.children ? [omit(page, 'children'), ...flatMapPageTree(page.children)] : page));
+export const flatMapPageTree = (pages: NestedPageTreeItem[]): PageTreeItem[] =>
+  pages.flatMap(page =>
+    page.children ? [omit(page, 'children') as PageTreeItem, ...flatMapPageTree(page.children)] : page,
+  );
 
 /**
  * Maps pages to page tree containing recursive nested children and pahts.
@@ -77,12 +83,12 @@ const mapPageTreeItems = (
   pagesWithPublishedState: RawPageMetadataWithPublishedState[],
   parentId?: string,
   parentPath: string = '',
-): PageTreeItem[] => {
+): NestedPageTreeItem[] => {
   const getChildPages = (parentId: string | undefined) =>
     pagesWithPublishedState.filter(page => page.parent?._ref === parentId);
 
   return getChildPages(parentId).map(page => {
-    const language = getLanguageFromConfig(config);
+    const language = getLanguageFieldName(config);
     const pagePath = parentPath
       ? `${parentPath === '/' ? '' : parentPath}/${page.slug?.current}`
       : `/${language ? page[language] : ''}`;
@@ -90,9 +96,9 @@ const mapPageTreeItems = (
 
     return {
       ...page,
-      ...(children.length ? { children } : {}),
+      children,
       path: pagePath,
-    };
+    } satisfies NestedPageTreeItem | undefined;
   });
 };
 
