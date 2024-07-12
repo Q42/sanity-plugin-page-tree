@@ -20,12 +20,12 @@ jobs:
     - name: Build typescript
       run: npm run tsc
 
-    - name: Build package
-      run: npm run build
-
     - name: Run ESLint
       run: npm run lint
 
     # TODO Uncomment when tests are added
     # - name: Run tests
     #   run: npm test
+
+    - name: Build package
+      run: npm run build
