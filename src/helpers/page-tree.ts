@@ -98,7 +98,7 @@ const mapPageTreeItems = (
       ...page,
       children,
       path: pagePath,
-    } satisfies NestedPageTreeItem | undefined;
+    };
   });
 };
 

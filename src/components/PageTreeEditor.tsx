@@ -71,7 +71,6 @@ export const PageTreeEditor = ({
           }
         }
 
-        // const slugSourceField = page.[config.titleFieldName]
         if (shouldInclude) {
           const slugSourceFieldValue = config.titleFieldName ? page[config.titleFieldName] : undefined;
           const matchesSlug = page.slug?.current?.toLowerCase().includes(query);
