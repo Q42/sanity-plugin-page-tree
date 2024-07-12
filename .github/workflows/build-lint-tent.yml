@@ -23,5 +23,6 @@ jobs:
     - name: Run ESLint
       run: npm run lint
 
+    # TODO Uncomment when tests are added
     # - name: Run tests
     #   run: npm test
