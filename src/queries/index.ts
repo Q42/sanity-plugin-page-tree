@@ -1,4 +1,4 @@
-import { getLanguageFromConfig } from '../helpers/config';
+import { getLanguageFieldName } from '../helpers/config';
 import { PageTreeConfig } from '../types';
 
 export const getRawPageMetadataQuery = (config: PageTreeConfig) => `*[_type in [${Object.values(config.pageSchemaTypes)
@@ -10,7 +10,7 @@ export const getRawPageMetadataQuery = (config: PageTreeConfig) => `*[_type in [
     parent,
     slug,
     title,
-    ${getLanguageFromConfig(config) ?? ''}
+    ${getLanguageFieldName(config) ?? ''}
   }`;
 
 export const getDocumentTypeQuery = (documentId: string) => `*[_id == "${documentId}"]{

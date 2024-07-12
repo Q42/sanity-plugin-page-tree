@@ -1,10 +1,10 @@
 import { AddIcon } from '@sanity/icons';
-import { Box, Button, Flex, Menu, MenuButton, MenuItem, Tooltip, Text } from '@sanity/ui';
+import { Box, Button, Flex, Menu, MenuButton, MenuItem, Text, Tooltip } from '@sanity/ui';
 import { useEffect, useState } from 'react';
 import { useClient, useSchema } from 'sanity';
 import { useRouter } from 'sanity/router';
 
-import { getLanguageFromConfig } from '../helpers/config';
+import { getLanguageFieldName } from '../helpers/config';
 import { generateDraftId } from '../helpers/uuid';
 import { usePageTreeConfig } from '../hooks/usePageTreeConfig';
 import { PageTreeItem } from '../types';
@@ -23,7 +23,7 @@ export const PageTreeViewItemActions = ({ page, onActionOpen, onActionClose }: P
   const [newPage, setNewPage] = useState<{ _id: string; _type: string } | undefined>();
 
   const onAdd = async (type: string) => {
-    const language = getLanguageFromConfig(config);
+    const language = getLanguageFieldName(config);
     const doc = await client.create({
       _id: generateDraftId(),
       _type: type,

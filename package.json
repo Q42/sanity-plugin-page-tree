@@ -70,9 +70,11 @@
     "clean": "rimraf dist",
     "format": "prettier --write --cache --ignore-unknown .",
     "link-watch": "plugin-kit link-watch",
-    "lint": "eslint ./src/**/* --ext=.ts,.tsx --max-warnings 0",
+    "lint": "eslint ./src/** --ext=.ts,.tsx --max-warnings 0",
     "prepublishOnly": "run-s build",
     "watch": "pkg-utils watch --strict",
+    "tsc": "tsc --noEmit",
+    "tsc:watch": "tsc --noEmit --watch",
     "prepare": "npm run build"
   },
   "dependencies": {

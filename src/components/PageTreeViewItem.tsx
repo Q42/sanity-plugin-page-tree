@@ -5,18 +5,18 @@ import { useMemo, useState } from 'react';
 import { usePaneRouter } from 'sanity/structure';
 import styled from 'styled-components';
 
-import { getLanguageFromConfig } from '../helpers/config';
+import { getLanguageFieldName, getRootPageSlug } from '../helpers/config';
 import { flatMapPageTree } from '../helpers/page-tree';
 import { usePageTreeConfig } from '../hooks/usePageTreeConfig';
-import { PageTreeItem } from '../types';
+import { NestedPageTreeItem } from '../types';
 import { PageTreeViewItemActions } from './PageTreeViewItemActions';
 import { PageTreeViewItemStatus } from './PageTreeViewItemStatus';
 
 export type PageTreeViewItemProps = {
   parentPath?: string;
-  page: PageTreeItem;
-  onToggle: (page: PageTreeItem) => void;
-  onClick?: (page: PageTreeItem) => void;
+  page: NestedPageTreeItem;
+  onToggle: (page: NestedPageTreeItem) => void;
+  onClick?: (page: NestedPageTreeItem) => void;
   openItemIds: string[];
   disabledItemIds?: string[];
   forceOpen?: boolean;
@@ -55,8 +55,8 @@ export const PageTreeViewItem = ({
     navigateIntent('edit', { id: page._id, type: page._type });
   };
 
-  const path = parentPath ? `${parentPath}/${page.slug?.current}` : getLanguageFromConfig(config) ?? '/';
-  const hasChildren = !!page.children;
+  const path = parentPath ? `${parentPath}/${page.slug?.current}` : getLanguageFieldName(config) ?? '/';
+  const hasChildren = page.children.length > 0;
 
   const currentPageNumber = routerPanesState[groupIndex + 1]?.[0]?.id;
   const isSelected = currentPageNumber === page._id;
@@ -110,7 +110,7 @@ export const PageTreeViewItem = ({
             onClick={onItemClick}>
             <Flex align="center" gap={3}>
               <UrlText isDisabled={isDisabled} textOverflow="ellipsis">
-                {parentPath ? page.slug?.current : page.language ?? '/'}
+                {parentPath ? page.slug?.current : getRootPageSlug(page, config)}
               </UrlText>
               {!isDisabled && (isHovered || hasActionOpen) && (
                 <PageTreeViewItemActions
@@ -126,7 +126,7 @@ export const PageTreeViewItem = ({
         {isOpen && (
           <ChildContainer>
             <VerticalLine />
-            {page.children?.length && (
+            {hasChildren && (
               <Stack paddingY={1} space={2}>
                 {page.children.map(childPage => (
                   <PageTreeViewItem

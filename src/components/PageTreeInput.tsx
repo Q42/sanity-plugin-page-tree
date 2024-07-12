@@ -1,15 +1,15 @@
-import { Stack, Flex, Spinner, Card, Dialog, Box, Text } from '@sanity/ui';
+import { Box, Card, Dialog, Flex, Spinner, Stack, Text } from '@sanity/ui';
 import { useMemo, useState } from 'react';
-import { ReferenceValue, set, useFormValue, SanityDocument, ObjectInputProps } from 'sanity';
+import { ObjectInputProps, ReferenceValue, SanityDocument, set, useFormValue } from 'sanity';
 import styled from 'styled-components';
 
-import { PageTreeEditor } from './PageTreeEditor';
 import { findPageTreeItemById, flatMapPageTree } from '../helpers/page-tree';
 import { useOptimisticState } from '../hooks/useOptimisticState';
 import { usePageTree } from '../hooks/usePageTree';
 import { PageTreeConfigProvider } from '../hooks/usePageTreeConfig';
 import { PageTreeConfig, PageTreeItem } from '../types';
 import { getSanityDocumentId } from '../utils/sanity';
+import { PageTreeEditor } from './PageTreeEditor';
 
 export const PageTreeInput = (
   props: ObjectInputProps<ReferenceValue> & {

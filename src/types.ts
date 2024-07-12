@@ -17,7 +17,7 @@ export type PageMetadata = {
 
 export type RawPageMetadata = {
   // For user customizable language/title fields
-  [key: string]: any;
+  [key: string]: unknown;
   _id: string;
   _type: string;
   _updatedAt: string;
@@ -31,8 +31,11 @@ export type RawPageMetadataWithPublishedState = RawPageMetadata & {
 };
 
 export type PageTreeItem = RawPageMetadataWithPublishedState & {
-  children?: PageTreeItem[];
   path: string;
+};
+
+export type NestedPageTreeItem = PageTreeItem & {
+  children: NestedPageTreeItem[];
 };
 
 /**
