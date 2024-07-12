@@ -88,8 +88,6 @@ const mapPageTreeItems = (
     pagesWithPublishedState.filter(page => page.parent?._ref === parentId);
 
   return getChildPages(parentId).map(page => {
-    // const language = getLanguageFieldName(config);
-
     const pagePath = parentPath
       ? `${parentPath === '/' ? '' : parentPath}/${page.slug?.current}`
       : getRootPageSlug(page, config);
