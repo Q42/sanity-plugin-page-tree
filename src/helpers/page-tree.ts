@@ -9,7 +9,7 @@ import {
   RawPageMetadataWithPublishedState,
 } from '../types';
 import { getSanityDocumentId } from '../utils/sanity';
-import { getLanguageFieldName } from './config';
+import { getLanguageFieldName, getRootPageSlug } from './config';
 
 export const DRAFTS_PREFIX = 'drafts.';
 
@@ -88,10 +88,11 @@ const mapPageTreeItems = (
     pagesWithPublishedState.filter(page => page.parent?._ref === parentId);
 
   return getChildPages(parentId).map(page => {
-    const language = getLanguageFieldName(config);
+    // const language = getLanguageFieldName(config);
+
     const pagePath = parentPath
       ? `${parentPath === '/' ? '' : parentPath}/${page.slug?.current}`
-      : `/${language ? page[language] : ''}`;
+      : getRootPageSlug(page, config);
     const children = orderBy(mapPageTreeItems(config, pagesWithPublishedState, page._id, pagePath), 'path');
 
     return {

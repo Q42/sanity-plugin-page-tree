@@ -1,9 +1,9 @@
-import { NestedPageTreeItem, PageTreeConfig } from '../types';
+import { PageTreeConfig, RawPageMetadata } from '../types';
 
 export const getLanguageFieldName = (config: PageTreeConfig) =>
   config.documentInternationalization?.languageFieldName ?? 'language';
 
-export const getRootPageSlug = (page: NestedPageTreeItem, config: PageTreeConfig) => {
+export const getRootPageSlug = (page: RawPageMetadata, config: PageTreeConfig) => {
   if (!config.documentInternationalization) return '/';
 
   const language = page[getLanguageFieldName(config)];
