@@ -68,6 +68,8 @@
   "scripts": {
     "build": "run-s clean && plugin-kit verify-package --silent && pkg-utils build --strict && pkg-utils --strict",
     "clean": "rimraf dist",
+    "test": "TZ=UTC vitest run",
+    "test:watch": "TZ=UTC vitest",
     "format": "prettier --write --cache --ignore-unknown .",
     "link-watch": "plugin-kit link-watch",
     "lint": "eslint ./src/** --ext=.ts,.tsx --max-warnings 0",
@@ -94,6 +96,7 @@
     "@types/styled-components": "^5.1.28",
     "@typescript-eslint/eslint-plugin": "^6.13.2",
     "@typescript-eslint/parser": "^6.13.2",
+    "@vitejs/plugin-react": "^4.3.1",
     "eslint": "^8.55.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-sanity": "^7.0.1",
@@ -108,7 +111,8 @@
     "react-is": "^18.2.0",
     "rimraf": "^5.0.5",
     "sanity": "^3.21.1",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "vitest": "^2.0.2"
   },
   "peerDependencies": {
     "react": "^18",
