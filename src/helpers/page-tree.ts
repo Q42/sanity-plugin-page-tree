@@ -144,5 +144,5 @@ const isValidPage = (config: PageTreeConfig, page: RawPageMetadata): boolean => 
 };
 
 const isArchivedPage = (config: PageTreeConfig, page: RawPageMetadata): boolean => {
-  return config.archivedFieldName ? page[config.archivedFieldName] === true : false;
+  return !!config.archivedFieldName && page[config.archivedFieldName] === true;
 };
