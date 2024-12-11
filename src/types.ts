@@ -48,8 +48,10 @@ export type PageTreeConfig = {
   rootSchemaType: string;
   /* All your page schema type names, e.g. ["homePage", "contentPage"] */
   pageSchemaTypes: string[];
-  /* Field name of your page documents */
+  /* Field name of the title your page documents */
   titleFieldName?: string;
+  /* Field name of the archived field. If configured, it will hide pages from the tree if this field is set to true */
+  archivedFieldName?: string;
   /* Optionally specify which document types can be the parent of a document type */
   allowedParents?: Record<string, string[]>;
   /* Used for creating page link on the editor page */

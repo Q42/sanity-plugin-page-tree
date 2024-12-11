@@ -102,7 +102,7 @@ const mapPageTreeItems = (
 };
 
 /**
- * Provides draft and published status. Filters out duplicate pages with the same id and invalid pages.
+ * Provides draft and published status. Filters out duplicate pages with the same id, invalid and archived pages.
  */
 const getPublishedAndDraftRawPageMetadata = (
   config: PageTreeConfig,
@@ -119,6 +119,7 @@ const getPublishedAndDraftRawPageMetadata = (
 
   return pages
     .filter(page => isValidPage(config, page))
+    .filter(page => !isArchivedPage(config, page))
     .filter(p => !draftPages[p._id]) // filter out published versions for pages which have a draft
     .map(p => {
       const isDraft = p._id.startsWith(DRAFTS_PREFIX);
@@ -140,4 +141,8 @@ const isValidPage = (config: PageTreeConfig, page: RawPageMetadata): boolean => 
     }
   }
   return true;
+};
+
+const isArchivedPage = (config: PageTreeConfig, page: RawPageMetadata): boolean => {
+  return config.archivedFieldName ? page[config.archivedFieldName] === true : false;
 };

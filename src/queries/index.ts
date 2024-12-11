@@ -20,4 +20,5 @@ export const rawPageMetadataFragment = (config: PageTreeConfig) => `
     parent,
     slug,
     title,
+    ${config.archivedFieldName ? `${config.archivedFieldName},` : ''}
     ${getLanguageFieldName(config) ?? ''}`;

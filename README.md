@@ -50,8 +50,10 @@ export const pageTreeConfig: PageTreeConfig = {
   apiVersion: '2023-12-08',
   /* Optionally provide the field name of the title field of your page documents, to be used to generate a slug automatically for example. */
   titleFieldName: 'title',
+  /* Optionally provide the field name of the archived field. If configured, it will hide pages from the tree if this field is set to true.  */
+  archivedFieldName: 'isArchived',
   /* Used for showing the full url for a document and linking to it. */
-  /* optional, otherwise the path is shown */
+  /* Optional, otherwise the path is shown */
   baseUrl: 'https://example.com',
 };
 ```
