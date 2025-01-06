@@ -63,6 +63,8 @@ export type PageTreeConfig = {
     /* Adds validation check to ensure that the language of the document matches the language of the parent document. Default: false */
     documentLanguageShouldMatchParent?: boolean;
   };
+  /* An optional filter appended to the usePageTree groq query. Useful for removing pages based on data. */
+  filter?: string;
 };
 
 /**
