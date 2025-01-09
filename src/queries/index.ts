@@ -6,7 +6,7 @@ export const getAllRawPageMetadataQuery = (config: PageTreeConfig) => `*[_type i
 )
   .map(key => `"${key}"`)
   .join(', ')}]
-  ${config?.filter && ` && ${config.filter}`}
+  ${config?.filter ? ` && ${config.filter}` : ''}
 ]{
     ${rawPageMetadataFragment(config)}
   }`;
