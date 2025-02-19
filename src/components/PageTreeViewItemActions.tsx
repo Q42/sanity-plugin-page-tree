@@ -23,7 +23,8 @@ export const PageTreeViewItemActions = ({ page, onActionOpen, onActionClose }: P
   const [newPage, setNewPage] = useState<{ _id: string; _type: string } | undefined>();
 
   const onAdd = async (type: string) => {
-    const language = getLanguageFieldName(config);
+    const language = config.documentInternationalization ? getLanguageFieldName(config) : undefined;
+
     const doc = await client.create({
       _id: generateDraftId(),
       _type: type,
