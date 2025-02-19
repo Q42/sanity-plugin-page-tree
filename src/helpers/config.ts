@@ -1,7 +1,8 @@
 import { PageTreeConfig, RawPageMetadata } from '../types';
 
-export const getLanguageFieldName = (config: PageTreeConfig) =>
-  config.documentInternationalization?.languageFieldName ?? 'language';
+export const getLanguageFieldName = (config: PageTreeConfig) => {
+  return config.documentInternationalization?.languageFieldName ?? 'language';
+};
 
 export const getRootPageSlug = (page: RawPageMetadata, config: PageTreeConfig) => {
   if (!config.documentInternationalization) return;
