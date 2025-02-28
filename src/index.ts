@@ -2,9 +2,10 @@ import { DocumentList, StructureBuilder } from 'sanity/structure';
 
 import { createPageTreeView } from './components/PageTreeView';
 import { PageTreeDocumentListOptions } from './types';
-
 export { PageTreeField } from './components/PageTreeField';
 export { PageTreeInput } from './components/PageTreeInput';
+export { getAllPageMetadata } from './helpers/page-tree';
+export { getAllRawPageMetadataQuery } from './queries';
 export { definePageType } from './schema/definePageType';
 export type { PageTreeConfig, PageTreeDocumentListOptions } from './types';
 
