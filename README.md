@@ -46,8 +46,6 @@ export const pageTreeConfig: PageTreeConfig = {
   allowedParents: {
     contentChildPage: ['contentPage'],
   },
-  /* Api version to be used in all underlying Sanity client use */
-  apiVersion: '2023-12-08',
   /* Optionally provide the field name of the title field of your page documents, to be used to generate a slug automatically for example. */
   titleFieldName: 'title',
   /* Used for showing the full url for a document and linking to it. */
@@ -117,7 +115,7 @@ export const structure = (S: StructureBuilder) =>
         .child(
           createPageTreeDocumentList(S, {
             config: pageTreeConfig,
-            extendDocumentList: builder => builder.id('pages').title('Pages').apiVersion(pageTreeConfig.apiVersion),
+            extendDocumentList: builder => builder.id('pages').title('Pages'),
           }),
         ),
     ]);

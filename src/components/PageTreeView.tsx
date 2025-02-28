@@ -13,7 +13,7 @@ export type PageTreeViewProps = {
 
 export const PageTreeView = forwardRef<HTMLDivElement, PageTreeViewProps>(({ config }, ref) => {
   const { pageTree } = usePageTree(config);
-
+  console.log('pageTree', pageTree);
   return (
     <PageTreeConfigProvider config={config}>
       <Stack ref={ref} space={3}>

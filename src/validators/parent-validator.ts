@@ -2,6 +2,7 @@ import { Reference, ValidationContext } from 'sanity';
 
 import { getLanguageFieldName } from '../helpers/config';
 import { getRawPageMetadataQuery } from '../queries';
+import { apiVersion } from '../sanity/api-version';
 import { PageTreeConfig, RawPageMetadata } from '../types';
 
 /**
@@ -10,7 +11,7 @@ import { PageTreeConfig, RawPageMetadata } from '../types';
 export const parentValidator =
   (config: PageTreeConfig, ownType: string) =>
   async (selectedParentRef: Reference | undefined, context: ValidationContext) => {
-    const client = context.getClient({ apiVersion: config.apiVersion });
+    const client = context.getClient({ apiVersion });
 
     if (!selectedParentRef) {
       return true;
