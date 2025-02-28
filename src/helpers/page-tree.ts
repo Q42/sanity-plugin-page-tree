@@ -20,12 +20,19 @@ export const getAllPageMetadata = (config: PageTreeConfig, pages: RawPageMetadat
   const pageTree = mapRawPageMetadatasToPageTree(config, pages);
   const flatPageTree = flatMapPageTree(pageTree);
 
-  return flatPageTree.map(page => ({
-    _id: page._id,
-    _updatedAt: page._updatedAt,
-    path: page.path,
-    type: page._type,
-  }));
+  const titleField = config.titleFieldName ?? 'title';
+
+  return flatPageTree.map(page => {
+    const _title = page[titleField];
+    const title = typeof _title === 'string' ? _title : undefined;
+    return {
+      _id: page._id,
+      _updatedAt: page._updatedAt,
+      path: page.path,
+      type: page._type,
+      title,
+    };
+  });
 };
 
 /**

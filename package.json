@@ -52,6 +52,17 @@
       "import": "./dist/next.esm.js",
       "default": "./dist/next.esm.js"
     },
+    "./presentation-mode": {
+      "types": "./dist/presentation-mode.d.ts",
+      "source": "./src/presentation-mode.ts",
+      "require": "./dist/presentation-mode.js",
+      "node": {
+        "module": "./dist/presentation-mode.esm.js",
+        "import": "./dist/presentation-mode.cjs.mjs"
+      },
+      "import": "./dist/presentation-mode.esm.js",
+      "default": "./dist/presentation-mode.esm.js"
+    },
     "./package.json": "./package.json"
   },
   "main": "./dist/index.js",
@@ -86,6 +97,7 @@
     "@sanity/uuid": "^3.0.2",
     "lodash": "^4.17.21",
     "next-sanity": "^7.1.0",
+    "rxjs": "^7.8.2",
     "sanity-plugin-utils": "^1.6.4"
   },
   "devDependencies": {
