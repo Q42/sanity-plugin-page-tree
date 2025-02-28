@@ -13,6 +13,7 @@ export type PageMetadata = {
   _updatedAt: string;
   path: string;
   type: string;
+  title?: string;
 };
 
 export type RawPageMetadata = {
