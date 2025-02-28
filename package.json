@@ -1,6 +1,6 @@
 {
   "name": "@q42/sanity-plugin-page-tree",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "A Sanity plugin to make managing nested pages in a tree easier",
   "keywords": [
     "sanity",
