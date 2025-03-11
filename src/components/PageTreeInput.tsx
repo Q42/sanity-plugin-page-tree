@@ -83,7 +83,7 @@ export const PageTreeInput = (
         ) : (
           <Card padding={1} shadow={1} radius={2}>
             <SelectedItemCard padding={3} radius={2} onClick={openDialog}>
-              <Text size={2}>{parentId ? (parentPath ?? 'Select page') : 'Select page'}</Text>
+              <Text size={2}>{parentId ? parentPath ?? 'Select page' : 'Select page'}</Text>
             </SelectedItemCard>
           </Card>
         )}

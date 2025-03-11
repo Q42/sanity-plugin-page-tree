@@ -57,7 +57,7 @@ export const PageTreeViewItem = ({
     navigateIntent('edit', { id: page._id, type: page._type });
   };
 
-  const path = parentPath ? `${parentPath}/${page.slug?.current}` : (getLanguageFieldName(config) ?? '/');
+  const path = parentPath ? `${parentPath}/${page.slug?.current}` : getLanguageFieldName(config) ?? '/';
   const hasChildren = page.children.length > 0;
 
   const currentPageNumber = routerPanesState[groupIndex + 1]?.[0]?.id;
@@ -112,7 +112,7 @@ export const PageTreeViewItem = ({
             onClick={onItemClick}>
             <Flex align="center" gap={3}>
               <UrlText isDisabled={isDisabled || (!page.isPublished && page.isDraft)} textOverflow="ellipsis">
-                {parentPath ? page.slug?.current : (getRootPageSlug(page, config) ?? '/')}
+                {parentPath ? page.slug?.current : getRootPageSlug(page, config) ?? '/'}
               </UrlText>
               {!isDisabled && !hideActions && (isHovered || hasActionOpen) && (
                 <PageTreeViewItemActions
