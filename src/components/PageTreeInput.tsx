@@ -16,6 +16,7 @@ export const PageTreeInput = (
     config: PageTreeConfig;
     mode?: 'select-parent' | 'select-page';
     schemaType: { to?: { name: string }[] };
+    hideActions?: boolean;
   },
 ) => {
   const mode = props.mode ?? 'select-page';
@@ -82,7 +83,7 @@ export const PageTreeInput = (
         ) : (
           <Card padding={1} shadow={1} radius={2}>
             <SelectedItemCard padding={3} radius={2} onClick={openDialog}>
-              <Text size={2}>{parentId ? parentPath ?? 'Select page' : 'Select page'}</Text>
+              <Text size={2}>{parentId ? (parentPath ?? 'Select page') : 'Select page'}</Text>
             </SelectedItemCard>
           </Card>
         )}
@@ -102,6 +103,7 @@ export const PageTreeInput = (
               onItemClick={selectParentPage}
               disabledItemIds={disabledParentIds}
               initialOpenItemIds={openItemIds}
+              hideActions={props.hideActions}
             />
           </Box>
         </Dialog>
