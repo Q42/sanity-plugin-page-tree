@@ -8,8 +8,9 @@ export const getRootPageSlug = (page: RawPageMetadata, config: PageTreeConfig) =
   if (!config.documentInternationalization) return;
 
   const language = page[getLanguageFieldName(config)];
+  // this can be the case when you create a root page but haven't selected the language yet
   if (typeof language != 'string') {
-    throw new Error(`Language field is not a string: ${language}`);
+    return '';
   }
   return language;
 };
