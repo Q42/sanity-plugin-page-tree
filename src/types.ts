@@ -43,7 +43,10 @@ export type NestedPageTreeItem = PageTreeItem & {
  */
 export type PageTreeConfig = {
   /* Api version that is used throughout your project */
-  apiVersion: string;
+  /**
+   * @deprecated This apiVersion is not used anymore and can be removed.
+   */
+  apiVersion?: string;
   /* Root page schema type name, e.g. "homePage" */
   rootSchemaType: string;
   /* All your page schema type names, e.g. ["homePage", "contentPage"] */

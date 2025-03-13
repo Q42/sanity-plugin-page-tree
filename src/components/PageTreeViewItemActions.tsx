@@ -7,6 +7,7 @@ import { useRouter } from 'sanity/router';
 import { getLanguageFieldName } from '../helpers/config';
 import { generateDraftId } from '../helpers/uuid';
 import { usePageTreeConfig } from '../hooks/usePageTreeConfig';
+import { apiVersion } from '../sanity/api-version';
 import { PageTreeItem } from '../types';
 
 export type PageTreeViewItemActionsProps = {
@@ -18,7 +19,7 @@ export type PageTreeViewItemActionsProps = {
 export const PageTreeViewItemActions = ({ page, onActionOpen, onActionClose }: PageTreeViewItemActionsProps) => {
   const schema = useSchema();
   const config = usePageTreeConfig();
-  const client = useClient({ apiVersion: config.apiVersion });
+  const client = useClient({ apiVersion });
   const { navigateUrl, resolveIntentLink } = useRouter();
   const [newPage, setNewPage] = useState<{ _id: string; _type: string } | undefined>();
 

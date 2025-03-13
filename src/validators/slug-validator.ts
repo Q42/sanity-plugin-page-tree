@@ -2,6 +2,7 @@ import { SlugValue, ValidationContext } from 'sanity';
 
 import { DRAFTS_PREFIX } from '../helpers/page-tree';
 import { getAllRawPageMetadataQuery } from '../queries';
+import { apiVersion } from '../sanity/api-version';
 import { PageTreeConfig, RawPageMetadata, SanityRef } from '../types';
 import { getSanityDocumentId } from '../utils/sanity';
 
@@ -10,7 +11,7 @@ import { getSanityDocumentId } from '../utils/sanity';
  */
 export const slugValidator =
   (config: PageTreeConfig) => async (slug: SlugValue | undefined, context: ValidationContext) => {
-    const client = context.getClient({ apiVersion: config.apiVersion });
+    const client = context.getClient({ apiVersion });
     const parentRef = context.document?.parent as SanityRef | undefined;
 
     if (!parentRef) {
