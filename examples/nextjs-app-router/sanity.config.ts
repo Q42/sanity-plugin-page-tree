@@ -30,7 +30,7 @@ export default defineConfig({
                 createPageTreeDocumentList(S, {
                   config: pageTreeConfig,
                   extendDocumentList: builder =>
-                    builder.id('pages').title('Pages').apiVersion(pageTreeConfig.apiVersion),
+                    builder.id('pages').title('Pages')
                 }),
               ),
           ]),

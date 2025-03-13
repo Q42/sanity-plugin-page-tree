@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import { findPageTreeItemById, flatMapPageTree } from '../helpers/page-tree';
 import { generateDraftId } from '../helpers/uuid';
 import { usePageTreeConfig } from '../hooks/usePageTreeConfig';
+import { apiVersion } from '../sanity/api-version';
 import { NestedPageTreeItem, PageTreeItem } from '../types';
 import { PageTreeViewItem } from './PageTreeViewItem';
 
@@ -37,7 +38,7 @@ export const PageTreeEditor = ({
   hideActions,
 }: PageTreeEditorProps) => {
   const config = usePageTreeConfig();
-  const client = useClient({ apiVersion: config.apiVersion });
+  const client = useClient({ apiVersion });
   const { navigateUrl, resolveIntentLink } = useRouter();
 
   const [pageTreeState, setPageTreeState] = useState<PageTreeState>(() => {
