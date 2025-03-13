@@ -16,6 +16,7 @@ export const PageTreeInput = (
     config: PageTreeConfig;
     mode?: 'select-parent' | 'select-page';
     schemaType: { to?: { name: string }[] };
+    hideActions?: boolean;
   },
 ) => {
   const mode = props.mode ?? 'select-page';
@@ -114,6 +115,7 @@ export const PageTreeInput = (
               onItemClick={selectParentPage}
               disabledItemIds={disabledParentIds}
               initialOpenItemIds={openItemIds}
+              hideActions={props.hideActions}
             />
           </Box>
         </Dialog>

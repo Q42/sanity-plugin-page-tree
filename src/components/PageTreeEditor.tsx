@@ -19,6 +19,7 @@ export type PageTreeEditorProps = {
   disabledItemIds?: string[];
   initialOpenItemIds?: string[];
   allowedPageTypes?: string[];
+  hideActions?: boolean;
 };
 
 type PageTreeState = {
@@ -34,6 +35,7 @@ export const PageTreeEditor = ({
   disabledItemIds,
   initialOpenItemIds,
   allowedPageTypes,
+  hideActions,
 }: PageTreeEditorProps) => {
   const config = usePageTreeConfig();
   const client = useClient({ apiVersion });
@@ -148,6 +150,7 @@ export const PageTreeEditor = ({
               forceOpen={!!pageTreeState.query}
               isRoot
               onClick={onItemClick}
+              hideActions={hideActions}
             />
           ))}
         </Flex>
@@ -156,7 +159,7 @@ export const PageTreeEditor = ({
           <Box paddingX={3} paddingY={3}>
             <Text>No pages found</Text>
           </Box>
-          <AddButton mode="ghost" icon={AddIcon} text="Add root page" onClick={addRootPage} />
+          {!hideActions && <AddButton mode="ghost" icon={AddIcon} text="Add root page" onClick={addRootPage} />}
         </>
       )}
     </Flex>
