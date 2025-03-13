@@ -6,7 +6,7 @@ import { PageTreeInput } from './PageTreeInput';
 export const PageTreeField = (
   props: ObjectFieldProps<ReferenceValue> & {
     config: PageTreeConfig;
-
+    hideActions?: boolean;
     mode?: 'select-parent' | 'select-page';
     inputProps: { schemaType: { to?: { name: string }[] } };
   },
@@ -19,7 +19,7 @@ export const PageTreeField = (
 
   return (
     <FormField title={props.title} inputId={props.inputId} validation={props.validation}>
-      <PageTreeInput {...inputProps} />
+      <PageTreeInput {...inputProps} hideActions />
     </FormField>
   );
 };

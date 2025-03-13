@@ -22,6 +22,7 @@ export type PageTreeViewItemProps = {
   forceOpen?: boolean;
   isRoot?: boolean;
   allowedPageTypes?: string[];
+  hideActions?: boolean;
 };
 
 export const PageTreeViewItem = ({
@@ -34,6 +35,7 @@ export const PageTreeViewItem = ({
   allowedPageTypes,
   forceOpen,
   isRoot,
+  hideActions,
 }: PageTreeViewItemProps) => {
   const config = usePageTreeConfig();
   const { navigateIntent, routerPanesState, groupIndex } = usePaneRouter();
@@ -112,7 +114,7 @@ export const PageTreeViewItem = ({
               <UrlText isDisabled={isDisabled || (!page.isPublished && page.isDraft)} textOverflow="ellipsis">
                 {parentPath ? page.slug?.current : getRootPageSlug(page, config) ?? '/'}
               </UrlText>
-              {!isDisabled && (isHovered || hasActionOpen) && (
+              {!isDisabled && !hideActions && (isHovered || hasActionOpen) && (
                 <PageTreeViewItemActions
                   page={page}
                   onActionOpen={() => setHasActionOpen(true)}
@@ -139,6 +141,7 @@ export const PageTreeViewItem = ({
                     allowedPageTypes={allowedPageTypes}
                     forceOpen={forceOpen}
                     onClick={onClick}
+                    hideActions={hideActions}
                   />
                 ))}
               </Stack>

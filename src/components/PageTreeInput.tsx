@@ -1,6 +1,6 @@
-import { Box, Card, Dialog, Flex, Spinner, Stack, Text } from '@sanity/ui';
+import { Box, Button, Card, Dialog, Flex, Spinner, Stack, Text } from '@sanity/ui';
 import { useMemo, useState } from 'react';
-import { ObjectInputProps, ReferenceValue, SanityDocument, set, useFormValue } from 'sanity';
+import { ObjectInputProps, ReferenceValue, SanityDocument, set, unset, useFormValue } from 'sanity';
 import styled from 'styled-components';
 
 import { findPageTreeItemById, flatMapPageTree } from '../helpers/page-tree';
@@ -16,6 +16,7 @@ export const PageTreeInput = (
     config: PageTreeConfig;
     mode?: 'select-parent' | 'select-page';
     schemaType: { to?: { name: string }[] };
+    hideActions?: boolean;
   },
 ) => {
   const mode = props.mode ?? 'select-page';
@@ -72,6 +73,11 @@ export const PageTreeInput = (
     closeDialog();
   };
 
+  const resetValue = () => {
+    props.onChange(unset());
+    setOptimisticParentPath(undefined);
+  };
+
   return (
     <PageTreeConfigProvider config={props.config}>
       <Stack space={3}>
@@ -81,9 +87,16 @@ export const PageTreeInput = (
           </Flex>
         ) : (
           <Card padding={1} shadow={1} radius={2}>
-            <SelectedItemCard padding={3} radius={2} onClick={openDialog}>
-              <Text size={2}>{parentId ? parentPath ?? 'Select page' : 'Select page'}</Text>
-            </SelectedItemCard>
+            <Flex>
+              <SelectedItemCard padding={3} radius={2} onClick={openDialog} flex={1}>
+                <Text size={2}>{parentId ? parentPath ?? 'Select page' : 'Select page'}</Text>
+              </SelectedItemCard>
+              {parentId && (
+                <Box marginLeft={2}>
+                  <Button mode="ghost" padding={3} text="Remove" onClick={resetValue} />
+                </Box>
+              )}
+            </Flex>
           </Card>
         )}
       </Stack>
@@ -102,6 +115,7 @@ export const PageTreeInput = (
               onItemClick={selectParentPage}
               disabledItemIds={disabledParentIds}
               initialOpenItemIds={openItemIds}
+              hideActions={props.hideActions}
             />
           </Box>
         </Dialog>
