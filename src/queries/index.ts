@@ -22,4 +22,5 @@ export const rawPageMetadataFragment = (config: PageTreeConfig) => `
     parent,
     slug,
     ${config.titleFieldName ?? 'title'},
+    computedSlug,
     ${config.documentInternationalization ? getLanguageFieldName(config) : ''}`;

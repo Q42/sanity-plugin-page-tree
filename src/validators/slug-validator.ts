@@ -19,7 +19,21 @@ export const slugValidator =
     }
 
     const allPages = await client.fetch<RawPageMetadata[]>(getAllRawPageMetadataQuery(config));
+
     const siblingPages = allPages.filter(page => page.parent?._ref === parentRef._ref);
+
+    /** Check if this page has any child pages. */
+    const childPage = allPages.find(page => page.parent?._ref && context.document?._id.includes(page.parent?._ref));
+    if (childPage) {
+      /** Check if the slug has changed in the first place */
+      const firstChildPath = childPage.computedSlug;
+      const childSplitPath = firstChildPath?.split('/');
+      const originalSlug = childSplitPath?.[childSplitPath?.length - 2];
+
+      if (originalSlug !== slug?.current) {
+        return `Slug can not be updated on pages with children. Relocate the children into a new page instead.`;
+      }
+    }
 
     const siblingPagesWithSameSlug = siblingPages
       .filter(
