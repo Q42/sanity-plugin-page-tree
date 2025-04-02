@@ -1,8 +1,8 @@
 import { compact } from 'lodash';
 import { defineField, defineType, DocumentDefinition, SlugOptions } from 'sanity';
 
+import ComputedSlugInput, { ComputedSlugInputProps } from '../components/ComputedSlugField';
 import { PageTreeField } from '../components/PageTreeField';
-import { SlugField } from '../components/SlugField';
 import { PageTreeConfig } from '../types';
 import { parentValidator } from '../validators/parent-validator';
 import { slugValidator } from '../validators/slug-validator';
@@ -52,12 +52,17 @@ const basePageFields = (config: PageTreeConfig, options: Options, ownType: Docum
             source: getSlugSourceField(config, options),
             isUnique: () => true,
           },
-          components: {
-            input: props => SlugField({ ...props, config }),
-          },
           validation: Rule => Rule.required().custom(slugValidator(config)),
           group: options.fieldsGroupName,
         }),
+        {
+          name: 'computedSlug',
+          type: 'string',
+          title: 'Link to Page',
+          components: {
+            input: (props: ComputedSlugInputProps) => ComputedSlugInput({ ...props, config }),
+          },
+        },
       ]
     : []),
   ...(!options.isRoot
