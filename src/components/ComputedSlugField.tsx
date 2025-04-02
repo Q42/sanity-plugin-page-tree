@@ -1,5 +1,5 @@
-import { Stack, Text } from '@sanity/ui';
-import { FC, useEffect, useState } from 'react';
+import { Text } from '@sanity/ui';
+import { FC, useEffect } from 'react';
 import { PatchEvent, Reference, set, SlugValue, StringFieldProps, useFormCallbacks, useFormValue } from 'sanity';
 
 import { usePageTreeItem } from '../hooks/usePageTreeItem';
@@ -23,11 +23,13 @@ const ComputedSlugInput: FC<ComputedSlugInputProps> = ({ value, config }) => {
 
     const computedSlug = `${page?.path}/${slug}`;
 
+    /** Do not update if the computed slug is unchanged. */
     if (value === computedSlug) {
       return;
     }
+
     onChange(PatchEvent.from(set(computedSlug, ['computedSlug'])));
-  }, [slug, page, onChange]);
+  }, [slug, page, onChange, isLoading, value]);
 
   return (
     <>
