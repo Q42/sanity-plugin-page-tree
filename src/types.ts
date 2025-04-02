@@ -23,6 +23,7 @@ export type RawPageMetadata = {
   _updatedAt: string;
   parent?: SanityRef;
   slug?: { current: string };
+  computedSlug?: string;
 };
 
 export type RawPageMetadataWithPublishedState = RawPageMetadata & {
