@@ -21,7 +21,8 @@ const ComputedSlugInput: FC<ComputedSlugInputProps> = ({ value, config }) => {
       return;
     }
 
-    const computedSlug = `${page?.path}/${slug}`;
+    /** Hacky, but the home page can cause duplicate //, so we filter those */
+    const computedSlug = `${page?.path}/${slug}`.replace(`//`, '/');
 
     /** Do not update if the computed slug is unchanged. */
     if (value === computedSlug) {
