@@ -18,6 +18,7 @@ const rawHomePage: RawPageMetadata = {
   _id: 'home',
   _type: 'homePage',
   _updatedAt: '2023-01-01T00:00:00Z',
+  title: 'Home Page',
   language: 'en',
 };
 
@@ -27,6 +28,7 @@ const rawParentContentPage: RawPageMetadata = {
   _updatedAt: '2023-01-01T00:00:00Z',
   parent: { _ref: 'home', _type: 'reference' },
   slug: { current: 'parent' },
+  title: 'Content Page',
   language: 'en',
 };
 
@@ -36,6 +38,7 @@ const rawChildContentPage: RawPageMetadata = {
   _updatedAt: '2023-01-01T00:00:00Z',
   parent: { _ref: 'parent', _type: 'reference' },
   slug: { current: 'child' },
+  title: 'Content Page child',
   language: 'en',
 };
 
@@ -74,18 +77,21 @@ describe('Page tree helpers', () => {
         {
           _id: rawHomePage._id,
           _updatedAt: rawHomePage._updatedAt,
+          title: 'Home Page',
           type: rawHomePage._type,
           path: '/en',
         },
         {
           _id: rawParentContentPage._id,
           _updatedAt: rawParentContentPage._updatedAt,
+          title: 'Content Page',
           type: rawParentContentPage._type,
           path: '/en/parent',
         },
         {
           _id: rawChildContentPage._id,
           _updatedAt: rawChildContentPage._updatedAt,
+          title: 'Content Page child',
           type: rawChildContentPage._type,
           path: '/en/parent/child',
         },
@@ -126,21 +132,27 @@ describe('Page tree helpers', () => {
             _id: 'home',
             _type: 'homePage',
             _updatedAt: '2023-01-01T00:00:00Z',
+            title: 'Home Page',
             language: 'en',
           },
           {
             _id: 'drafts.home',
             _type: 'homePage',
-            _updatedAt: '2023-01-01T00:00:00Z',
+            _updatedAt: '2024-01-01T00:00:00Z',
+            title: 'Home Page in draft',
             language: 'en',
           },
         ]),
       ).toStrictEqual([
         {
-          ...rawHomePage,
+          _id: 'home',
+          _type: 'homePage',
+          _updatedAt: '2024-01-01T00:00:00Z',
+          title: 'Home Page in draft',
           isDraft: true,
           isPublished: true,
           path: '/en',
+          language: 'en',
           children: [],
         },
       ]);
