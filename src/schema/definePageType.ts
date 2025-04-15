@@ -59,6 +59,7 @@ const basePageFields = (config: PageTreeConfig, options: Options, ownType: Docum
           name: 'computedSlug',
           type: 'string',
           title: 'Link to Page',
+          group: options.fieldsGroupName,
           components: {
             input: (props: ComputedSlugInputProps) => ComputedSlugInput({ ...props, config }),
           },
