@@ -4,6 +4,12 @@
 
 ![sanity-plugin-page-tree-studio](https://github.com/Q42/sanity-plugin-page-tree/assets/15087372/45ba349c-13f5-482d-8490-44183b7b448d)
 
+## Known issues
+
+- Home pages do not have slugs (as in plugin-page-tree)
+- Localization is untested and not supported, although on paper much of it should work.
+- When using 'select-parent' the slugs are not updated.
+
 ## Why?
 
 In many example projects for headless CMSs in general, they typically create a post content type with a property like "slug" and serve the post on a route such as `/posts/:slug`. This becomes more complex when dealing with multiple page types and a desire to establish a dynamic page tree.
