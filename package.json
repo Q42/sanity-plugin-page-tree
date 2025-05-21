@@ -80,12 +80,12 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "@sanity/icons": "^2.7.0",
+    "@sanity/icons": "^3.7.0",
     "@sanity/incompatible-plugin": "^1.0.4",
     "@sanity/ui": "^2.0.1",
     "@sanity/uuid": "^3.0.2",
     "lodash": "^4.17.21",
-    "next-sanity": "^7.1.0",
+    "next-sanity": "^9.11.1",
     "sanity-plugin-utils": "^1.6.4"
   },
   "devDependencies": {
@@ -120,7 +120,7 @@
     "styled-components": "^5 || ^6"
   },
   "volta": {
-    "node": "18.20.1"
+    "node": "22.15.1"
   },
   "engines": {
     "node": ">=14"
