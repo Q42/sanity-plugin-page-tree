@@ -36,19 +36,16 @@ const _homePageType = defineType({
       name: 'link',
       title: 'Link',
       type: 'object',
-      validation: (Rule: ObjectRule) => Rule.required(),
       fields: [
         defineField({
           name: 'title',
           title: 'Title',
           type: 'string',
-          validation: Rule => Rule.required(),
         }),
         defineField({
           name: 'page',
           title: 'Page',
           type: 'reference',
-          validation: Rule => Rule.required(),
           to: [{ type: 'contentPage' }, { type: 'homePage' }],
           components: {
             field: props => PageTreeField({ ...props, config: pageTreeConfig }),
