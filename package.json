@@ -1,6 +1,6 @@
 {
   "name": "@q42/sanity-plugin-page-tree",
-  "version": "1.5.0",
+  "version": "1.7.0",
   "description": "A Sanity plugin to make managing nested pages in a tree easier",
   "keywords": [
     "sanity",
@@ -16,6 +16,10 @@
     {
       "name": "Djovanni Tehubijuluw",
       "email": "djovanni@q42.nl"
+    },
+    {
+      "name": "Stijn de Ligt",
+      "email": "stijn@q42.nl"
     }
   ],
   "exports": {
@@ -52,6 +56,17 @@
       "import": "./dist/next.esm.js",
       "default": "./dist/next.esm.js"
     },
+    "./presentation-mode": {
+      "types": "./dist/presentation-mode.d.ts",
+      "source": "./src/presentation-mode.ts",
+      "require": "./dist/presentation-mode.js",
+      "node": {
+        "module": "./dist/presentation-mode.esm.js",
+        "import": "./dist/presentation-mode.cjs.mjs"
+      },
+      "import": "./dist/presentation-mode.esm.js",
+      "default": "./dist/presentation-mode.esm.js"
+    },
     "./package.json": "./package.json"
   },
   "main": "./dist/index.js",
@@ -86,6 +101,7 @@
     "@sanity/uuid": "^3.0.2",
     "lodash": "^4.17.21",
     "next-sanity": "^9.11.1",
+    "rxjs": "^7.8.2",
     "sanity-plugin-utils": "^1.6.4"
   },
   "devDependencies": {

@@ -113,7 +113,7 @@ export const PageTreeViewItem = ({
             onClick={onItemClick}>
             <Flex align="center" gap={3}>
               <UrlText isDisabled={isDisabled || (!page.isPublished && page.isDraft)} textOverflow="ellipsis">
-                {parentPath ? page.slug?.current : (getRootPageSlug(page, config) ?? '/')}
+                {parentPath ? (page.slug?.current ?? 'untitled') : (getRootPageSlug(page, config) ?? '/')}
               </UrlText>
               {!isDisabled && !hideActions && (isHovered || hasActionOpen) && (
                 <PageTreeViewItemActions
