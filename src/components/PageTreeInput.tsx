@@ -1,4 +1,5 @@
 import { Box, Button, Card, Dialog, Flex, Spinner, Stack, Text } from '@sanity/ui';
+import { Theme } from '@sanity/ui/theme';
 import { useMemo, useState } from 'react';
 import { ObjectInputProps, ReferenceValue, SanityDocument, set, unset, useFormValue } from 'sanity';
 import styled from 'styled-components';
@@ -89,7 +90,7 @@ export const PageTreeInput = (
           <Card padding={1} shadow={1} radius={2}>
             <Flex>
               <SelectedItemCard padding={3} radius={2} onClick={openDialog} flex={1}>
-                <Text size={2}>{parentId ? parentPath ?? 'Select page' : 'Select page'}</Text>
+                <Text size={2}>{parentId ? (parentPath ?? 'Select page') : 'Select page'}</Text>
               </SelectedItemCard>
               {parentId && (
                 <Box marginLeft={2}>
@@ -124,10 +125,10 @@ export const PageTreeInput = (
   );
 };
 
-const SelectedItemCard = styled(Card)`
+const SelectedItemCard = styled(Card)<{ theme: Theme }>`
   cursor: pointer;
 
   &:hover {
-    background-color: ${({ theme }) => theme.sanity.color.card.hovered.bg};
+    background-color: ${({ theme }) => theme.sanity.v2?.color.selectable.neutral.hovered.bg};
   }
 `;

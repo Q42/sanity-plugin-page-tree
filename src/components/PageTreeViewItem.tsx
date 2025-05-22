@@ -1,5 +1,6 @@
 import { ChevronDownIcon, ChevronUpIcon } from '@sanity/icons';
 import { Button, Card, Flex, Stack, Text } from '@sanity/ui';
+import { Theme } from '@sanity/ui/theme';
 import { MouseEvent } from 'react';
 import { useMemo, useState } from 'react';
 import { usePaneRouter } from 'sanity/structure';
@@ -57,7 +58,7 @@ export const PageTreeViewItem = ({
     navigateIntent('edit', { id: page._id, type: page._type });
   };
 
-  const path = parentPath ? `${parentPath}/${page.slug?.current}` : getLanguageFieldName(config) ?? '/';
+  const path = parentPath ? `${parentPath}/${page.slug?.current}` : (getLanguageFieldName(config) ?? '/');
   const hasChildren = page.children.length > 0;
 
   const currentPageNumber = routerPanesState[groupIndex + 1]?.[0]?.id;
@@ -112,7 +113,7 @@ export const PageTreeViewItem = ({
             onClick={onItemClick}>
             <Flex align="center" gap={3}>
               <UrlText isDisabled={isDisabled || (!page.isPublished && page.isDraft)} textOverflow="ellipsis">
-                {parentPath ? page.slug?.current ?? 'untitled' : getRootPageSlug(page, config) ?? '/'}
+                {parentPath ? (page.slug?.current ?? 'untitled') : (getRootPageSlug(page, config) ?? '/')}
               </UrlText>
               {!isDisabled && !hideActions && (isHovered || hasActionOpen) && (
                 <PageTreeViewItemActions
@@ -153,8 +154,8 @@ export const PageTreeViewItem = ({
   );
 };
 
-const HorizontalLine = styled('div')`
-  background-color: ${({ theme }) => theme.sanity.color.card.enabled.border};
+const HorizontalLine = styled('div')<{ theme: Theme }>`
+  background-color: ${({ theme }) => theme.sanity.v2?.color.border};
   position: absolute;
   height: 1px;
   width: 2rem;
@@ -163,8 +164,8 @@ const HorizontalLine = styled('div')`
   transform: translateY(-50%);
 `;
 
-const VerticalLine = styled('div')`
-  background-color: ${({ theme }) => theme.sanity.color.card.enabled.border};
+const VerticalLine = styled('div')<{ theme: Theme }>`
+  background-color: ${({ theme }) => theme.sanity.v2?.color.border};
   position: absolute;
   margin-top: -2px;
   height: calc(100% - 16px);
@@ -177,12 +178,12 @@ const ItemContainer = styled(Flex)`
   position: relative;
 `;
 
-const Item = styled(Flex)<{ hasMarginLeft: boolean; isSelected: boolean; isDisabled: boolean }>`
+const Item = styled(Flex)<{ hasMarginLeft: boolean; isSelected: boolean; isDisabled: boolean; theme: Theme }>`
   height: 1.75rem;
   margin-left: ${({ hasMarginLeft }) => (hasMarginLeft ? '0rem' : '1.5rem')};
   border-radius: 0.1875rem;
   background-color: ${({ theme, isDisabled, isSelected }) =>
-    !isDisabled && isSelected ? theme.sanity.color.card.hovered.bg : undefined};
+    !isDisabled && isSelected ? theme.sanity.v2?.color.selectable.neutral.hovered.bg : undefined};
 
   &:hover {
     cursor: ${({ isDisabled }) => (!isDisabled ? 'pointer' : undefined)};

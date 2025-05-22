@@ -1,0 +1,31 @@
+# docs: https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuring-dependabot-version-updates
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directories:
+      - "/"
+      - "/examples/*"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 2
+    groups: # create 2 groups, one for security updates and one for version updates
+      security:
+        applies-to: security-updates
+        patterns: ["*"]
+      updates:
+        applies-to: version-updates
+        patterns: ["*"]
+    # Example, how to ignore updates to packages that start with 'aws'
+    # ignore:
+    #   # Ignore updates to packages that start with 'aws'
+    #   # Wildcards match zero or more arbitrary characters
+    #   - dependency-name: "aws*"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 1
+    groups:
+      all:
+        patterns: ["*"]
