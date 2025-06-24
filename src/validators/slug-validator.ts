@@ -21,7 +21,7 @@ export const slugValidator =
 
     const publishedId = getSanityDocumentId(documentId ?? '');
     const publishedDoc = await client.getDocument(publishedId);
-    const wasEverPublished = !!publishedDoc;
+    const isPublished = !!publishedDoc;
 
     const allPages = await client.fetch<RawPageMetadata[]>(getAllRawPageMetadataQuery(config));
 
@@ -29,13 +29,8 @@ export const slugValidator =
 
     /** Check if this page has any child pages. */
     const childPage = allPages.find(page => page.parent?._ref && context.document?._id.includes(page.parent?._ref));
-    if (childPage && wasEverPublished) {
-      /** Check if the slug has changed in the first place */
-      const firstChildPath = childPage.computedSlug;
-      const childSplitPath = firstChildPath?.split('/');
-      const originalSlug = childSplitPath?.[childSplitPath?.length - 2];
-
-      if (originalSlug !== slug?.current) {
+    if (childPage && isPublished) {
+      if (publishedDoc.slug?.current !== slug?.current) {
         return `Slug can not be updated on pages with children if the page has been published before. Relocate the children into a new page instead.`;
       }
     }
