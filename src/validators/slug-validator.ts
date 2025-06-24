@@ -13,10 +13,15 @@ export const slugValidator =
   (config: PageTreeConfig) => async (slug: SlugValue | undefined, context: ValidationContext) => {
     const client = context.getClient({ apiVersion });
     const parentRef = context.document?.parent as SanityRef | undefined;
+    const documentId = context.document?._id;
 
     if (!parentRef) {
       return true;
     }
+
+    const publishedId = getSanityDocumentId(documentId ?? '');
+    const publishedDoc = await client.getDocument(publishedId);
+    const isPublished = !!publishedDoc;
 
     const allPages = await client.fetch<RawPageMetadata[]>(getAllRawPageMetadataQuery(config));
 
@@ -24,14 +29,9 @@ export const slugValidator =
 
     /** Check if this page has any child pages. */
     const childPage = allPages.find(page => page.parent?._ref && context.document?._id.includes(page.parent?._ref));
-    if (childPage) {
-      /** Check if the slug has changed in the first place */
-      const firstChildPath = childPage.computedSlug;
-      const childSplitPath = firstChildPath?.split('/');
-      const originalSlug = childSplitPath?.[childSplitPath?.length - 2];
-
-      if (originalSlug !== slug?.current) {
-        return `Slug can not be updated on pages with children. Relocate the children into a new page instead.`;
+    if (childPage && isPublished) {
+      if (publishedDoc.slug?.current !== slug?.current) {
+        return `Slug can not be updated on pages with children if the page has been published before. Relocate the children into a new page instead.`;
       }
     }
 
