@@ -6,6 +6,9 @@ import { getAllPageMetadata } from './helpers/page-tree';
 import { getAllRawPageMetadataQuery } from './queries';
 import { PageMetadata, PageTreeConfig } from './types';
 
+/**
+ * @public
+ */
 export const createPageMetadataObservable = (
   documentStore: DocumentStore,
   config: PageTreeConfig,

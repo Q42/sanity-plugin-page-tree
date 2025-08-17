@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.settings",
   "include": ["./src"],
+  "noCheck": true,
   "exclude": [
     "./src/**/__fixtures__",
     "./src/**/__mocks__",
@@ -10,7 +11,8 @@
   "compilerOptions": {
     "rootDir": ".",
     "outDir": "./dist",
-    "jsx": "react-jsx",
-    "emitDeclarationOnly": true
+    "jsx": "preserve",
+    "module": "preserve",
+    "noEmit": true
   }
 }

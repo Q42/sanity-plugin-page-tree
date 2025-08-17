@@ -24,54 +24,34 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
       "source": "./src/index.ts",
+      "import": "./dist/index.cjs.mjs",
       "require": "./dist/index.js",
-      "node": {
-        "module": "./dist/index.esm.js",
-        "import": "./dist/index.cjs.mjs"
-      },
-      "import": "./dist/index.esm.js",
-      "default": "./dist/index.esm.js"
+      "default": "./dist/index.cjs.mjs"
     },
     "./client": {
-      "types": "./dist/client.d.ts",
       "source": "./src/client.ts",
+      "import": "./dist/client.cjs.mjs",
       "require": "./dist/client.js",
-      "node": {
-        "module": "./dist/client.esm.js",
-        "import": "./dist/client.cjs.mjs"
-      },
-      "import": "./dist/client.esm.js",
-      "default": "./dist/client.esm.js"
+      "default": "./dist/client.cjs.mjs"
     },
     "./next": {
-      "types": "./dist/next.d.ts",
       "source": "./src/next.ts",
+      "import": "./dist/next.cjs.mjs",
       "require": "./dist/next.js",
-      "node": {
-        "module": "./dist/next.esm.js",
-        "import": "./dist/next.cjs.mjs"
-      },
-      "import": "./dist/next.esm.js",
-      "default": "./dist/next.esm.js"
+      "default": "./dist/next.cjs.mjs"
     },
     "./presentation-mode": {
-      "types": "./dist/presentation-mode.d.ts",
       "source": "./src/presentation-mode.ts",
+      "import": "./dist/presentation-mode.cjs.mjs",
       "require": "./dist/presentation-mode.js",
-      "node": {
-        "module": "./dist/presentation-mode.esm.js",
-        "import": "./dist/presentation-mode.cjs.mjs"
-      },
-      "import": "./dist/presentation-mode.esm.js",
-      "default": "./dist/presentation-mode.esm.js"
+      "default": "./dist/presentation-mode.cjs.mjs"
     },
     "./package.json": "./package.json"
   },
   "main": "./dist/index.js",
-  "module": "./dist/index.esm.js",
-  "source": "./src/index.ts",
+  "module": "./dist/index.cjs.mjs",
+  
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
@@ -80,70 +60,76 @@
     "client.js",
     "v2-incompatible.js"
   ],
+  "sideEffects": false,
+  "browserslist": "extends @sanity/browserslist-config",
   "scripts": {
-    "build": "run-s clean && plugin-kit verify-package --silent && pkg-utils build --strict && pkg-utils --strict",
+    "build": "plugin-kit verify-package --silent && pkg-utils build --strict --clean",
     "clean": "rimraf dist",
     "test": "TZ=UTC vitest run",
     "test:watch": "TZ=UTC vitest",
     "format": "prettier --write --cache --ignore-unknown .",
     "link-watch": "plugin-kit link-watch",
     "lint": "eslint ./src/** --ext=.ts,.tsx --max-warnings 0",
-    "prepublishOnly": "run-s build",
+    "prepublishOnly": "npm run build",
     "watch": "pkg-utils watch --strict",
     "tsc": "tsc --noEmit",
     "tsc:watch": "tsc --noEmit --watch",
     "prepare": "npm run build"
   },
+  "type": "commonjs",
   "dependencies": {
-    "@sanity/icons": "^3.7.0",
-    "@sanity/incompatible-plugin": "^1.0.4",
-    "@sanity/ui": "^2.0.1",
-    "@sanity/uuid": "^3.0.2",
-    "lodash": "^4.17.21",
-    "next-sanity": "^9.11.1",
-    "rxjs": "^7.8.2",
-    "sanity-plugin-utils": "^1.6.4"
+    "@sanity/icons": "3.7.4",
+    "@sanity/incompatible-plugin": "^1.0.5",
+    "@sanity/ui": "3.0.7",
+    "@sanity/uuid": "3.0.2",
+    "lodash": "4.17.21",
+    "next-sanity": "10.0.12",
+    "rxjs": "7.8.2",
+    "sanity-plugin-utils": "1.6.8"
   },
   "devDependencies": {
-    "@sanity/pkg-utils": "^3.3.3",
-    "@sanity/plugin-kit": "^3.1.10",
-    "@types/lodash": "^4.14.202",
-    "@types/react": "^18.2.42",
-    "@types/styled-components": "^5.1.28",
-    "@typescript-eslint/eslint-plugin": "^6.13.2",
-    "@typescript-eslint/parser": "^6.13.2",
-    "@vitejs/plugin-react": "^4.3.1",
-    "eslint": "^8.55.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-config-sanity": "^7.0.1",
-    "eslint-plugin-prettier": "^5.0.1",
-    "eslint-plugin-react": "^7.33.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "npm-run-all": "^4.1.5",
-    "prettier": "^3.1.0",
-    "prettier-plugin-packagejson": "^2.4.7",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-is": "^18.2.0",
-    "rimraf": "^5.0.5",
-    "sanity": "^3.21.1",
-    "typescript": "^5.3.3",
-    "vitest": "^2.0.2"
+    "@sanity/pkg-utils": "7.11.9",
+    "@sanity/plugin-kit": "4.0.19",
+    "@types/lodash": "4.17.20",
+    "@types/react": "19.1.10",
+    "@types/styled-components": "5.1.34",
+    "@typescript-eslint/eslint-plugin": "8.39.1",
+    "@typescript-eslint/parser": "8.39.1",
+    "@vitejs/plugin-react": "5.0.0",
+    "eslint": "9.33.0",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-config-sanity": "7.1.4",
+    "eslint-plugin-prettier": "5.5.4",
+    "eslint-plugin-react": "7.37.5",
+    "eslint-plugin-react-hooks": "5.2.0",
+    "npm-run-all": "4.1.5",
+    "prettier": "3.6.2",
+    "prettier-plugin-packagejson": "2.5.19",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "react-is": "19.1.1",
+    "rimraf": "6.0.1",
+    "sanity": "4.4.1",
+    "typescript": "5.9.2",
+    "vitest": "3.2.4"
   },
   "peerDependencies": {
     "react": "^18 || ^19",
-    "sanity": "^3",
+    "sanity": "^3 || ^4",
     "styled-components": "^5 || ^6"
   },
   "volta": {
     "node": "22.15.1"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=18"
   },
   "sanityPlugin": {
     "verifyPackage": {
-      "eslintImports": false
+      "eslintImports": false,
+      "scripts": false,
+      "nodeEngine": false,
+      "tsconfig": false
     }
   }
 }

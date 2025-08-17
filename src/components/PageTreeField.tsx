@@ -3,6 +3,9 @@ import { FormField, ObjectFieldProps, ReferenceValue } from 'sanity';
 import { PageTreeConfig } from '../types';
 import { PageTreeInput } from './PageTreeInput';
 
+/**
+ * @public
+ */
 export const PageTreeField = (
   props: ObjectFieldProps<ReferenceValue> & {
     config: PageTreeConfig;

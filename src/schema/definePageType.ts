@@ -20,6 +20,9 @@ function getPossibleParentsFromConfig(config: PageTreeConfig, ownType: DocumentD
   return config.pageSchemaTypes;
 }
 
+/**
+ * @public
+ */
 export const definePageType = (
   type: DocumentDefinition,
   config: PageTreeConfig,

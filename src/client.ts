@@ -6,11 +6,17 @@ import { PageMetadata, PageTreeConfig } from './types';
 
 export type { PageMetadata } from './types';
 
+/**
+ * @public
+ */
 export type PageTreeClientOptions = {
   config: PageTreeConfig;
   client: SanityClient;
 };
 
+/**
+ * @public
+ */
 export const createPageTreeClient = ({ config, client }: PageTreeClientOptions) => {
   return new PageTreeClient(config, client);
 };

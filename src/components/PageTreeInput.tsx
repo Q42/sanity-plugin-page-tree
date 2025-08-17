@@ -12,6 +12,9 @@ import { PageTreeConfig, PageTreeItem } from '../types';
 import { getSanityDocumentId } from '../utils/sanity';
 import { PageTreeEditor } from './PageTreeEditor';
 
+/**
+ * @public
+ */
 export const PageTreeInput = (
   props: ObjectInputProps<ReferenceValue> & {
     config: PageTreeConfig;

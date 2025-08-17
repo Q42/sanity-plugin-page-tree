@@ -6,12 +6,18 @@ import { PageMetadata, PageTreeConfig } from './types';
 
 export type { PageMetadata } from './types';
 
+/**
+ * @public
+ */
 export type NextPageTreeClientOptions = {
   config: PageTreeConfig;
   client: SanityClient;
   fetchOptions?: FilteredResponseQueryOptions;
 };
 
+/**
+ * @public
+ */
 export const createNextPageTreeClient = ({ config, client, fetchOptions }: NextPageTreeClientOptions) => {
   return new NextPageTreeClient(config, client, fetchOptions);
 };

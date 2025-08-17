@@ -8,11 +8,13 @@ import { apiVersion } from '../sanity/api-version';
 import { PageTreeConfig, RawPageMetadata } from '../types';
 
 export const usePageTreeItem = (documentId: string, config: PageTreeConfig, perspective?: ClientPerspective) => {
-  const { data, loading } = useListeningQuery<RawPageMetadata[]>(getAllRawPageMetadataQuery(config), {
+  const { data, loading } = useListeningQuery(getAllRawPageMetadataQuery(config), {
     options: { apiVersion, perspective },
   });
 
-  const pageTree = useMemo(() => (data ? getAllPageMetadata(config, data) : undefined), [config, data]);
+  const pagesData = Array.isArray(data) ? (data as RawPageMetadata[]) : undefined;
+
+  const pageTree = useMemo(() => (pagesData ? getAllPageMetadata(config, pagesData) : undefined), [config, pagesData]);
 
   return {
     isLoading: loading,
