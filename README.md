@@ -22,7 +22,7 @@ Achieving this can be challenging, especially if all the slugs need to be dynami
 ## Installation
 
 ```sh
-npm i @q42/sanity-plugin-page-tree
+npm i @julioferrero/sanity-plugin-page-tree
 ```
 
 ## Usage in Sanity Studio
@@ -33,7 +33,7 @@ Create a shared page tree config file and constant to use in your page types and
 
 ```ts
 // page-tree-config.ts
-import { PageTreeConfig } from '@q42/sanity-plugin-page-tree';
+import { PageTreeConfig } from '@julioferrero/sanity-plugin-page-tree';
 
 export const pageTreeConfig: PageTreeConfig = {
   /* Root page schema type name */
@@ -145,7 +145,7 @@ This plugin supports the [@sanity/document-internationalization](https://github.
 
 ```ts
 // page-tree-config.ts
-import { PageTreeConfig } from '@q42/sanity-plugin-page-tree';
+import { PageTreeConfig } from '@julioferrero/sanity-plugin-page-tree';
 
 export const pageTreeConfig: PageTreeConfig = {
   ...,
@@ -169,7 +169,7 @@ In order to get the page data for the requested path you have to creat a client.
 With this metadata you can retrieve the data of the document yourself.
 
 ```ts
-import { createPageTreeClient } from '@q42/sanity-plugin-page-tree/client';
+import { createPageTreeClient } from '@julioferrero/sanity-plugin-page-tree/client';
 
 const pageTreeClient = createPageTreeClient({
   config: pageTreeConfig,
@@ -195,7 +195,7 @@ For users using the App Router of Next.JS with Server Components, we can benefit
 You can import the dedicated next client:
 
 ```ts
-import { createNextPageTreeClient } from '@q42/sanity-plugin-page-tree/next';
+import { createNextPageTreeClient } from '@julioferrero/sanity-plugin-page-tree/next';
 ```
 
 This client provides you with some additional helper methods:
@@ -229,7 +229,7 @@ The basic studio example project, located in `examples/studio`, is a good starti
 ### Example studio
 
 - To run the example studio, go to the `examples/studio` directory.
-- Run `npx yalc add @q42/sanity-plugin-page-tree && npx yalc link @q42/sanity-plugin-page-tree && npm install`
+- Run `npx yalc add @julioferrero/sanity-plugin-page-tree && npx yalc link @julioferrero/sanity-plugin-page-tree && npm install`
 - Run `npm run dev`
 
 This plugin uses [@sanity/plugin-kit](https://github.com/sanity-io/plugin-kit)
