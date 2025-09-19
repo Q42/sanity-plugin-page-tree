@@ -235,7 +235,7 @@ The basic studio example project, located in `examples/studio`, is a good starti
 ### Example studio
 
 - To run the example studio, go to the `examples/studio` directory.
-- Run `npx yalc add @q42/sanity-plugin-page-tree && npx yalc link @q42/sanity-plugin-page-tree && npm install`
+- Run `npx yalc add @q42/sanity-plugin-computed-page-tree && npx yalc link @q42/sanity-plugin-computed-page-tree && npm install`
 - Run `npm run dev`
 
 This plugin uses [@sanity/plugin-kit](https://github.com/sanity-io/plugin-kit)
