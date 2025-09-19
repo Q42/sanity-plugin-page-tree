@@ -14,7 +14,7 @@ const ComputedSlugInput: FC<ComputedSlugInputProps> = ({ value, config }) => {
   const parentRef = useFormValue(['parent']) as Reference;
 
   const { onChange } = useFormCallbacks();
-  const { page, isLoading } = usePageTreeItem(parentRef?._ref, config, 'published');
+  const { page, isLoading } = usePageTreeItem(parentRef?._ref, config, 'drafts');
 
   useEffect(() => {
     if (isLoading || !slug) {
