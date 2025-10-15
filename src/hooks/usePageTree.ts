@@ -11,7 +11,7 @@ export const usePageTree = (config: PageTreeConfig) => {
     options: { apiVersion },
   });
 
-  const pageTree = useMemo(() => (data ? mapRawPageMetadatasToPageTree(config, data) : undefined), [config, data]);
+  const pageTree = useMemo(() => mapRawPageMetadatasToPageTree(config, (data ?? []) as RawPageMetadata[]), [config, data]);
 
   return {
     isLoading: loading,

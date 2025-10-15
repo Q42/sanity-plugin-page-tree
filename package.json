@@ -97,7 +97,7 @@
   "dependencies": {
     "@sanity/icons": "^3.7.0",
     "@sanity/incompatible-plugin": "^1.0.4",
-    "@sanity/ui": "^2.0.1",
+    "@sanity/ui": "^3.1.10",
     "@sanity/uuid": "^3.0.2",
     "lodash": "^4.17.21",
     "next-sanity": "^9.11.1",
@@ -105,8 +105,8 @@
     "sanity-plugin-utils": "^1.6.4"
   },
   "devDependencies": {
-    "@sanity/pkg-utils": "^3.3.3",
-    "@sanity/plugin-kit": "^3.1.10",
+    "@sanity/pkg-utils": "^8.1.21",
+    "@sanity/plugin-kit": "^4.0.19",
     "@types/lodash": "^4.14.202",
     "@types/react": "^18.2.42",
     "@types/styled-components": "^5.1.28",
@@ -126,13 +126,13 @@
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",
     "rimraf": "^5.0.5",
-    "sanity": "^3.21.1",
+    "sanity": "^4.10.3",
     "typescript": "^5.3.3",
     "vitest": "^2.0.2"
   },
   "peerDependencies": {
     "react": "^18 || ^19",
-    "sanity": "^3",
+    "sanity": "^4",
     "styled-components": "^5 || ^6"
   },
   "volta": {
