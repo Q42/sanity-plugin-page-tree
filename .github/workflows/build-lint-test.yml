@@ -1,6 +1,8 @@
 name: Build, lint, and test
 
-on: [push]
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
 
 jobs:
   build-and-test:
