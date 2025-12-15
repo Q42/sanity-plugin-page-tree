@@ -6,6 +6,7 @@
     "sanity",
     "sanity-plugin"
   ],
+  "type": "module",
   "license": "MIT",
   "author": "Djovanni Tehubijuluw <djovanni@q42.nl>",
   "contributors": [
@@ -24,55 +25,36 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
       "source": "./src/index.ts",
-      "require": "./dist/index.js",
-      "node": {
-        "module": "./dist/index.esm.js",
-        "import": "./dist/index.cjs.mjs"
-      },
-      "import": "./dist/index.esm.js",
-      "default": "./dist/index.esm.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.js"
     },
     "./client": {
-      "types": "./dist/client.d.ts",
       "source": "./src/client.ts",
-      "require": "./dist/client.js",
-      "node": {
-        "module": "./dist/client.esm.js",
-        "import": "./dist/client.cjs.mjs"
-      },
-      "import": "./dist/client.esm.js",
-      "default": "./dist/client.esm.js"
+      "import": "./dist/client.js",
+      "require": "./dist/client.cjs",
+      "default": "./dist/client.js"
     },
     "./next": {
-      "types": "./dist/next.d.ts",
       "source": "./src/next.ts",
-      "require": "./dist/next.js",
-      "node": {
-        "module": "./dist/next.esm.js",
-        "import": "./dist/next.cjs.mjs"
-      },
-      "import": "./dist/next.esm.js",
-      "default": "./dist/next.esm.js"
+      "import": "./dist/next.js",
+      "require": "./dist/next.cjs",
+      "default": "./dist/next.js"
     },
     "./presentation-mode": {
-      "types": "./dist/presentation-mode.d.ts",
       "source": "./src/presentation-mode.ts",
-      "require": "./dist/presentation-mode.js",
-      "node": {
-        "module": "./dist/presentation-mode.esm.js",
-        "import": "./dist/presentation-mode.cjs.mjs"
-      },
-      "import": "./dist/presentation-mode.esm.js",
-      "default": "./dist/presentation-mode.esm.js"
+      "import": "./dist/presentation-mode.js",
+      "require": "./dist/presentation-mode.cjs",
+      "default": "./dist/presentation-mode.js"
     },
     "./package.json": "./package.json"
   },
-  "main": "./dist/index.js",
-  "module": "./dist/index.esm.js",
-  "source": "./src/index.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "browserslist": "extends @sanity/browserslist-config",
   "files": [
     "dist",
     "sanity.json",
@@ -81,35 +63,34 @@
     "v2-incompatible.js"
   ],
   "scripts": {
-    "build": "run-s clean && plugin-kit verify-package --silent && pkg-utils build --strict && pkg-utils --strict",
+    "build": "plugin-kit verify-package --silent && pkg-utils build --strict --check --clean",
     "clean": "rimraf dist",
     "test": "TZ=UTC vitest run",
     "test:watch": "TZ=UTC vitest",
     "format": "prettier --write --cache --ignore-unknown .",
     "link-watch": "plugin-kit link-watch",
     "lint": "eslint ./src/** --ext=.ts,.tsx --max-warnings 0",
-    "prepublishOnly": "run-s build",
+    "prepublishOnly": "npm run build",
     "watch": "pkg-utils watch --strict",
     "tsc": "tsc --noEmit",
     "tsc:watch": "tsc --noEmit --watch",
     "prepare": "npm run build"
   },
   "dependencies": {
-    "@sanity/icons": "^3.7.0",
+    "@sanity/icons": "^3.7.4",
     "@sanity/incompatible-plugin": "^1.0.4",
-    "@sanity/ui": "^2.0.1",
+    "@sanity/ui": "^3.1.11",
     "@sanity/uuid": "^3.0.2",
     "lodash": "^4.17.21",
-    "next-sanity": "^9.11.1",
+    "next-sanity": "^11.6.10",
     "rxjs": "^7.8.2",
-    "sanity-plugin-utils": "^1.6.4"
+    "sanity-plugin-utils": "^1.7.0"
   },
   "devDependencies": {
-    "@sanity/pkg-utils": "^3.3.3",
-    "@sanity/plugin-kit": "^3.1.10",
+    "@sanity/pkg-utils": "^10.1.2",
+    "@sanity/plugin-kit": "^4.0.20",
     "@types/lodash": "^4.14.202",
     "@types/react": "^18.2.42",
-    "@types/styled-components": "^5.1.28",
     "@typescript-eslint/eslint-plugin": "^6.13.2",
     "@typescript-eslint/parser": "^6.13.2",
     "@vitejs/plugin-react": "^4.3.1",
@@ -124,22 +105,21 @@
     "prettier-plugin-packagejson": "^2.4.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-is": "^18.2.0",
     "rimraf": "^5.0.5",
-    "sanity": "^3.21.1",
+    "sanity": "^4.20.3",
     "typescript": "^5.3.3",
     "vitest": "^2.0.2"
   },
   "peerDependencies": {
     "react": "^18 || ^19",
-    "sanity": "^3",
+    "sanity": "^3 || ^4",
     "styled-components": "^5 || ^6"
   },
   "volta": {
     "node": "22.15.1"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=18"
   },
   "sanityPlugin": {
     "verifyPackage": {

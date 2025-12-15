@@ -16,13 +16,12 @@
   ],
   "dependencies": {
     "@q42/sanity-plugin-page-tree": "file:.yalc/@q42/sanity-plugin-page-tree",
-    "@sanity/vision": "^3.36.4",
+    "@sanity/vision": "^4.20.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-is": "^18.2.0",
-    "sanity": "^3.36.4",
+    "sanity": "^4.20.3",
     "sanity-plugin-page-tree": "file:.yalc/sanity-plugin-page-tree",
-    "styled-components": "^6"
+    "styled-components": "^6.1.15"
   },
   "devDependencies": {
     "@sanity/eslint-config-studio": "^4.0.0",
