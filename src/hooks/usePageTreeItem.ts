@@ -10,9 +10,10 @@ import { PageTreeConfig, RawPageMetadata } from '../types';
 export const usePageTreeItem = (documentId: string, config: PageTreeConfig, perspective?: ClientPerspective) => {
   const { data, loading } = useListeningQuery<RawPageMetadata[]>(getAllRawPageMetadataQuery(config), {
     options: { apiVersion, perspective },
+    initialValue: null,
   });
 
-  const pageTree = useMemo(() => (data ? getAllPageMetadata(config, data) : undefined), [config, data]);
+  const pageTree = useMemo(() => (Array.isArray(data) ? getAllPageMetadata(config, data) : undefined), [config, data]);
 
   return {
     isLoading: loading,
