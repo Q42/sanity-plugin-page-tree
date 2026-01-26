@@ -27,7 +27,7 @@ export const PageTreeViewItemStatus = ({ isPublished, isDraft }: PageTreeViewIte
           </Box>
         }
         {...TOOLTIP_PROPS}>
-        <OpacityBox opacity={isPublished ? 1 : 0.3}>
+        <OpacityBox $opacity={isPublished ? 1 : 0.3}>
           <PublishIcon fontSize={21} color={isPublished ? theme.sanity.color.muted.positive.enabled.fg : undefined} />
         </OpacityBox>
       </Tooltip>
@@ -40,7 +40,7 @@ export const PageTreeViewItemStatus = ({ isPublished, isDraft }: PageTreeViewIte
           </Box>
         }
         {...TOOLTIP_PROPS}>
-        <OpacityBox opacity={isDraft ? 1 : 0.3}>
+        <OpacityBox $opacity={isDraft ? 1 : 0.3}>
           <EditIcon fontSize={21} color={isDraft ? theme.sanity.color.muted.caution.enabled.fg : undefined} />
         </OpacityBox>
       </Tooltip>
@@ -48,6 +48,6 @@ export const PageTreeViewItemStatus = ({ isPublished, isDraft }: PageTreeViewIte
   );
 };
 
-const OpacityBox = styled(Box)<{ opacity: number }>`
-  opacity: ${props => props.opacity};
+const OpacityBox = styled(Box)<{ $opacity: number }>`
+  opacity: ${props => props.$opacity};
 `;
