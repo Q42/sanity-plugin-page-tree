@@ -105,14 +105,14 @@ export const PageTreeViewItem = ({
             align="center"
             gap={3}
             justify="space-between"
-            hasMarginLeft={hasChildren}
-            isDisabled={isDisabled}
-            isSelected={isHovered || isSelected}
+            $hasMarginLeft={hasChildren}
+            $isDisabled={isDisabled}
+            $isSelected={isHovered || isSelected}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             onClick={onItemClick}>
             <Flex align="center" gap={3}>
-              <UrlText isDisabled={isDisabled || (!page.isPublished && page.isDraft)} textOverflow="ellipsis">
+              <UrlText $isDisabled={isDisabled || (!page.isPublished && page.isDraft)} textOverflow="ellipsis">
                 {parentPath ? (page.slug?.current ?? 'untitled') : (getRootPageSlug(page, config) ?? '/')}
               </UrlText>
               {!isDisabled && !hideActions && (isHovered || hasActionOpen) && (
@@ -178,21 +178,21 @@ const ItemContainer = styled(Flex)`
   position: relative;
 `;
 
-const Item = styled(Flex)<{ hasMarginLeft: boolean; isSelected: boolean; isDisabled: boolean; theme: Theme }>`
+const Item = styled(Flex)<{ $hasMarginLeft: boolean; $isSelected: boolean; $isDisabled: boolean; theme: Theme }>`
   height: 1.75rem;
-  margin-left: ${({ hasMarginLeft }) => (hasMarginLeft ? '0rem' : '1.5rem')};
+  margin-left: ${({ $hasMarginLeft }) => ($hasMarginLeft ? '0rem' : '1.5rem')};
   border-radius: 0.1875rem;
-  background-color: ${({ theme, isDisabled, isSelected }) =>
-    !isDisabled && isSelected ? theme.sanity.v2?.color.selectable.neutral.hovered.bg : undefined};
+  background-color: ${({ theme, $isDisabled, $isSelected }) =>
+    !$isDisabled && $isSelected ? theme.sanity.v2?.color.selectable.neutral.hovered.bg : undefined};
 
   &:hover {
-    cursor: ${({ isDisabled }) => (!isDisabled ? 'pointer' : undefined)};
+    cursor: ${({ $isDisabled }) => (!$isDisabled ? 'pointer' : undefined)};
   }
 `;
 
-const UrlText = styled(Text)<{ isDisabled: boolean }>`
+const UrlText = styled(Text)<{ $isDisabled: boolean }>`
   min-width: 0;
-  opacity: ${({ isDisabled }) => (isDisabled ? 0.5 : 1)};
+  opacity: ${({ $isDisabled }) => ($isDisabled ? 0.5 : 1)};
 `;
 
 const ChildContainer = styled(Card)`
