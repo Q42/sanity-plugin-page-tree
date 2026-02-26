@@ -4,7 +4,10 @@ updates:
   - package-ecosystem: "npm"
     directories:
       - "/"
-      - "/examples/*"
+      - "/examples/nextjs-app-router"
+      - "/examples/react"
+      - "/examples/studio"
+      - "/examples/studio-i18n"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 2
