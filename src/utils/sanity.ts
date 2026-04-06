@@ -7,9 +7,6 @@ export const VERSION_PREFIX = 'versions.';
  */
 export const getSanityDocumentId = (val: string): string => {
   if (val.startsWith(DRAFTS_PREFIX)) return val.slice(DRAFTS_PREFIX.length);
-  if (val.startsWith(VERSION_PREFIX)) {
-    const withoutVersion = val.slice(VERSION_PREFIX.length);
-    return withoutVersion.slice(withoutVersion.indexOf('.') + 1);
-  }
+  if (val.startsWith(VERSION_PREFIX)) return val.slice(val.indexOf('.', VERSION_PREFIX.length) + 1);
   return val;
 };
