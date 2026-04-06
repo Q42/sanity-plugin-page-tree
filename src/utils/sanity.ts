@@ -9,8 +9,7 @@ export const getSanityDocumentId = (val: string): string => {
   if (val.startsWith(DRAFTS_PREFIX)) return val.slice(DRAFTS_PREFIX.length);
   if (val.startsWith(VERSION_PREFIX)) {
     const withoutVersion = val.slice(VERSION_PREFIX.length);
-    const dotIndex = withoutVersion.indexOf('.');
-    return dotIndex >= 0 ? withoutVersion.slice(dotIndex + 1) : withoutVersion;
+    return withoutVersion.slice(withoutVersion.indexOf('.') + 1);
   }
   return val;
 };
