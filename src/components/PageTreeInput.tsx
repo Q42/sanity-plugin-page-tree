@@ -126,9 +126,10 @@ export const PageTreeInput = (
 };
 
 const SelectedItemCard = styled(Card)<{ theme: Theme }>`
-  cursor: pointer;
+  cursor: ${({ onClick }) => (onClick ? 'pointer' : 'default')};
 
   &:hover {
-    background-color: ${({ theme }) => theme.sanity.v2?.color.selectable.neutral.hovered.bg};
+    background-color: ${({ theme, onClick }) =>
+      onClick ? theme.sanity.v2?.color.selectable.neutral.hovered.bg : undefined};
   }
 `;
