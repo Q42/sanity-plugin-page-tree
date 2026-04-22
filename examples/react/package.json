@@ -10,24 +10,24 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@portabletext/react": "^3.0.17",
+    "@portabletext/react": "^6.0.3",
     "@q42/sanity-plugin-page-tree": "file:.yalc/@q42/sanity-plugin-page-tree",
     "@sanity/client": "^7.13.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.3"
+    "react-dom": "^19.2.5",
+    "react-router-dom": "^7.14.2"
   },
   "devDependencies": {
-    "@types/react": "^18.2.74",
-    "@types/react-dom": "^18.2.24",
-    "@typescript-eslint/eslint-plugin": "^7.5.0",
-    "@typescript-eslint/parser": "^7.5.0",
-    "@vitejs/plugin-react-swc": "^3.6.0",
-    "eslint": "8.56.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.6",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@typescript-eslint/eslint-plugin": "^8.59.0",
+    "@typescript-eslint/parser": "^8.59.0",
+    "@vitejs/plugin-react-swc": "^4.3.0",
+    "eslint": "10.2.1",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
     "prettier": "^3.2.5",
-    "typescript": "^5.4.4",
-    "vite": "^5.2.8"
+    "typescript": "^6.0.3",
+    "vite": "^8.0.9"
   }
 }
