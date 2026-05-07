@@ -64,7 +64,7 @@ const UrlExplanation = ({ id, type, parentId, value, config }: UrlExplanationPro
 
   return (
     <Text muted size={1}>
-      Link to page:
+      Link to Page:{' '}
       <a href={url} target="blank">
         {url}
       </a>
