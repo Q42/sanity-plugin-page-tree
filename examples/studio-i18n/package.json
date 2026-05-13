@@ -16,18 +16,18 @@
   ],
   "dependencies": {
     "@q42/sanity-plugin-page-tree": "file:.yalc/@q42/sanity-plugin-page-tree",
-    "@sanity/document-internationalization": "^4.1.0",
-    "@sanity/vision": "^4.20.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "sanity": "^4.20.3",
+    "@sanity/document-internationalization": "^6.1.1",
+    "@sanity/vision": "^5.25.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "sanity": "^5.25.0",
     "styled-components": "^6.1.15"
   },
   "devDependencies": {
-    "@sanity/eslint-config-studio": "^4.0.0",
-    "@types/react": "^18.2.74",
-    "eslint": "8.56.0",
+    "@sanity/eslint-config-studio": "^6.0.0",
+    "@types/react": "^19.2.14",
+    "eslint": "10.3.0",
     "prettier": "^3.2.5",
-    "typescript": "^5.4.4"
+    "typescript": "^6.0.3"
   }
 }
