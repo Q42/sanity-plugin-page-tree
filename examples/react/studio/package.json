@@ -21,7 +21,7 @@
     "react-dom": "^18.2.0",
     "sanity": "^4.20.3",
     "sanity-plugin-page-tree": "file:.yalc/sanity-plugin-page-tree",
-    "styled-components": "^6.1.15"
+    "styled-components": "6.3.12"
   },
   "devDependencies": {
     "@sanity/eslint-config-studio": "^4.0.0",
