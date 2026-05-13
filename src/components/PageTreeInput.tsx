@@ -89,10 +89,10 @@ export const PageTreeInput = (
         ) : (
           <Card padding={1} shadow={1} radius={2}>
             <Flex>
-              <SelectedItemCard padding={3} radius={2} onClick={openDialog} flex={1}>
+              <SelectedItemCard padding={3} radius={2} onClick={props.readOnly ? undefined : openDialog} flex={1}>
                 <Text size={2}>{parentId ? (parentPath ?? 'Select page') : 'Select page'}</Text>
               </SelectedItemCard>
-              {parentId && (
+              {parentId && !props.readOnly && (
                 <Box marginLeft={2}>
                   <Button mode="ghost" padding={3} text="Remove" onClick={resetValue} />
                 </Box>
@@ -126,9 +126,10 @@ export const PageTreeInput = (
 };
 
 const SelectedItemCard = styled(Card)<{ theme: Theme }>`
-  cursor: pointer;
+  cursor: ${({ onClick }) => (onClick ? 'pointer' : 'default')};
 
   &:hover {
-    background-color: ${({ theme }) => theme.sanity.v2?.color.selectable.neutral.hovered.bg};
+    background-color: ${({ theme, onClick }) =>
+      onClick ? theme.sanity.v2?.color.selectable.neutral.hovered.bg : undefined};
   }
 `;
