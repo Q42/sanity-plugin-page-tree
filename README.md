@@ -1,6 +1,6 @@
 # sanity-plugin-page-tree
 
-> This is a **Sanity Studio v3** plugin.
+> This is a **Sanity Studio v3, v4 and v5** plugin.
 
 ![sanity-plugin-page-tree-studio](https://github.com/Q42/sanity-plugin-page-tree/assets/15087372/45ba349c-13f5-482d-8490-44183b7b448d)
 
