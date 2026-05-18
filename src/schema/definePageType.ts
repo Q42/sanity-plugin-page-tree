@@ -22,9 +22,9 @@ export const definePageType = (
   config: PageTreeConfig,
   options: Options = { isRoot: false },
 ) => {
-  options = { ...config.pageTypeOptions, ...options };
+  const resolvedOptions = { ...config.pageTypeOptions, ...options };
 
-  const slugSourceFieldName = getSlugSourceField(config, options);
+  const slugSourceFieldName = getSlugSourceField(config, resolvedOptions);
 
   let slugSourceField;
   let typeFields = type.fields;
