@@ -1,6 +1,6 @@
+import { SlugRule, SlugValue, ValidationBuilder } from '@sanity/types';
 import { SlugOptions } from 'sanity';
 import { DocumentListBuilder } from 'sanity/structure';
-import { SlugRule, SlugValue, ValidationBuilder } from '@sanity/types';
 
 export type SanityRef = {
   _ref: string;

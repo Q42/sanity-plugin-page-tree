@@ -54,7 +54,10 @@ const basePageFields = (config: PageTreeConfig, options: Options, ownType: Docum
           components: {
             input: props => SlugField({ ...props, config }),
           },
-          validation: Rule => [Rule.required().custom(slugValidator(config)), ...toArray(options.slugValidationRules?.(Rule))],
+          validation: Rule => [
+            Rule.required().custom(slugValidator(config)),
+            ...toArray(options.slugValidationRules?.(Rule)),
+          ],
           group: options.fieldsGroupName,
         }),
       ]
