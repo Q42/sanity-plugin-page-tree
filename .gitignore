@@ -58,3 +58,4 @@ dist
 client.js
 next.js
 presentation-mode.js
+tsconfig.tsbuildinfo
