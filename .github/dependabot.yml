@@ -1,34 +1,34 @@
 # docs: https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuring-dependabot-version-updates
 version: 2
 updates:
-  - package-ecosystem: "npm"
+  - package-ecosystem: 'npm'
     directories:
-      - "/"
-      - "/examples/nextjs-app-router"
-      - "/examples/react"
-      - "/examples/studio"
-      - "/examples/studio-i18n"
+      - '/'
+      - '/examples/nextjs-app-router'
+      - '/examples/react'
+      - '/examples/studio'
+      - '/examples/studio-i18n'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
     open-pull-requests-limit: 2
-    groups: # create 2 groups, one for security updates and one for version updates
+    groups:
       security:
         applies-to: security-updates
-        patterns: ["*"]
+        patterns: ['*']
       updates:
         applies-to: version-updates
-        patterns: ["*"]
-    # Example, how to ignore updates to packages that start with 'aws'
-    # ignore:
-    #   # Ignore updates to packages that start with 'aws'
-    #   # Wildcards match zero or more arbitrary characters
-    #   - dependency-name: "aws*"
+        patterns: ['*']
 
-  - package-ecosystem: "github-actions"
-    directory: "/"
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - 'version-update:semver-major'
+
+  - package-ecosystem: 'github-actions'
+    directory: '/'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
     open-pull-requests-limit: 1
     groups:
       all:
-        patterns: ["*"]
+        patterns: ['*']
