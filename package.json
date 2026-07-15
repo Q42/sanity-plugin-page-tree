@@ -107,14 +107,14 @@
     "react-dom": "^18.3.1",
     "rimraf": "^5.0.10",
     "sanity": "^4.22.0",
-    "styled-components": "6.3.12",
+    "styled-components": "6.4.3",
     "typescript": "^5.3.3",
     "vitest": "^2.1.9"
   },
   "peerDependencies": {
     "react": "^18 || ^19",
     "sanity": "^3 || ^4 || ^5",
-    "styled-components": "6.3.12"
+    "styled-components": "6.4.3"
   },
   "volta": {
     "node": "22.15.1"
