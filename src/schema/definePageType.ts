@@ -1,17 +1,14 @@
 import { compact } from 'lodash';
-import { defineField, defineType, DocumentDefinition, SlugOptions } from 'sanity';
+import { defineField, defineType, DocumentDefinition } from 'sanity';
 
 import { PageTreeField } from '../components/PageTreeField';
 import { SlugField } from '../components/SlugField';
-import { PageTreeConfig } from '../types';
+import { PageTreeConfig, PageTypeOptions } from '../types';
+import { toArray } from '../utils/array';
 import { parentValidator } from '../validators/parent-validator';
 import { slugValidator } from '../validators/slug-validator';
 
-type Options = {
-  isRoot?: boolean;
-  fieldsGroupName?: string;
-  slugSource?: SlugOptions['source'];
-};
+type Options = PageTypeOptions & { isRoot?: boolean };
 
 function getPossibleParentsFromConfig(config: PageTreeConfig, ownType: DocumentDefinition): string[] {
   if (config.allowedParents !== undefined && ownType.name in config.allowedParents) {
@@ -25,7 +22,9 @@ export const definePageType = (
   config: PageTreeConfig,
   options: Options = { isRoot: false },
 ) => {
-  const slugSourceFieldName = getSlugSourceField(config, options);
+  const resolvedOptions = { ...config.pageTypeOptions, ...options };
+
+  const slugSourceFieldName = getSlugSourceField(config, resolvedOptions);
 
   let slugSourceField;
   let typeFields = type.fields;
@@ -55,7 +54,10 @@ const basePageFields = (config: PageTreeConfig, options: Options, ownType: Docum
           components: {
             input: props => SlugField({ ...props, config }),
           },
-          validation: Rule => Rule.required().custom(slugValidator(config)),
+          validation: Rule => [
+            Rule.required().custom(slugValidator(config)),
+            ...toArray(options.slugValidationRules?.(Rule)),
+          ],
           group: options.fieldsGroupName,
         }),
       ]
@@ -77,4 +79,4 @@ const basePageFields = (config: PageTreeConfig, options: Options, ownType: Docum
     : []),
 ];
 
-const getSlugSourceField = (config: PageTreeConfig, options: Options) => config.titleFieldName ?? options.slugSource;
+const getSlugSourceField = (config: PageTreeConfig, options: Options) => options.slugSource ?? config.titleFieldName;

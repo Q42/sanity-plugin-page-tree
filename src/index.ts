@@ -5,7 +5,7 @@ import { PageTreeDocumentListOptions } from './types';
 export { PageTreeField } from './components/PageTreeField';
 export { PageTreeInput } from './components/PageTreeInput';
 export { definePageType } from './schema/definePageType';
-export type { PageTreeConfig, PageTreeDocumentListOptions } from './types';
+export type { PageTreeConfig, PageTreeDocumentListOptions, PageTypeOptions } from './types';
 
 /**
  * Creates a custom document list for the page tree.

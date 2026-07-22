@@ -1,3 +1,5 @@
+import { SlugRule, SlugValue, ValidationBuilder } from '@sanity/types';
+import { SlugOptions } from 'sanity';
 import { DocumentListBuilder } from 'sanity/structure';
 
 export type SanityRef = {
@@ -42,6 +44,18 @@ export type NestedPageTreeItem = PageTreeItem & {
 /**
  * @public
  */
+export type PageTypeOptions = {
+  /* Field group name for the slug and parent fields */
+  fieldsGroupName?: string;
+  /* Source field for the slug, e.g. "title". Prefer this over titleFieldName in PageTreeConfig. */
+  slugSource?: SlugOptions['source'];
+  /* Additional slug validation rules, applied after the built-in uniqueness check */
+  slugValidationRules?: ValidationBuilder<SlugRule, SlugValue>;
+};
+
+/**
+ * @public
+ */
 export type PageTreeConfig = {
   /* Api version that is used throughout your project */
   /**
@@ -52,8 +66,12 @@ export type PageTreeConfig = {
   rootSchemaType: string;
   /* All your page schema type names, e.g. ["homePage", "contentPage"] */
   pageSchemaTypes: string[];
-  /* Field name of your page documents */
+  /**
+   * @deprecated Use pageTypeOptions.slugSource instead.
+   */
   titleFieldName?: string;
+  /* Options applied to all page types defined with definePageType */
+  pageTypeOptions?: PageTypeOptions;
   /* Optionally specify which document types can be the parent of a document type */
   allowedParents?: Record<string, string[]>;
   /* Used for creating page link on the editor page */
