@@ -1,5 +1,7 @@
-import { AddIcon } from '@sanity/icons';
-import { Box, Button, Flex, Menu, MenuButton, MenuItem, Text, Tooltip } from '@sanity/ui';
+import { AddIcon } from '@sanity/icons/Add';
+import { Box, Button, Flex, Text } from '@sanity/ui';
+import { Menu, MenuButton, MenuItem } from '@sanity/ui/menu';
+import { Tooltip } from '@sanity/ui/tooltip';
 import { useEffect, useState } from 'react';
 import { useClient, useSchema } from 'sanity';
 import { useRouter } from 'sanity/router';

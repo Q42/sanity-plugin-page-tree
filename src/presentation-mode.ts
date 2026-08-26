@@ -1,4 +1,4 @@
-import { ClientPerspective } from 'next-sanity';
+import { ClientPerspective } from '@sanity/client';
 import { map, Observable } from 'rxjs';
 import { DocumentStore } from 'sanity';
 

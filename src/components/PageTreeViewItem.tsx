@@ -1,4 +1,5 @@
-import { ChevronDownIcon, ChevronUpIcon } from '@sanity/icons';
+import { ChevronDownIcon } from '@sanity/icons/ChevronDown';
+import { ChevronUpIcon } from '@sanity/icons/ChevronUp';
 import { Button, Card, Flex, Stack, Text } from '@sanity/ui';
 import { Theme } from '@sanity/ui/theme';
 import { MouseEvent } from 'react';
@@ -130,7 +131,7 @@ export const PageTreeViewItem = ({
           <ChildContainer>
             <VerticalLine />
             {hasChildren && (
-              <Stack paddingY={1} space={2}>
+              <Stack paddingY={1} gap={2}>
                 {page.children.map(childPage => (
                   <PageTreeViewItem
                     key={childPage._id}

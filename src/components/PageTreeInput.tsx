@@ -81,7 +81,7 @@ export const PageTreeInput = (
 
   return (
     <PageTreeConfigProvider config={props.config}>
-      <Stack space={3}>
+      <Stack gap={3}>
         {!pageTree ? (
           <Flex paddingY={4} justify="center" align="center">
             <Spinner />

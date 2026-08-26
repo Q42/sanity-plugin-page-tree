@@ -1,4 +1,5 @@
-import { AddIcon, SearchIcon } from '@sanity/icons';
+import { AddIcon } from '@sanity/icons/Add';
+import { SearchIcon } from '@sanity/icons/Search';
 import { Box, Button, Flex, Text, TextInput } from '@sanity/ui';
 import { without } from 'lodash';
 import { useCallback, useEffect, useMemo, useState } from 'react';

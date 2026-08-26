@@ -1,4 +1,4 @@
-import { ClientPerspective } from 'next-sanity';
+import { ClientPerspective } from '@sanity/client';
 import { useMemo } from 'react';
 import { useListeningQuery } from 'sanity-plugin-utils';
 

@@ -1,6 +1,7 @@
 # sanity-plugin-page-tree
 
-> This is a **Sanity Studio v3, v4 and v5** plugin.
+> This is a **Sanity Studio v6** plugin.
+> For Sanity Studio v3, v4 and v5, use the [2.x releases](https://www.npmjs.com/package/@q42/sanity-plugin-page-tree/v/2.0.1).
 
 ![sanity-plugin-page-tree-studio](https://github.com/Q42/sanity-plugin-page-tree/assets/15087372/45ba349c-13f5-482d-8490-44183b7b448d)
 
@@ -18,6 +19,22 @@ Consider having three different content types: a home page, an overview page, an
 - `/what-we-do/cases/:slug` Content Page
 
 Achieving this can be challenging, especially if all the slugs need to be dynamic and editable in the CMS. This package aims to make this easy by providing a page tree view for creating and editing pages. It also includes a page tree input for creating internal page links and methods designed for use on the frontend, helping you effectively resolve urls to ids (in order to retrieve the right content for a route) and vice versa (to resolve internal page links to urls).
+
+## Requirements
+
+|                       | Version   |
+| --------------------- | --------- |
+| `sanity`              | `^6`      |
+| `react` / `react-dom` | `^19.2`   |
+| `styled-components`   | `^6.1.15` |
+| Node.js               | `>=22.12` |
+
+The package is **ESM-only**. It no longer ships a CommonJS build, because its dependencies
+(`@sanity/ui` 4, `@sanity/icons` 5) dropped theirs. Modern Node supports `require(esm)`, so
+`require('@q42/sanity-plugin-page-tree')` still works on Node 22.12 or later.
+
+TypeScript consumers need an `exports`-aware `moduleResolution` (`node16`, `nodenext` or
+`bundler`); the legacy `node` (node10) mode cannot resolve the subpath entry points.
 
 ## Installation
 
@@ -211,6 +228,29 @@ For full examples, see the following projects:
 - [Studio with document internationalization](./examples/studio-i18n)
 - [Next.js app router](./examples/nextjs-app-router)
 - [React](./examples/react)
+
+## Upgrading from 2.x
+
+Version 3 supports Sanity Studio v6 only. Sanity 3, 4 and 5 remain on the 2.x line.
+
+To upgrade:
+
+1. Upgrade the Studio to Sanity v6 first — see the
+   [Sanity upgrade guide](https://www.sanity.io/docs/studio/upgrade). This brings React 19.2,
+   `@sanity/ui` 4, `@sanity/icons` 5 and `@sanity/client` 8 with it.
+2. Move to Node.js 22.12 or later.
+3. Upgrade the plugin: `npm i @q42/sanity-plugin-page-tree@^3`.
+
+There are no changes to this plugin's own API — `PageTreeConfig`, `definePageType`,
+`createPageTreeDocumentList`, `PageTreeField`, `PageTreeInput`, `createPageTreeClient`,
+`createNextPageTreeClient` and `createPageMetadataObservable` all keep their existing
+signatures.
+
+One packaging change is worth noting: the frontend entry points (`/client`, `/next`,
+`/presentation-mode`) now take their client types from `@sanity/client` instead of
+`next-sanity`, and `next-sanity` is no longer a dependency. The exported types are unchanged
+— `next-sanity` only re-exported them — but it means installing this plugin no longer pulls
+in `next-sanity` or its `next` peer dependency.
 
 ## License
 

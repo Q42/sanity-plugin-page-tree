@@ -1,4 +1,4 @@
-import { SanityClient } from 'sanity';
+import { SanityClient } from '@sanity/client';
 
 import { getAllPageMetadata } from './helpers/page-tree';
 import { getAllRawPageMetadataQuery } from './queries';
