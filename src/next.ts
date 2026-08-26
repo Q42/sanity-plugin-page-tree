@@ -1,4 +1,4 @@
-import { FilteredResponseQueryOptions, SanityClient } from 'next-sanity';
+import { FilteredResponseQueryOptions, SanityClient } from '@sanity/client';
 
 import { getAllPageMetadata } from './helpers/page-tree';
 import { getAllRawPageMetadataQuery } from './queries';

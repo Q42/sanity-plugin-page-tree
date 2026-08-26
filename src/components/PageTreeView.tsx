@@ -16,7 +16,7 @@ export const PageTreeView = forwardRef<HTMLDivElement, PageTreeViewProps>(({ con
 
   return (
     <PageTreeConfigProvider config={config}>
-      <Stack ref={ref} space={3}>
+      <Stack ref={ref} gap={3}>
         <Card padding={3}>
           {!pageTree ? (
             <Flex paddingY={4} justify="center" align="center">

@@ -1,5 +1,7 @@
-import { EditIcon, PublishIcon } from '@sanity/icons';
-import { Box, Flex, Text, Tooltip, TooltipProps, useTheme } from '@sanity/ui';
+import { EditIcon } from '@sanity/icons/Edit';
+import { PublishIcon } from '@sanity/icons/Publish';
+import { Box, Flex, Text, useTheme } from '@sanity/ui';
+import { Tooltip, TooltipProps } from '@sanity/ui/tooltip';
 import styled from 'styled-components';
 
 export type PageTreeViewItemStatusProps = {

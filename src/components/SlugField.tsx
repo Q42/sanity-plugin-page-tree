@@ -18,7 +18,7 @@ export const SlugField = (props: SlugFieldProps) => {
   const parentRef = useFormValue(['parent']) as Reference | undefined;
   const { config, value, renderDefault } = props;
   return (
-    <Stack space={3}>
+    <Stack gap={3}>
       {renderDefault(props)}
       {typeof id == 'string' && typeof type == 'string' && !!parentRef?._ref && (
         <UrlExplanation id={id} type={type} parentId={parentRef?._ref} config={config} value={value} />

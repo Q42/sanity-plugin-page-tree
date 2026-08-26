@@ -1,6 +1,6 @@
 {
   "name": "@q42/sanity-plugin-page-tree",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "A Sanity plugin to make managing nested pages in a tree easier",
   "keywords": [
     "sanity",
@@ -27,30 +27,25 @@
     ".": {
       "source": "./src/index.ts",
       "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
       "default": "./dist/index.js"
     },
     "./client": {
       "source": "./src/client.ts",
       "import": "./dist/client.js",
-      "require": "./dist/client.cjs",
       "default": "./dist/client.js"
     },
     "./next": {
       "source": "./src/next.ts",
       "import": "./dist/next.js",
-      "require": "./dist/next.cjs",
       "default": "./dist/next.js"
     },
     "./presentation-mode": {
       "source": "./src/presentation-mode.ts",
       "import": "./dist/presentation-mode.js",
-      "require": "./dist/presentation-mode.cjs",
       "default": "./dist/presentation-mode.js"
     },
     "./package.json": "./package.json"
   },
-  "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
@@ -77,20 +72,21 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "@sanity/icons": "^3.7.4",
+    "@sanity/client": "^8.2.0",
+    "@sanity/icons": "^5.2.1",
     "@sanity/incompatible-plugin": "^1.0.5",
-    "@sanity/ui": "^3.2.0",
+    "@sanity/ui": "^4.0.6",
     "@sanity/uuid": "^3.0.2",
     "lodash": "^4.18.1",
-    "next-sanity": "^11.6.13",
     "rxjs": "^7.8.2",
-    "sanity-plugin-utils": "^1.8.0"
+    "sanity-plugin-utils": "^2.0.17"
   },
   "devDependencies": {
     "@sanity/pkg-utils": "^10.4.18",
     "@sanity/plugin-kit": "^4.0.20",
     "@types/lodash": "^4.17.24",
-    "@types/react": "^18.3.28",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "@vitejs/plugin-react": "^4.7.0",
@@ -103,28 +99,30 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^3.8.3",
     "prettier-plugin-packagejson": "^2.5.22",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.2.2",
+    "react-dom": "^19.2.2",
     "rimraf": "^5.0.10",
-    "sanity": "^4.22.0",
+    "sanity": "^6.11.0",
     "styled-components": "6.4.3",
     "typescript": "^5.3.3",
     "vitest": "^2.1.9"
   },
   "peerDependencies": {
-    "react": "^18 || ^19",
-    "sanity": "^3 || ^4 || ^5",
-    "styled-components": "6.4.3"
+    "react": "^19.2",
+    "react-dom": "^19.2",
+    "sanity": "^6",
+    "styled-components": "^6.1.15"
   },
   "volta": {
     "node": "22.15.1"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22.12"
   },
   "sanityPlugin": {
     "verifyPackage": {
-      "eslintImports": false
+      "eslintImports": false,
+      "nodeEngine": false
     }
   }
 }
